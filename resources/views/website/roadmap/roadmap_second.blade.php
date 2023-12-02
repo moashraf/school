@@ -1572,6 +1572,10 @@
                         </div>
                     </div>
 
+
+
+
+
                     <div class="table-responsive" id="admin_table_cont" @if(count($administrators)> 0 ) style="display:
                         block" @else style="display: none" @endif>
                         <table class="table display datatable-modal" style="direction: " id="p_3-table" width="100%"
@@ -1683,6 +1687,11 @@
 
                         </table>
                     </div>
+
+
+
+
+
 
                 </div>
             </div>

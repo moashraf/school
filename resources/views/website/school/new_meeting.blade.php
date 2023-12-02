@@ -89,7 +89,7 @@
                             <button type="reset" class="col-md-3 btn btn-default  custom-reset-button">إنهاء</button>
                         </div>
                         <div class="col-md-6">
-                        <button type="submit" class="col-md-3 float-end btn btn-primary custom-submit-button">التالي</button>
+                            <button type="submit" class="col-md-3 float-end btn btn-primary custom-submit-button">التالي</button>
                         </div>
                     </div>
                 </form>
@@ -117,7 +117,6 @@
 
         // Calendar
         fetchCalander();
-
         function fetchCalander(month = {{ date('m') }}, year = {{ date('Y') }}) {
 
             var url =
