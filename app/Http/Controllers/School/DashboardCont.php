@@ -215,6 +215,21 @@ class DashboardCont extends Controller
         return view('website.school.Committees_and_teams_meetings',
             compact('current_school', 'school', 'today_date_ar', 'hijri_date'));
     }
+    public function new_meeting()
+    {
+         $current_school = Auth::guard('school')->user()->current_working_school_id;
+
+        $school = School::find($current_school);
+
+
+        $sliders = Slider::where('type', 1)->get();
+
+        // video tutorial
+        $video_tutorial = Video_tutorial::where('type', 2)->first();
+
+        return view('website.school.new_meeting',
+            compact('current_school', 'school', 'sliders', 'video_tutorial'));
+    }
 
 
 

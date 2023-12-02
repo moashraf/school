@@ -73,12 +73,12 @@
                     </div>
                     <div class="row form-group">
                         <label for="time" class="form-label col-md-3">موعد الاجتماع:</label>
-                        <input type="time" id="time" name="time" class="col-md-3 form-control">
+                            <input type="time" id="time" name="time" class="col-md-3 form-control">
 
                     </div>
                     <div class="row form-group">
                         <label for="agenda" class="form-label col-md-3">جدول الأعمال:</label>
-                        <input type="agenda" id="agenda" name="agenda" class=" col-md-3 form-control">
+                         <input type="agenda" id="agenda" name="agenda" class=" col-md-3 form-control">
 
                     </div>
 
@@ -113,9 +113,12 @@
             loop: true,
             touchEventsTarget: 'container',
         });
+
+
         // Calendar
         fetchCalander();
         function fetchCalander(month = {{ date('m') }}, year = {{ date('Y') }}) {
+
             var url =
                 "{{ route('school_route.calander_tasks_ajax', [':month', ':year']) }}";
             url = url.replace(':month', month).replace(':year', year)
@@ -128,6 +131,7 @@
                 }
             });
         }
+
         //reinsert the calander when the month arrows are clicked
         $(document).on('click', '#change_month', function() {
             var month = $(this).data('month');
