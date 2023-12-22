@@ -103,6 +103,10 @@ use App\Http\Controllers\School\TranspWebController;
 use App\Http\Controllers\School\TripWebController;
 use App\Http\Controllers\School\AirlineWebController;
 use App\Http\Controllers\School\DashboardCont;
+use App\Http\Controllers\CommitteesAndTeamsMeetingsController;
+use App\Http\Controllers\MeetingRecommendationsController;
+use App\Http\Controllers\MeetingAgendaController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\School\RoadmapCont;
 use App\Http\Controllers\School\Teacher\School_jobsCont;
 use App\Http\Controllers\School\Teacher\Teacher_specialityCont;
@@ -242,12 +246,21 @@ Route::name('school_route.')->group(function () {
                     // Choose a school at first
                     Route::get('/choose_school', [DashboardCont::class, 'choose_school'])->name('choose_school');
                     Route::post('/choose_school_start_store', [DashboardCont::class, 'choose_school_start_store'])->name('choose_school_start_store');
+                    Route::resource('/Committees_and_teams_meetings',CommitteesAndTeamsMeetingsController::class);
+                    Route::resource('/meeting_recommendations',MeetingRecommendationsController::class);
+                    Route::resource('/meeting_agenda',MeetingAgendaController::class);
+                    Route::resource('/meetings',MeetingController::class);
+                    Route::get('/meetings/{id}/download-pdf', [MeetingController::class,'downloadPDF'])->name('meetings_downloadPDF');
+                    Route::get('/meetings/{id}/print-pdf', [MeetingController::class,'PrintPDF'])->name('meetings_PrintPDF');
 
                     // Change school
                     Route::post('/change_school_sidebar', [DashboardCont::class, 'change_school_sidebar'])->name('change_school_sidebar');
 
                     // Dashboard
                     Route::get('/dashboard', [DashboardCont::class, 'dashboard'])->name('dashboard');
+
+                 //  Route::get('/new_meeting', [DashboardCont::class, 'new_meeting'])->name('new_meeting');
+
                     //ajax for calander
                     Route::get('/calander_tasks_ajax/{month}/{year}', [DashboardCont::class, 'calander_tasks_ajax'])->name('calander_tasks_ajax');
                }
@@ -260,7 +273,6 @@ Route::name('school_route.')->group(function () {
 
      // send email form
      Route::post('send_email_from', [HomepageController::class, 'send_email_from'])->name('send_email_from')->middleware("throttle:10,2");
-
      // articales
      Route::get('articles', [HomepageController::class, 'articles'])->name('articles');
      Route::get('article/{slug}', [HomepageController::class, 'article_show'])->name('article_show');
@@ -269,7 +281,7 @@ Route::name('school_route.')->group(function () {
 
 
 // -----------------------------------------
-//for Tripo system 
+//for Tripo system
 //multi languages
 Route::group(
      [

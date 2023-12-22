@@ -1,0 +1,62 @@
+.form-container {
+    /**
+    background-color: #f3f3f3;
+    padding: 20px;
+    **/
+
+}
+
+.custom-card {
+  /** border: none;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    **/
+}
+
+.custom-card-header {
+    background-color: #003399;
+    text-align: center;
+}
+
+.custom-card-body {
+    background-color: white;
+    padding: 20px;
+}
+
+.custom-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    margin-right: 10px;
+}
+
+.custom-select,
+.form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1; /* Adjust as necessary */
+}
+
+.custom-form-action {
+    text-align: center;
+    margin-top: 20px; /* Space above the form action buttons */
+}
+
+.custom-submit-button {
+    background-color: #003399;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.custom-reset-button {
+    width: 220px;
+    color: #0A3A81;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 1px solid #EAB977;
+}

@@ -21,6 +21,8 @@ use App\Models\Patient\Service_item;
 use App\Models\Patient\Session_pat;
 use App\Models\Patient\Specialty_cat;
 use App\Models\Patient\Treatment;
+use App\Models\School\Meetings\Committees_and_teams;
+
 use App\Models\User;
 use DateTime;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -476,6 +478,63 @@ class Controller extends BaseController
 
 
 
+
+    }
+    public function addCommiteAndTeamsMainRecords($schoolId,$managerId)
+    {
+        // Check if there are already any rows for this school in Committees_and_teams
+        $existingRows = Committees_and_teams::where('school_id', $schoolId)->count();
+
+        // If there are no existing rows, insert new ones
+        if ($existingRows === 0) {
+
+            $rows =
+                [
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'الجنة الادارية',
+                        'classification' => 1,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'لجنة التوجيه والارشاد',
+                        'classification' => 1,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'لجنة التحصيل الدراسي',
+                        'classification' => 1,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'لجنة التمييز',
+                        'classification' => 1,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'فريق الصندوق المدرسي',
+                        'classification' => 2,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'فريق عمل الأمن والسلامه المدرسية',
+                        'classification' => 2,
+                    ],
+                    [
+                        'author' => $managerId,
+                        'school_id' => $schoolId,
+                        'title' => 'فريق عمل التربيه الخاصة',
+                        'classification' => 2,
+                    ]
+                ];
+            Committees_and_teams::insert($rows);
+        }
 
     }
 

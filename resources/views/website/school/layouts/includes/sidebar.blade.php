@@ -49,7 +49,7 @@
     <hr class="my-0">
 
     <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" aria-expanded="true" aria-controls="collapsePages" data-toggle="collapse"
+        <a class="nav-link collapsed" href="{{ route('school_route.dashboard') }}" aria-expanded="true" aria-controls="collapsePages" data-toggle="collapse"
             data-target=".navbar-collapse">
             <img class="sidebare_icon" alt="school" src="{{ URL::asset('img/icons/sidebar/home.svg') }}">
             <span>الرئيسية</span>
@@ -96,22 +96,17 @@
         <div id="meetings_sidebar" class="collapse collapse-side-admin" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner">
-                <a class="collapse-item" href="#">
+
+                <a class="collapse-item" href="{{ url('school\Committees_and_teams_meetings') }}">
                     <div class="icon_square" style="background-color:#BCD7F5;"></div>
-                    بيانات المدرسة
+                    إجتماعات اللجان
                 </a>
-                <a class="collapse-item" href="#">
+                <a class="collapse-item" href="{{ url('school\Committees_and_teams_meetings?teams=1') }}">
                     <div class="icon_square" style="background-color:#F5CBBC;"></div>
-                    طلاب المدرسة
+                    إجتماعات الفرق
                 </a>
-                <a class="collapse-item" href="#">
-                    <div class="icon_square" style="background-color:#F5BCBC;"></div>
-                    معلمي المدرسة
-                </a>
-                <a class="collapse-item" href="#">
-                    <div class="icon_square" style="background-color:#BDF5BC;"></div>
-                    إداري المدرسة
-                </a>
+
+
             </div>
         </div>
     </li>
