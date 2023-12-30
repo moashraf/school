@@ -112,6 +112,13 @@ use App\Http\Controllers\School\Teacher\School_jobsCont;
 use App\Http\Controllers\School\Teacher\Teacher_specialityCont;
 use App\Http\Controllers\School\UnitWebController;
 use App\Http\Controllers\School\VisaWebController;
+use App\Http\Controllers\School\AssignmentClassificationController;
+use App\Http\Controllers\School\AssignmentUsersController;
+use App\Http\Controllers\School\AssignmentItemsController;
+use App\Http\Controllers\School\CommitteTeamTasksController;
+use App\Http\Controllers\School\CommitteTeamMembersController;
+use App\Http\Controllers\School\SemestersController;
+use App\Http\Controllers\School\SingleAssignmentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -250,7 +257,15 @@ Route::name('school_route.')->group(function () {
                     Route::resource('/meeting_recommendations',MeetingRecommendationsController::class);
                     Route::resource('/meeting_agenda',MeetingAgendaController::class);
                     Route::resource('/meetings',MeetingController::class);
-                    Route::get('/meetings/{id}/download-pdf', [MeetingController::class,'downloadPDF'])->name('meetings_downloadPDF');
+                    Route::resource('/assignment_classifications', AssignmentClassificationController::class);
+                    Route::resource('/assignment_items', AssignmentItemsController::class);
+                    Route::resource('/assignment_users', AssignmentUsersController::class);
+                    Route::resource('/committe_team_tasks', CommitteTeamTasksController::class);
+                    Route::resource('/committe_team_members', CommitteTeamMembersController::class);
+                    Route::resource('/semesters', SemestersController::class);
+                    Route::resource('/single_assignment', SingleAssignmentController::class);
+
+                   Route::get('/meetings/{id}/download-pdf', [MeetingController::class,'downloadPDF'])->name('meetings_downloadPDF');
                     Route::get('/meetings/{id}/print-pdf', [MeetingController::class,'PrintPDF'])->name('meetings_PrintPDF');
 
                     // Change school

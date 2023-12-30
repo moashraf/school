@@ -18,6 +18,9 @@ class Committees_and_teams extends Model
         'author',
         'school_id',
         'classification',
+        'committe_formation_rules',
+        'goals'
+
     ];
 
     public $timestamps = true;
