@@ -15,4 +15,10 @@ class AssignmentClassification extends Model
     ];
 
     public $timestamps = true;
+
+    public function assignmentItems()
+    {
+        return $this->hasMany(AssignmentItems::class, 'classification_id', 'id');
+    }
+
 }

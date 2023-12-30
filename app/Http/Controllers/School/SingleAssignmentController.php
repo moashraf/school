@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssignmentClassification;
 use Illuminate\Http\Request;
 
 class SingleAssignmentController extends Controller
@@ -14,8 +15,13 @@ class SingleAssignmentController extends Controller
      */
     public function index()
     {
-        //
+        $assignmentClassifications = AssignmentClassification::with([
+            'assignmentItems.singleAssignments.assignedUsers.user'
+        ])->get();
+
+        return response()->json($assignmentClassifications);
     }
+
 
     /**
      * Show the form for creating a new resource.

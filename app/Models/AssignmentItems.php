@@ -15,6 +15,13 @@ class AssignmentItems extends Model
         'assignment_goal',
         'model_number',
         'job_title',
+        'classification_id',
     ];
     public $timestamps = true;
+
+    public function singleAssignments()
+    {
+        return $this->hasMany(SingleAssignment::class, 'assignment_item_id', 'id');
+    }
+
 }

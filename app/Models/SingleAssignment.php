@@ -16,6 +16,13 @@ class SingleAssignment extends Model
         'assignment_specialization',
         'assignment_goal',
         'is_committe_or_team',
+        'assignment_item_id',
     ];
     public $timestamps = true;
+
+    public function assignedUsers()
+    {
+        return $this->hasMany(AssignmentUsers::class, 'single_assignment_id', 'id');
+    }
+
 }
