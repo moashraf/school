@@ -30,7 +30,15 @@ class SingleAssignmentController extends Controller
      */
     public function create()
     {
-        //
+        $SingleAssignment_id = request('SingleAssignment_id')?:1;
+
+        $SingleAssignment = SingleAssignment::find($SingleAssignment_id);
+        $Manager = Manager::find(1);
+
+        return view('website.school.new_committee',
+            compact('SingleAssignment','Manager'));
+
+
     }
 
     /**
