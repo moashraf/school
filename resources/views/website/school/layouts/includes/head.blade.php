@@ -36,8 +36,12 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {{-- select 2 --}}
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+@if( Route::currentRouteName()  == 'school_route.meetings.create')
+ @elseif(Route::currentRouteName()  == 'school_route.meetings.edit')
+@else
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+@endif
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css"
     integrity="sha512-aD9ophpFQ61nFZP6hXYu4Q/b/USW7rpLCQLX6Bi0WJHXNO7Js/fUENpBQf/+P4NtpzNX0jSgR5zVvPOJp+W2Kg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />

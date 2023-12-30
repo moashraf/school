@@ -78,5 +78,13 @@
 
 </body>
 
-
+<script>
+    window.addEventListener('load', function() {
+        // Query all input elements and set autocomplete off
+        var inputs = document.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].setAttribute('autocomplete', 'off');
+        }
+    });
+</script>
 </html>

@@ -260,6 +260,10 @@ class RoadmapCont extends Controller
                     'school_period' => $request->input('school_period'),
                     'address' => $request->input('address'),
                 ]);
+                // Check if the school was successfully created
+                if ($school) {
+                    $this->addCommiteAndTeamsMainRecords($school->id,$manager->id);
+                }
                 $manager->roadmap = 4;
                 $manager->first_school_id = $school->id;
                 $manager->save();
@@ -305,6 +309,9 @@ class RoadmapCont extends Controller
                     'school_period' => $request->input('school_period'),
                     'address' => $request->input('address'),
                 ]);
+                if ($school) {
+                    $this->addCommiteAndTeamsMainRecords($school->id,$manager->id);
+                }
                 $manager->roadmap = 12;
                 $manager->second_school_id = $school->id;
                 $manager->save();
