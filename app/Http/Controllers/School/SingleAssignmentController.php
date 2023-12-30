@@ -49,7 +49,42 @@ class SingleAssignmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'assignment_name' => 'required',
+            'assignment_item_id' => 'required',
+        ]);
+        $assignment_name = $request->input('assignment_name');
+        $assignment_start_date = $request->input('assignment_start_date');
+        $assignment_start_date = new DateTime($assignment_start_date);
+        $assignment_start_date = $assignment_start_date->format('Y-m-d H:i:s'); // Format for SQL timestamp
+        $assignment_duration = $request->input('assignment_duration');
+        $assignment_specialization = $request->input('assignment_specialization');
+        $assignment_goal = $request->input('assignment_goal');
+        $is_committe_or_team = $request->input('is_committe_or_team');
+        $assignment_item_id = $request->input('assignment_item_id');
+
+        $form_SingleAssignment = SingleAssignment::create([
+
+            'assignment_name' =>  $assignment_name,
+             'assignment_start_date' =>  $assignment_start_date,
+            'assignment_duration' =>  $assignment_duration,
+            'assignment_specialization' =>  $assignment_specialization,
+            'assignment_goal' =>  $assignment_goal,
+            'is_committe_or_team' =>  $is_committe_or_team,
+            'assignment_item_id' =>  $assignment_item_id,
+         ]);
+
+
+
+        $AssignmentUsers = AssignmentUsers::create([
+
+            'single_assignment_id' =>  $form_SingleAssignment->id,
+            'user_id' =>  $assignment_start_date,
+
+        ]);
+        return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'لقد تم حفظ الاجتماع بنجاح');
+
     }
 
     /**

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SingleAssignment extends Model
 {
+    protected $table = 'single_assignment';
+
     use HasFactory;
     protected $fillable = [
         'id',
