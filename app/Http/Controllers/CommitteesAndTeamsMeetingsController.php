@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Basic\Video_tutorial;
 use App\Models\Branch\Slider;
+use App\Models\CommitteTeamMembers;
+use App\Models\CommitteTeamTasks;
 use App\Models\School\Meetings\Committees_and_teams;
+use App\Models\School\Meetings\meeting_recommendations;
+use App\Models\School\Meetings\meetings;
 use App\Models\School\School;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -92,7 +96,8 @@ class CommitteesAndTeamsMeetingsController extends Controller
             'committe_formation_rules'=>$request->input('school_id'),
             'classification'=>$request->input('classification'),
         ]);
-
+        $this->addCommiteAndTeamMembers($form->id,$request);
+        $this->addCommiteAndTeamTasks($form->id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم انشاء اللجنة/ الفرقه بنجاح');
     }
 
@@ -154,6 +159,10 @@ class CommitteesAndTeamsMeetingsController extends Controller
         $commite_and_team->committe_formation_rules = $request->input('committe_formation_rules');
         $commite_and_team->goals = $request->input('goals');
         $commite_and_team->save();
+        CommitteTeamMembers::where('committe_team_id', $id)->delete();
+        CommitteTeamTasks::where('committe_team_id', $id)->delete();
+        $this->addCommiteAndTeamMembers($id,$request);
+        $this->addCommiteAndTeamTasks($id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم تعديل اللجنه/الفرقه بنجاح');
     }
 
@@ -172,5 +181,33 @@ class CommitteesAndTeamsMeetingsController extends Controller
             return redirect()->back()->with('success', 'لقد تم حذف اللجنة/الفرقه بتجاح');
         }
         return redirect()->back()->with('error', 'عذرا نواجه مشكله في حذف هذا اللجنة/الفرقه');
+    }
+    public function addCommiteAndTeamTasks($committe_id,$request)
+    {
+        if ($request->input('user_id') !=null) {
+            foreach ($request->input('user_id') as $index=>$item) {
+                if ($item){
+                    $committeTeamMember = new CommitteTeamMembers();
+                    $committeTeamMember->committe_team_id = $committe_id;
+                    $committeTeamMember->user_id =$item;
+                    $committeTeamMember->assigned_role =$request->input('assigned_role')[$index];
+                    $committeTeamMember->save();
+                }
+            }
+        }
+
+    }
+    public function addCommiteAndTeamMembers($commite_id,$request)
+    {
+        if ($request->input('task_description') !=null) {
+            foreach ($request->input('task_description') as $index=>$item) {
+                if ($item){
+                    $committeTeamTask = new CommitteTeamTasks();
+                    $committeTeamTask->committe_team_id = $commite_id;
+                    $committeTeamTask->task_description =$item;
+                    $committeTeamTask->save();
+                }
+            }
+        }
     }
 }

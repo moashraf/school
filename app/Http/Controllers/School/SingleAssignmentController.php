@@ -77,7 +77,7 @@ class SingleAssignmentController extends Controller
             'assignment_item_id' =>  $assignment_item_id,
          ]);
         if ($is_committe_or_team){
-            $this->createMeetings($form_SingleAssignment->id,$committe_team_id,$request);
+            $this->addMeetings($form_SingleAssignment->id,$committe_team_id,$request);
 
         }
 
@@ -138,7 +138,7 @@ class SingleAssignmentController extends Controller
         //
     }
 
-    public function createMeetings($committeId, $semester, $request)
+    public function addMeetings($committeId, $semester, $request)
     {
         if ($request->input('meetings') !=null) {
             foreach ($request->input('meetings') as $index=>$item) {
