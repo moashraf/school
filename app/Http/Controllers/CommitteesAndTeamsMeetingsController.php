@@ -88,6 +88,8 @@ class CommitteesAndTeamsMeetingsController extends Controller
             'author'=>$request->input('author'),
             'title'=>$request->input('title'),
             'school_id'=>$request->input('school_id'),
+            'goals'=>$request->input('school_id'),
+            'committe_formation_rules'=>$request->input('school_id'),
             'classification'=>$request->input('classification'),
         ]);
 
@@ -149,6 +151,8 @@ class CommitteesAndTeamsMeetingsController extends Controller
         $commite_and_team->title = $request->input('title');
         $commite_and_team->school_id = $request->input('school_id');
         $commite_and_team->classification = $request->input('classification');
+        $commite_and_team->committe_formation_rules = $request->input('committe_formation_rules');
+        $commite_and_team->goals = $request->input('goals');
         $commite_and_team->save();
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم تعديل اللجنه/الفرقه بنجاح');
     }
