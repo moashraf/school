@@ -4,6 +4,7 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentClassification;
+use App\Models\School\Meetings\meetings;
 use Illuminate\Http\Request;
 
 class SingleAssignmentController extends Controller
@@ -62,6 +63,7 @@ class SingleAssignmentController extends Controller
         $assignment_specialization = $request->input('assignment_specialization');
         $assignment_goal = $request->input('assignment_goal');
         $is_committe_or_team = $request->input('is_committe_or_team');
+        $committe_team_id = $request->input('committe_team_id');
         $assignment_item_id = $request->input('assignment_item_id');
 
         $form_SingleAssignment = SingleAssignment::create([
@@ -74,6 +76,10 @@ class SingleAssignmentController extends Controller
             'is_committe_or_team' =>  $is_committe_or_team,
             'assignment_item_id' =>  $assignment_item_id,
          ]);
+        if ($is_committe_or_team){
+            $this->createMeetings($form_SingleAssignment->id,$committe_team_id,$request);
+
+        }
 
 
 
@@ -130,5 +136,28 @@ class SingleAssignmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createMeetings($committeId, $semester, $request)
+    {
+        if ($request->input('meetings') !=null) {
+            foreach ($request->input('meetings') as $index=>$item) {
+                if ($item){
+                    $startDate = $request->input('start_date')[$index]; // e.g., '2023-12-04'
+                    $startTime = $request->input('start_time')[$index]; // e.g., '22:29:29'
+                    $startDateTimeString = $startDate . ' ' . $startTime; // e.g., '2023-12-04 22:29:29'
+                    $startDateTime = new DateTime($startDateTimeString);
+                    $formattedStartDateTime = $startDateTime->format('Y-m-d H:i:s'); // Format for SQL timestamp
+                    $meeting = new meetings();
+                    $meeting->committees_and_teams_id = $committeId;
+                    $meeting->status =0;
+                    $meeting->start_date = $formattedStartDateTime;
+                    $meeting->location = $request->input('location')[$index];
+                    $meeting->Semester =$semester;
+                    $meeting->save();
+                }
+            }
+        }
+
     }
 }
