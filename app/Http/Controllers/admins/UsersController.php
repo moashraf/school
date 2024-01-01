@@ -195,7 +195,7 @@ class UsersController extends Controller
         }
 
 
-        // ---------------------- 
+        // ----------------------
 
         $worker_total = User::select('id');
 
@@ -209,7 +209,7 @@ class UsersController extends Controller
 
         $worker_total = $worker_total->count();
 
-        // ---------------------- 
+        // ----------------------
 
         return view('admins/allstatcs', compact('worker_total', 'branch_worker', 'specialty_cat', 'specialty', 'branches', 'branch', 'creator', 'doctor', 'creator_month', 'doctor_month', 'confirmation', 'confirmation_month', 'accountant', 'accountant_month', 'from', 'to'));
     }
@@ -425,6 +425,15 @@ class UsersController extends Controller
     }
 
     //------------
+    public function getUsersByJobTitle(Request $request, $jobTitleId = null)
+    {
 
+        $query = User::query();
+        if ($jobTitleId !== null) {
+            $query->where('job_title_id', $jobTitleId);
+        }
+        $users = $query->paginate(10);
+        return response()->json(['users' => $users]);
+    }
 
 }
