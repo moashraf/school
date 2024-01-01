@@ -269,7 +269,7 @@ Route::name('school_route.')->group(function () {
                     Route::get('/meetings/{id}/print-pdf', [MeetingController::class,'PrintPDF'])->name('meetings_PrintPDF');
 
 
-                    Route::get('/users/{job_title_id}', [UsersController::class,'getUsersByJobTitle'])->name('get_users_by_job_title');
+                    Route::get('/users/{type}', [PatientController::class,'getUsersByType'])->name('get_users_by_type');
 
                     // Change school
                     Route::post('/change_school_sidebar', [DashboardCont::class, 'change_school_sidebar'])->name('change_school_sidebar');

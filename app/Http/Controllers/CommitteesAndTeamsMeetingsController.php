@@ -96,8 +96,8 @@ class CommitteesAndTeamsMeetingsController extends Controller
             'committe_formation_rules'=>$request->input('school_id'),
             'classification'=>$request->input('classification'),
         ]);
-        $this->addCommiteAndTeamMembers($form->id,$request);
-        $this->addCommiteAndTeamTasks($form->id,$request);
+        $this->addCommitteAndTeamMembers($form->id,$request);
+        $this->addCommitteAndTeamTasks($form->id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم انشاء اللجنة/ الفرقه بنجاح');
     }
 
@@ -161,8 +161,8 @@ class CommitteesAndTeamsMeetingsController extends Controller
         $commite_and_team->save();
         CommitteTeamMembers::where('committe_team_id', $id)->delete();
         CommitteTeamTasks::where('committe_team_id', $id)->delete();
-        $this->addCommiteAndTeamMembers($id,$request);
-        $this->addCommiteAndTeamTasks($id,$request);
+        $this->addCommitteAndTeamMembers($id,$request);
+        $this->addCommitteAndTeamTasks($id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم تعديل اللجنه/الفرقه بنجاح');
     }
 
@@ -182,7 +182,7 @@ class CommitteesAndTeamsMeetingsController extends Controller
         }
         return redirect()->back()->with('error', 'عذرا نواجه مشكله في حذف هذا اللجنة/الفرقه');
     }
-    public function addCommiteAndTeamTasks($committe_id,$request)
+    public function addCommitteAndTeamMembers($committe_id,$request)
     {
         if ($request->input('user_id') !=null) {
             foreach ($request->input('user_id') as $index=>$item) {
@@ -197,7 +197,7 @@ class CommitteesAndTeamsMeetingsController extends Controller
         }
 
     }
-    public function addCommiteAndTeamMembers($commite_id,$request)
+    public function addCommitteAndTeamTasks($commite_id,$request)
     {
         if ($request->input('task_description') !=null) {
             foreach ($request->input('task_description') as $index=>$item) {

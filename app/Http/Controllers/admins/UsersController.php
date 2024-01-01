@@ -425,15 +425,5 @@ class UsersController extends Controller
     }
 
     //------------
-    public function getUsersByJobTitle(Request $request, $jobTitleId = null)
-    {
-
-        $query = User::query();
-        if ($jobTitleId !== null) {
-            $query->where('job_title_id', $jobTitleId);
-        }
-        $users = $query->paginate(10);
-        return response()->json(['users' => $users]);
-    }
 
 }
