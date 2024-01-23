@@ -22,6 +22,8 @@ if ( request()->teams){
         ['id' => 1, 'label' => 'committees'],
         ['id' => 2, 'label' => 'teams']
     ];
+
+     $table_header =   [ 'م'  ,'الاجتماع'  ,'تاريخ الاجتماع'  ,'نوع الاجتماع'  ,'الفصل الدراسي'  ,'حالة الاجتماع'  ,'تاريخ الإنشاء'  ,''   ] ;
 @endphp
 @section('title', 'اللجان والفرق | منصة لام')
 @section('topbar', 'اللجان والفرق | منصة لام')
@@ -77,179 +79,175 @@ if ( request()->teams){
 <!-- content insert -->
 @section('content')
 
+
     <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
+        <div class="page_top_nevg">
+            <a href="#">اجتماعات اللجان و الفرق</a>
+        </div>
+        <div style="height: 60px;"></div>
 
 
-        <div class="row">
+        <div class="sprint5_container">
+            <!-- <h1>sprint 5</h1> -->
+            <div class="nav_tabs nav-tabs-main  ">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                         @foreach ($tabs as $index => $tab)
+                    <li class="nav-item" role="presentation  ">
+                        <button class="nav-link  <?= ($index + 0) === 0 ? 'active' : ''; ?>"
+                                id="pills-tab<?= $index ?>" data-bs-toggle="pill"
+                                data-bs-target="#pills-content<?= $index + 0 ?>"
+                                type="button"
+                                role="tab"
+                                aria-controls="pills-content<?= $index ?>"
+                                aria-selected="<?= ($index + 0) === 0 ? 'true' : 'false'; ?>">
+                            {{ $tab['label']  }}
+                        </button>
+                    </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content tab-content-main  " id="pills-tabContent">
+                    @foreach ($classifications as $index => $classification)
 
-            <div class="row main_cot_bg p-2 align-items-center mb-4 main-color-bg text-s">
-
-                <div class="col-12 col-xl-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item text-s2  padding-left-20 default-blue-bg-color"  aria-current="page">المدرسه</li>
-                            <li class="breadcrumb-item text-s2 padding-left-20 default-blue-bg-color" >اللجان والفرق</li>
-                        </ol>
-                    </nav>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="col-12 mb-3 mb-md-0">
-                <div class="main_cot_bg p-3 py-3 h-100">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        @foreach ($tabs as $tab)
-                            <li class="nav-item tab-item" role="presentation">
-                                <button class="nav-link {{ $tab['id'] === $initialTab ? ' active tabcontent_active' : '' }}" id="{{ $tab['id'] }}-tab" data-bs-toggle="pill" data-bs-target="#{{ $tab['id'] }}" type="button" role="tab" aria-controls="{{ $tab['id'] }}" aria-selected="{{ $tab['id'] === $initialTab ? 'true' : 'false' }}">
-                                    {{ $tab['label'] }}
-                                </button>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="tab-content" id="pills-tabContent">
-                        @foreach ($classifications as $classification)
-                            <div class="tab-pane fade @if ($classification['label']===$initialTab) show active @endif" id="{{ $classification['label'] }}" role="tabpanel" aria-labelledby="{{ $classification['label'] }}-tab">
-                                <div   class=" m-3 accordion" id="accordionExample">
-                                    @foreach ($Committees_and_teams as $key => $item)
-                                        @if ($item->classification == $classification['id'])
-                                            {{-- Accordion item content here --}}
-                                            <div class="accordion-item margin-bottom-35">
-
-                                                <h2 class="accordion-header">
-
-                                                    <div class="row background_button_body no-margin-left-right ">
-                                                        <div class="col-9 no_arrows_data_to_show ">
-                                                            <button class="accordion-button   " type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$item->id}}"
-                                                                    aria-expanded="true"     aria-controls="collapse_{{$item->id}}">
-                                                                {{ $item->title   }}
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <a  href="{{ route('school_route.meetings.create',  ['Committees_id'=>$item ->id]  ) }} " class="link-cust-text main_btn border_radius_10  clickable-item-pointer text-xs"> <i class="fas fa-plus"></i>
-                                                                <span class="no_show_on_map">
-                                        انشاء اجتماع جديد
-                                        </span>
-                                                            </a>
-                                                        </div>
-                                                        <div class="col-1">
-                                                            <button class="accordion-button   " type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$item->id}}"
-                                                                    aria-expanded="true"     aria-controls="collapse_{{$item->id}}">
-
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                    <div class="tab-pane fade <?= ($index + 0) === 0 ? 'show active' : ''; ?>" id="pills-content<?= $index + 0 ?>" role="tabpanel"
+                         aria-labelledby="pills-tab<?= $index ?>">
 
 
+                             @foreach ($Committees_and_teams as $key => $item)
+                                @if ($item->classification == $classification['id'])
 
-                                                </h2>
+                                <div class="sprint_3">
+                                    <div class="lam_accordion accordion" style="position: relative;">
+                                        <div class="header" id="visitsSection-{{$item->id}}" data-bs-toggle="collapse"
+                                             data-bs-target="#visitCollapse-{{$item->id}}" aria-expanded="false"
+                                             aria-controls="visitCollapse-{{$item->id}}">
+                                            <p style="font-size: 20px; font-weight: 700;">
+                                                {{ $item->title   }}
+                                            </p>
+                                            <div class="d-flex align-items-center gap-5">
+                    <span class="accordion-button custom-accordion-button collapsed" data-bs-toggle="collapse"
+                          data-bs-target="#visitCollapse-{{$item->id}}" aria-expanded="false"
+                          aria-controls="visitCollapse-{{$item->id}}"></span>
+                                            </div>
+                                        </div>
 
+                                        <div style="position: absolute; left:8rem; top:0.5rem; cursor: pointer;">
+                                            <a  href="{{ route('school_route.meetings.create',  ['Committees_id'=>$item ->id]  ) }} " >
+                                                <button class="lam_accordion_btn">
+                                                    <i class="fa fa-plus fa-m text-white" style="margin-left: 10px;" aria-hidden="true"></i>
+                                                    انشاء اجتماع جديد
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="collapse accordion-collapse
 
-                                                <div id="collapse_{{$item->id}}" class="accordion-collapse collapse  @if (($item->classification == 1 && !$firstCommitteeShown) || ($item->classification == 2 && !$firstTeamShown))
+                                         @if (($item->classification == 1 && !$firstCommitteeShown) || ($item->classification == 2 && !$firstTeamShown))
                                 show
                                 @if($item->classification == 1) @php $firstCommitteeShown = true; @endphp @endif
                                 @if($item->classification == 2) @php $firstTeamShown = true; @endphp @endif
                             @endif"
-                                                     data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">
+                                             style="background-color: white; border-radius: 10px;"
+                                             id="visitCollapse-{{$item->id}}" aria-labelledby="visitsSection-{{$item->id}}"
+                                             data-bs-parent="#accordionExample">
+                                            <div class="lam_accordion_body" style="padding:24px 0; background-color:#F1F1F1">
+                                                <!-- Start Header of table -->
+                                                <div class="row"
+                                                     style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                                         @foreach ($table_header as   $header)
+                                                        <p class="col"> {{ $header }}</p>
+                                                    @endforeach
+                                                </div>
+                                                <!-- End Header of table -->
+                                                <!-- Start of Data Table -->
 
-                                                        <div class=" add_border_radius table-responsive" id="admin_table_cont"    >
-                                                            <table class="table display datatable-modal"   id="p_3-table" width="100%"  cellspacing="0">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th  class=" table_title_color text-xs fw-bold">م</th>
-                                                                    <th  class=" table_title_color text-xs fw-bold">الاجتماع  </th>
-                                                                    <th class="table_title_color  text-xs fw-bold">   تاريخ الاجتماع </th>
-                                                                    <th class=" table_title_color  text-xs fw-bold">   نوع الاجتماع </th>
-                                                                    <th class=" table_title_color  text-xs fw-bold">   الفصل الدراسي </th>
-                                                                    <th class=" table_title_color  text-xs fw-bold">حاله الاجتماع  </th>
-                                                                    <th class=" table_title_color  text-xs fw-bold">   تاريخ الانشاء </th>
-                                                                    <th class=" table_title_color  text-xs fw-bold"></th>
-                                                                </tr>
-                                                                </thead>
+                                                @foreach ($item->get_meetings as $key_val => $item_val)
 
-                                                                <tbody id="admin_table_cont_tr">
-                                                                @foreach ($item->get_meetings as $key_val => $item_val)
-                                                                    <tr   class="meeting-row">
-                                                                        <td class="pd-r-5">
-                                                                            {{ $key_val+1   }}
-                                                                        </td>
-                                                                        <td class="">
-                                                                            {{ $item_val->title   }}
-                                                                        </td>
-                                                                        <td class="">
-                                                                            {{ \Carbon\Carbon::parse($item_val->start_date)->format('Y/m/d') }}
-                                                                        </td>
-                                                                        <td class="">
-                                                                            {{ $item_val->type?'طارئ':'دوري'   }}
-                                                                        </td>
-                                                                        <td class="">
-                                                                            {{ $item_val->Semester   }}
-                                                                        </td>
-                                                                        <td class="">
-                                                                            @if($item_val->status)
-                                                                                مكتمل
-                                                                            @else
-                                                                                غير مكتمل
-                                                                            @endif
-                                                                        </td>
-                                                                        <td class="">
-                                                                            {{ \Carbon\Carbon::parse($item_val->created_at)->format('Y/m/d') }}
-                                                                        </td>
-                                                                        <td class="padding-left-20">
-                                                                            <div class="dropdown no-arrow position-absolute">
-                                                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                                                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-popper-placement="bottom-start">
-                                                                                    <i class="fas fa-ellipsis-v fs-6 fa-fw text-gray-400"></i>
-                                                                                </a>
-                                                                                <div  class="dropdown-menu edit-meeting-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                                                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-meeting-id="{{$item_val->id}}" data-bs-target="#delete_admin_modal"><img class="m-lg-1" width="16px" src="{{ URL::asset('img/icons/delete.svg') }}" alt="" />حذف</a>
-                                                                                    <a class="dropdown-item update_admin" href="{{url('/school/meetings/'.$item_val->id.'/edit')}}"><img class="m-lg-1" width="16px" src="{{ URL::asset('img/icons/edit.svg') }}" alt="" /></i>تعديل</a>
-                                                                                    <a class="dropdown-item update_admin" onclick="printMeeting({{$item_val->id}})"  target="_blank"><img class="m-lg-1" width="16px" src="{{ URL::asset('img/icons/print.svg') }}" alt="" />طباعه </a>
-                                                                                    <a class="dropdown-item update_admin" href="{{url('/school/meetings/'.$item_val->id.'/download-pdf')}}"><img class="m-lg-1" width="16px" src="{{ URL::asset('img/icons/download.svg') }}" alt="" />تحميل </a>
-                                                                                </div>
-                                                                            </div>
+                                                <div class="lam_accordion_row">
+                                                    <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+
+                                                        <p class="col">     {{ $key_val+1   }} </p>
+                                                        <p class="col">      {{ $item_val->title   }} </p>
+                                                        <p class="col">     {{ \Carbon\Carbon::parse($item_val->start_date)->format('Y/m/d') }}   </p>
+                                                        <p class="col">  {{ $item_val->type?'طارئ':'دوري'   }}    </p>
+                                                        <p class="col">      {{ $item_val->Semester   }}  </p>
+                                                        <p class="col">    @if($item_val->status)
+                                                                مكتمل
+                                                            @else
+                                                                غير مكتمل
+                                                            @endif
+                                                        </p>
+                                                        <p class="col">   {{ \Carbon\Carbon::parse($item_val->created_at)->format('Y/m/d') }}   </p>
 
 
-
-
-
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-
-                                                                </tbody>
-
-                                                            </table>
+                                                        <div class="col dropdown">
+                                                            <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
+                                                               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="../ClassroomVisits/index.php">
+                                                                        <img src="http://localhost/lam-ui-last/assets/icons/WatchIcon.svg" width="20"
+                                                                             height="20" style="margin-left: 5px;" />
+                                                                        مشاهدة
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#">
+                                                                        <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20"
+                                                                             height="20" style="margin-left: 5px;" />
+                                                                        تحميل
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#">
+                                                                        <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20"
+                                                                             height="20" style="margin-left: 5px;" />
+                                                                        طباعة
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#" data-bs-target="#EditVisit-{{$item->id}}"
+                                                                       data-bs-toggle="modal">
+                                                                        <img src="http://localhost/lam-ui-last/assets/icons/edit-icon2.svg" width="20"
+                                                                             height="20" style="margin-left: 5px;" />
+                                                                        تعديل
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit"
+                                                                       data-bs-toggle="modal">
+                                                                        <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20"
+                                                                             height="20" style="margin-left: 5px;" />
+                                                                        حذف
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                                @endforeach
+                                                    <!-- End of Data Table -->
                                             </div>
-
-                                        @endif
-                                    @endforeach
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+
+                                 @endif
+                              @endforeach
+
                     </div>
-
-
-
+                    @endforeach
                 </div>
             </div>
 
-        </div>
+
         <!-- Delete Modal -->
         <div class="modal fade" id="delete_admin_modal" tabindex="-1"
              aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable delete-meeting-modal">
                 <div class="modal-content b-r-s-cont border-0">
                     <div>
-                        <button type="button" class="close-modal" data-bs-dismiss="modal"
-                                aria-label="Close"><i class="fas fa-times"></i></button>
+                        <button type="button" class="close-modal" data-bs-dismiss="modal"  aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
                     <form action="{{ route('school_route.meetings.destroy', $item_val['id']) }}" method="POST">
                         @csrf
@@ -276,7 +274,7 @@ if ( request()->teams){
                 </div>
             </div>
         </div>
-
+        </div>
     </div>
 @endsection
 

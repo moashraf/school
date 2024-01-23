@@ -24,7 +24,7 @@
 @section('css')
     <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css"
-          integrity="sha512-aD9ophpFQ61nFZP6hXYu4Q/b/USW7rpLCQLX6Bi0WJHXNO7Js/fUENpBQf/+P4NtpzNX0jSgR5zVvPOJp+W2Kg=="
+           integrity="sha512-aD9ophpFQ61nFZP6hXYu4Q/b/USW7rpLCQLX6Bi0WJHXNO7Js/fUENpBQf/+P4NtpzNX0jSgR5zVvPOJp+W2Kg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="{{ URL::asset('css/hijry/bootstrap-datetimepicker.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/new_meeting.css') }}" />
@@ -38,439 +38,197 @@
 
 <!-- content insert -->
 @section('content')
+
+
     <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
-        <div class="row">
-            <div class="row main_cot_bg p-2 align-items-center mb-4 main-color-bg text-s">
-                <div class="col-12 col-xl-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item text-s2 padding-left-20 default-blue-bg-color"   aria-current="page">المدرسه</li>
-                            <li class="breadcrumb-item text-s2 padding-left-20 default-blue-bg-color" >اللجان</li>
-                            <li class="breadcrumb-item text-s2 padding-left-20 default-blue-bg-color" >{{$text}} {{$Committees_and_teams['title']}}</li>
-                        </ol>
-                    </nav>
 
-                </div>
-            </div>
-            <form action="{{ $action }}" method="POST" enctype="multipart/form-data" class="custom-form">
-                @csrf
-                @if(isset($item_val['id']))
-                    @method($method) <!-- Laravel's method spoofing for PUT request -->
-                @endif
-                @csrf <!-- CSRF Token for Laravel protection -->
-                <div class="col-12 mb-3 mb-md-0">
-                    <div class="main_cot_bg p-3 py-3 h-100">
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            @foreach ($tabs as $tab)
-                                <li class="nav-item tab-item" role="presentation">
-                                    <button class="nav-link {{ $tab['id'] === $initialTab ? ' active tabcontent_active' : '' }}" id="{{ $tab['id'] }}-tab" data-bs-toggle="pill" data-bs-target="#{{ $tab['id'] }}" type="button" role="tab" aria-controls="{{ $tab['id'] }}" aria-selected="{{ $tab['id'] === $initialTab ? 'true' : 'false' }}">
-                                        {{ $tab['label'] }}
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
+        <div class="page_top_nevg">
+            <a href="#">اجتماعات اللجان و الفرق</a> <i class="fas fa-caret-left"></i>
+            <a href="#">اللجان</a>  <i class="fas fa-caret-left"></i>
+            <a href="#">   {{$text}} {{$Committees_and_teams['title']}}  </a>
+        </div>
 
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active  " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <div class="container form-container">
-                                    <div class="card custom-card">
-                                        <div class="Committees_and_teams_meetings_create_title">
-                                            {{$text}} {{$Committees_and_teams['title']}}
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-8">
-                                                <div class="card-body custom-card-body">
+        <div style="height: 60px;"></div>
+
+
+        <div class="sprint5_container">
+            <!-- <h1>sprint 5</h1> -->
+            <div class="nav_tabs nav-tabs-main  ">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    @foreach ($tabs as $index => $tab)
+                        <li class="nav-item" role="presentation  ">
+                            <button class="nav-link  <?= ($index + 0) === 0 ? 'active' : ''; ?>"
+                                    id="pills-tab<?= $index ?>" data-bs-toggle="pill"
+                                    data-bs-target="#pills-content<?= $index + 0 ?>"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="pills-content<?= $index ?>"
+                                    aria-selected="<?= ($index + 0) === 0 ? 'true' : 'false'; ?>">
+                                {{ $tab['label']  }}
+                            </button>
+                        </li>
+                    @endforeach
+                </ul>
+                <div class="tab-content tab-content-main  " id="pills-tabContent">
+                    @foreach ($tabs as $index => $classification)
+
+                        <div class="tab-pane fade <?= ($index + 0) === 0 ? 'show active' : ''; ?>" id="pills-content<?= $index + 0 ?>" role="tabpanel"
+                             aria-labelledby="pills-tab<?= $index ?>">
+                            @if ($classification['id']  == 'pills-home')
+
+                                    <div >
+                                        <div class="container-fluid px-4 px-md-5">
+                                            <div class="container d-flex flex-column gap-4 justify-content-center align-items-center">
+                                                <div style="font-weight: 700; font-size: 22px; line-height: 24.55px; color:#000000; padding:50px;">
+                                                    {{$text}} {{$Committees_and_teams['title']}}
+                                                </div>
+                                                <form id="myform" class="myform" style="width: 100%;" method="POST" action="{{ $action }}"
+                                                      enctype="multipart/form-data" novalidate="novalidate"   data-select2-id="select2-data-myform">
+                                                    @csrf
+                                                    @if(isset($item_val['id']))
+                                                        @method($method)
+                                                        <!-- Laravel's method spoofing for PUT request -->
+                                                    @endif
+                                                    @csrf <!-- CSRF Token for Laravel protection -->
 
                                                     <input type="hidden" id="committees_and_teams_id" name="committees_and_teams_id" value="{{ request('Committees_id') ?? (  isset($item_val)  ?$item_val['committees_and_teams_id']:'')}}" class="  form-control">
                                                     <input type="hidden" id="status" name="status" value="@if(isset($item_val) && $item_val['status'] ){{$item_val['status']}} @endif" class="  form-control">
 
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center">
-                                                                <label for="type" class="form-label bold_form_label "> نوع الاجتماع <span class="required-asterisk">*</span></label>
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <select required  name="type" id="type" class="form-control custom-select js-example-basic-single  select2-hidden-accessible">
-                                                                    <option value="">اختر نوع الاجتماع</option>
-                                                                    @foreach ([1=>'طارئ', 0=>'دوري'] as $index=>$value)
-                                                                        <option value="{{ $index }}"
-                                                                                @isset($item_val)
-                                                                                    @if($item_val['type'] == $index) selected @endif
-                                                                            @endisset>
-                                                                            {{ $value }}</option>
-                                                                    @endforeach
-                                                                    <!-- Other options -->
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label "> تاريخ الاجتماع<span class="required-asterisk">*</span> </label>
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <div class=" input-group">
+                                                    <div data-select2-id="select2-data-49-ixb3">
+                                                        <div class="d-flex flex-column">
+                                                            <div class="row mb-4" data-select2-id="select2-data-23-4h1t">
+                                                                <div class="col-12 col-md-2 col-xl-2">
+                                                                    <label class="form-label mb-2 mt-3 mb-xl-0" style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">نوع الاجتماع <span class=" text-red fs-6">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 mb-4 col-md-4 col-xl-4" data-select2-id="select2-data-22-2tyf">
+                                                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="type"  required="required" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-9-r77p">
+                                                                        <option value="" disabled="" selected="selected" data-select2-id="select2-data-11-bi6e" selected >نوع الاجتماع</option>
 
-                                                                    <input name="start_date" type="text"
-                                                                           class="hijri-date-input form-control border-left-0 clickable-item-pointer @error('start_date') is-invalid @enderror"
-                                                                           placeholder="  تاريخ الاجتماع"   value="{{ isset($item_val) ? $item_val['start_date']: ''}}" required>
-                                                                    <div class="input-group-prepend">
-                                                                        <div class="input-group-text"> <img class="platform_icon" alt="school"
-                                                                                                            src="{{ URL::asset('img/icons/calendar.svg') }}"> </div>
-                                                                    </div>
+                                                                         @foreach ([1=>'طارئ', 0=>'دوري'] as $index=>$value)
+                                                                            <option value="{{ $index }}"
+                                                                                    @isset($item_val)
+                                                                                        @if($item_val['type'] == $index) selected @endif
+                                                                                @endisset>
+                                                                                {{ $value }}</option>
+                                                                        @endforeach
+
+
+                                                                    </select>
+                                                                    <div id="school_level-js_error_valid"></div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label " >عنوان  الاجتماع <span class="required-asterisk">*</span> </label>
-                                                            </div>
-                                                            <div class="col-md-9">
-
-                                                                <input   required type="text" id="title"  name="title" value="{{ isset($item_val)  ?$item_val['title']:''}}" class="form-control">
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="  form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label ">موعد الاجتماع<span class="required-asterisk">*</span> </label>
-                                                            </div>
-                                                            <div class="col-md-9">
-
-
-                                                                <div class=" input-group">
-
-                                                                    <input name="start_time" type="text"
-                                                                           class="form-control timepicker border-left-0 clickable-item-pointer @error('start_time') is-invalid @enderror"
-                                                                           placeholder=" وقت الاجتماع"  value="{{ isset($item_val) ? $item_val['start_time']: ''}}" required>
-                                                                    <div class="input-group-prepend">
-                                                                        <div class="input-group-text">
-                                                                            <img class="platform_icon" alt="school"   src="{{ URL::asset('img/icons/clock.svg') }}">
+                                                            <div class="row" style="margin-bottom: 3rem;">
+                                                                <div class="col-12 col-md-2 col-xl-2 align-self-center">
+                                                                    <label class="form-label mb-2 mb-xl-0" style="font-weight: 700; font-size:17px; line-height:16px; color:#000000;">تاريخ الاجتماع <span class=" text-red fs-6">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 col-md-4 col-xl-4">
+                                                                    <div class=" input-group">
+                                                                        <input name="start_date" type="text" class="hijri-date-input form-control border-left-0 clickable-item-pointer "
+                                                                               placeholder="تاريخ الاجتماع" value="" required="required" required autocomplete="off" date-text="  تاريخ الاجتماع">
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/calendar.svg">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-
+                                                            </div>
+                                                            <div class="row" style="margin-bottom: 3rem;">
+                                                                <div class="col-12 col-md-2 col-xl-2 align-self-center">
+                                                                    <label class="form-label mb-2 mb-xl-0" style="font-weight: 700; font-size:17px; line-height:16px; color:#000000;">موعد الاجتماع <span class=" text-red fs-6">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 col-md-4 col-xl-4">
+                                                                    <div class=" input-group">
+                                                                        <input name="start_time" type="text" class="form-control timepicker border-left-0 clickable-item-pointer" placeholder=" وقت الاجتماع" value="" required="" autocomplete="off" date-text=" وقت الاجتماع">
+                                                                        <div class="timepicker__wrapper timepicker__wrapper-full" id="tp_36" style="width: 546px; z-index: 1;">
+                                                                            <div class="timepicker__hour">
+                                                                                <p class="display_up_hour  timepicker__button timepicker__button__up ">10</p>
+                                                                                <div class="timepicker__button timepicker__button__up">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display">9 <span class="bg_dot_data_timepicker" id="my-id">
+                          <svg width="9" height="31" viewBox="0 0 9 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
+                            <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
+                          </svg>
+                        </span>
+                                                                                </p>
+                                                                                <div class="timepicker__button timepicker__button__down">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display_down_hour timepicker__button timepicker__button__down">8</p>
+                                                                            </div>
+                                                                            <div class="timepicker__minute">
+                                                                                <p class="display_up_minute  timepicker__button timepicker__button__up ">55</p>
+                                                                                <div class="timepicker__button timepicker__button__up">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display">54</p>
+                                                                                <div class="timepicker__button timepicker__button__down">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display_down_minute timepicker__button timepicker__button__down">53</p>
+                                                                            </div>
+                                                                            <div class="timepicker__meridiem">
+                                                                                <p class="display_up_meridiem  timepicker__button timepicker__button__up ">AM</p>
+                                                                                <div class="timepicker__button timepicker__button__up">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display">am</p>
+                                                                                <div class="timepicker__button timepicker__button__down">
+                                                                                    <div></div>
+                                                                                </div>
+                                                                                <p class="display_down_meridiem timepicker__button timepicker__button__down">PM</p>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="input-group-prepend">
+                                                                            <div class="input-group-text">
+                                                                                <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/clock.svg">
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-
-
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="  form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label ">مكان  الاجتماع<span class="required-asterisk">*</span> </label>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-9">
-                                                                <input type="text" name="location" class="form-control" required  value="{{ isset($item_val) ?$item_val['location']:''}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="  form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label "> الفصل الدراسي <span class="required-asterisk">*</span>   </label>
-                                                            </div>
-                                                            <div class="col-md-9">
-                                                                <input type="text"  required name="Semester" value="{{ isset($item_val) ? $item_val['Semester']: ''}}" class="  form-control">
+                                                            <div class="row" style="margin-bottom: 3rem;">
+                                                                <div class="col-12 col-md-2 col-xl-2 align-self-center">
+                                                                    <label class="form-label mb-2 mb-xl-0" style="font-weight: 700; font-size:17px; line-height:16px; color:#000000;">مكان الاجتماع <span class=" text-red fs-6">*</span>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 col-md-4 col-xl-4">
+                                                                    <div class=" input-group">
+                                                                        <input name="location" type="text" class="form-control border-left-0 clickable-item-pointer " placeholder="مكان الاجتماع" value="" required="" autocomplete="off" date-text="  تاريخ الاجتماع">
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Add more form fields here -->
-
-                                                    <div class=" form-group padding-top-50" >
-                                                        <div class="row">
-                                                            <div class=" col col-md-6">
-                                                                <button  type="submit" class=" meetings_button_next_wi   btn btn-default custom-reset-button">إنهاء</button>
-                                                            </div>
-                                                            <div class=" col col-md-6">
-                                                                <button id="nextButton" type="button" class=" meetings_button_next btn btn-primary custom-submit-button">التالي</button>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
                                             </div>
-                                            <div class="col-md-4"></div>
+                                            <div class="d-flex justify-content-around mt-5">
+                                                <button type="submit" class="end_btn mt-5 px-5 border_radius_5" style="width:15%; background-color: unset; border: 1px solid #EAB977; color:#0A3A81; font-size:14px; font-weight:700;">إنهاء</button>
+                                                <button type="button" class="main_btn mt-5 px-5 border_radius_5" style="width:15%;" onclick="goToMeetingForm()">التالي</button>
+                                            </div>
                                         </div>
+                                        <script>
+
+                                            function goToMeetingForm() {
+                                                $('#pills-tab1').tab('show');
+                                            }
+                                        </script>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade  " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                <!-- Second tab content goes here -->
-                                <div class="container form-container">
-                                    <div class="card custom-card">
-                                        <div class="row">
-                                            <div class="col-md-9">
-                                                <div  class="Committees_and_teams_meetings_create_title ">
-                                                    {{$text}} {{$Committees_and_teams['title']}}
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3 float-end">
-                                                <button  type="submit" class=" Save_as_draft col-md-3 float-end btn btn-primary custom-submit-button">
-
-                                                    <img class="me-3" width="24px" src="{{ URL::asset('img/icons/save.svg') }}"
-                                                         alt="" />
-                                                    <span>حفظ كمسوده</span>
-                                                </button>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12" >
-                                                <div class="card-body custom-card-body">
-
-                                                    <div class="  form-group">
-                                                        <div class="row">
-                                                            <div class="col-md-2 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label ">   الفئه المستهدفه </label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select  name="Target_group" id="Target_group" class="form-control custom-select js-example-basic-single  select2-hidden-accessible ">
-                                                                    <option value="">اختر نوع الفئه</option>
-                                                                    @foreach ([1=>'المصريين', 2=>'الاجانب'] as $index=>$value)
-                                                                        <option value="{{ $index }}"
-                                                                                @isset($item_val)
-                                                                                    @if($item_val['Target_group'] == $index) selected @endif
-                                                                            @endisset >
-                                                                            {{ $value }}</option>
-                                                                    @endforeach
-                                                                    <!-- Other options -->
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <input type="hidden" name="meeting_id" id="meeting_id" value="{{ isset($item_val)  ?$item_val['id']:''}}">
+                            @endif
 
 
-                                                    <div class="  form-group Number_of_attendees22">
-                                                        <div class="row">
-                                                            <div class="col-md-2 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label "> عدد الحاضرين    </label>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <select  id="Number_of_attendees" name="Number_of_attendees" class="form-control custom-select js-example-basic-single  select2-hidden-accessible">
-                                                                    <option value="">عدد الحاضرين</option>
-                                                                    @foreach ([5, 10, 15, 20, 30,40,50] as $value)
-                                                                        <option value="{{ $value }}"
-                                                                                @isset($item_val)
-                                                                                    @if($item_val['Number_of_attendees'] == $value) selected @endif @endisset >
-                                                                            {{ $value }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                    <!-- Other options -->
-                                                                </select>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="  form-group meeting_agenda">
-                                                        <div class="row" id="container_of_all_meeting_agenda" >
-                                                            <label  for="committee" class="form-label bold_form_label ">    جدول اعمال الاجتماع  </label>
-                                                            @if((is_array($item_val['meeting_agenda']) && !empty($item_val['meeting_agenda'])))
-                                                                @foreach  ($item_val['meeting_agenda'] as $key => $agenda)
-
-                                                                    <div class="row add_meeting_agenda_div "   >
-                                                                        <div class="col-md-9 add-padding-bottom ">
-                                                                            <div class="input-group">
-                                                                                <label for="name1" class="add_meeting_agenda_span_num align-self-center  side_number_div ">  {{ $key+1 }} </label>
-                                                                                <input type="text" autocomplete="off"  name="meeting_agenda_item[]" class="form-control" value="{{ $agenda['Item'] }}">
-                                                                                <input type="hidden" name="meeting_agenda_id[]" class="form-control" value="{{ $agenda['id'] }}">
-
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <div class="col-md-3  align-self-center  add_or_delete_button_meeting"  >
-                                                                            @if(!$loop->first)
-                                                                            <a href="#" onclick="delete_parentElement(this,'add_meeting_agenda_div')"  >
-                                                                                <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/delete.PNG') }}">
-                                                                            </a>
-                                                                            @endif
-                                                                            <a href="#" onclick="add_meeting_agenda()" class="add_meeting_agenda_class_add"  >
-                                                                                <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/add.PNG') }}">
-                                                                            </a>
-
-
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                @endforeach
-                                                            @else
-
-                                                                <div  id="container_of_all_meeting_agenda">    </div>
-                                                            @endif
-
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="  form-group meeting_recommendations ">
-                                                        <div class="row meeting_recommendations_header_div ">
-                                                            <div class="col-md-2 meeting_recommendations_table"  >التوصيه</div>
-                                                            <div class="col-md-2 meeting_recommendations_table"    >الجهه المكلفه بالتنفيذ</div>
-                                                            <div class="col-md-2 meeting_recommendations_table "    >مده التنفيذ</div>
-                                                            <div class="col-md-2 meeting_recommendations_table "     >الجهه التابعه للتنفيذ</div>
-                                                        </div>
-                                                        <div class="row" id="container_of_all_add_meeting_recommendations_finished"  >
-                                                            @if((is_array($item_val['meeting_recommendations']) && !empty($item_val['meeting_recommendations'])))
-                                                                @foreach ($item_val['meeting_recommendations']   as $key => $recommendation)
-                                                                    @if ($recommendation['status'] ==1)
-
-
-                                                                        <div class="row add_meeting_recommendations_finished_div ">
-                                                                            <input type="hidden" name="recommendation_id[]" class="form-control" value="{{ $recommendation['id'] }}">
-
-                                                                            <div class="input-group">
-                                                                                <label for="name1" class="align-self-center add-padding-bottom side_number_div "> {{ $key+1 }} </label>
-
-                                                                                <div class="col-md-2 add-padding-bottom meeting_recommendations_table  "  >
-                                                                                    <input type="text" autocomplete="off" name="recommendation_item[]" class="form-control"  value="{{ $recommendation['Item'] }}">
-                                                                                </div>
-                                                                                <div class="col-md-2 add-padding-bottom   meeting_recommendations_table "  >
-                                                                                    <input type="text" autocomplete="off" name="entity_responsible_implementation[]" class="form-control"  value="{{ $recommendation['entity_responsible_implementation'] }}">
-                                                                                </div>
-                                                                                <div class="col-md-2 add-padding-bottom meeting_recommendations_table "  >
-                                                                                    <input type="text" autocomplete="off" name="Implementation_period[]" class="form-control"  value="{{ $recommendation['Implementation_period'] }}">
-                                                                                </div>
-                                                                                <div class="col-md-2 add-padding-bottom meeting_recommendations_table "  >
-                                                                                    <input type="text" autocomplete="off" name="entity_responsible_implementation_related[]" class="form-control"  value="{{ $recommendation['entity_responsible_implementation_related'] }}" >
-                                                                                </div>
-                                                                                <div class="col-md-2  align-self-center add_or_delete_button_meeting ">
-                                                                                    <a href="#" onclick=" delete_parentElement(this,'add_meeting_recommendations_finished_div')"  >
-                                                                                        <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/delete.PNG') }}">
-                                                                                    </a>
-                                                                                    <a href="#" onclick="add_meeting_recommendations_finished()" class="add_meeting_recommendations_finished_class_add"  >
-                                                                                        <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/add.PNG') }}">
-                                                                                    </a>
-
-
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-
-
-
-                                                                    @endif
-                                                                @endforeach
-                                                            @else
-                                                                <div  id="container_of_all_add_meeting_recommendations_finished">    </div>
-
-
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="  form-group meeting_recommendations_not ">
-                                                        <div class="row"  >
-                                                            <div class="col-md-3 add-padding-bottom meeting_recommendations_not_side_div ">
-                                                                <label  for="committee" class="form-label  meeting_recommendations_not_side_title  ">    ما  لم ينفذ من  التوصيات واسباب عدم التنفيذ  </label>
-                                                            </div>
-                                                            <div class="col-md-9 add-padding-bottom " id="container_of_all_meeting_recommendations_not" >
-
-                                                                @if((is_array($item_val['meeting_recommendations']) && !empty($item_val['meeting_recommendations'])))
-                                                                    @foreach  ($item_val['meeting_recommendations'] as $key => $recommendation_val)
-                                                                        @if ($recommendation_val['status'] == 0)
-                                                                            <div class="row add_meeting_recommendations_not_div "   >
-                                                                                <div class="col-md-9 add-padding-bottom">
-                                                                                    <input type="text" autocomplete="off"  name="meeting_recommendations_not_completed[]" class="form-control"
-                                                                                           value="{{ $recommendation_val['Item'] }}">
-                                                                                </div>
-                                                                                <div class="col-md-3  align-self-center add_or_delete_button_meeting  ">
-                                                                                    <a href="#" onclick=" delete_parentElement(this,'add_meeting_recommendations_not_div')"  >
-                                                                                        <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/delete.PNG') }}">
-                                                                                    </a>
-                                                                                    <a href="#" onclick="add_meeting_recommendations_not()" class="add_meeting_recommendations_not_class_add"  >
-                                                                                        <img    class="  plus_minus_class " alt="school" src="{{ URL::asset('img/website/data/add.PNG') }}">
-                                                                                    </a>
-
-
-                                                                                </div>
-                                                                            </div>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @else
-
-                                                                    <div  id="container_of_all_meeting_recommendations_not">    </div>
-                                                                @endif
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="  form-group end_time ">
-                                                        <div class="row">
-                                                            <div class="col-md-3 align-self-center ">
-                                                                <label  for="committee" class="form-label bold_form_label ">  موعد انتهاء الاجتماع  </label>
-                                                            </div>
-                                                            <div class=" input-group">
-
-                                                                <input name="end_time" type="text"
-                                                                       class="form-control  timepicker border-left-0 clickable-item-pointer @error('end_time') is-invalid @enderror"
-                                                                       placeholder=" وقت انتهاء الاجتماع"  value="{{ isset($item_val) ? $item_val['end_time']: ''}}"  >
-                                                                <div class="input-group-prepend">
-                                                                    <div class="input-group-text"> <img class="platform_icon" alt="school"
-                                                                                                        src="{{ URL::asset('img/icons/clock.svg') }}"> </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- Repeat for other fields with appropriate classes -->
-
-                                                    <div class="row form-group padding-top-50"  >
-                                                        <div class="col col-md-6">
-                                                            <button id="prevButton"  type="button" class=" meetings_button_next_wi btn btn-default custom-reset-button">السابق</button>
-                                                        </div>
-                                                        <div class=" col col-md-6">
-                                                            <button   type="submit" class=" meetings_button_next   float-end btn btn-primary custom-submit-button">حفظ وانهاء </button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-            </form>
+            </div>
+
+
         </div>
-
     </div>
-
-
 @endsection
 
 <!-- js insert -->

@@ -12226,40 +12226,40 @@
             },
             keyState = {},
 
-            getMoment = function (d) {
-                var tzEnabled = false,
-                    returnMoment,
-                    currentZoneOffset,
-                    incomingZoneOffset,
-                    timeZoneIndicator,
-                    dateWithTimeZoneInfo;
+            getMoment = function (d, format) {
+  var tzEnabled = false,
+      returnMoment,
+      timeZoneIndicator,
+      dateWithTimeZoneInfo;
 
-                if (moment.tz !== undefined && options.timeZone !== undefined && options.timeZone !== null && options.timeZone !== '') {
-                    tzEnabled = true;
-                }
-                if (d === undefined || d === null) {
-                    if (tzEnabled) {
-                        returnMoment = moment().tz(options.timeZone).startOf('day');
-                    } else {
-                        returnMoment = moment().startOf('day');
-                    }
-                } else {
-                    if (tzEnabled) {
-                        currentZoneOffset = moment().tz(options.timeZone).utcOffset();
-                        incomingZoneOffset = moment(d, parseFormats, options.useStrict).utcOffset();
-                        if (incomingZoneOffset !== currentZoneOffset) {
-                            timeZoneIndicator = moment().tz(options.timeZone).format('Z');
-                            dateWithTimeZoneInfo = moment(d, parseFormats, options.useStrict).format('YYYY-MM-DD[T]HH:mm:ss') + timeZoneIndicator;
-                            returnMoment = moment(dateWithTimeZoneInfo, parseFormats, options.useStrict).tz(options.timeZone);
-                        } else {
-                            returnMoment = moment(d, parseFormats, options.useStrict).tz(options.timeZone);
-                        }
-                    } else {
-                        returnMoment = moment(d, parseFormats, options.useStrict);
-                    }
-                }
-                return returnMoment;
-            },
+  if (moment.tz !== undefined && options.timeZone !== undefined && options.timeZone !== null && options.timeZone !== '') {
+    tzEnabled = true;
+  }
+
+  if (d === undefined || d === null) {
+    if (tzEnabled) {
+      // Use moment constructor with explicit values
+      returnMoment = moment().tz(options.timeZone).startOf('day');
+    } else {
+      // Use moment constructor with explicit values
+      returnMoment = moment().startOf('day');
+    }
+  } else {
+    // Use the provided format when parsing the date
+    if (tzEnabled) {
+      timeZoneIndicator = moment().tz(options.timeZone).format('Z');
+      dateWithTimeZoneInfo = moment(d, format, options.useStrict).format('YYYY-MM-DD[T]HH:mm:ss') + timeZoneIndicator;
+      // Use moment constructor with explicit values
+      returnMoment = moment(dateWithTimeZoneInfo, format, options.useStrict).tz(options.timeZone);
+    } else {
+      // Use moment constructor with explicit values
+      returnMoment = moment(d, format, options.useStrict);
+    }
+  }
+
+  return returnMoment;
+}
+,
             isEnabled = function (granularity) {
                 if (typeof granularity !== 'string' || granularity.length > 1) {
                     throw new TypeError('isEnabled expects a single character string parameter');
@@ -12995,7 +12995,10 @@
                     if (currentDate.day() === 6 || currentDate.day() === 5) {
                         clsName += ' weekend';
                     }
-                    row.append('<td data-action="selectDay" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + currentDate.date() + '</td>');
+                    var tdInnerHtml = currentDate.isSame(date, 'days') && !unset
+                    ? '<div class="day-in-hijiry-date">' + currentDate.date() + '</div>'
+                    : currentDate.date();
+                    row.append('<td data-action="selectDay" data-day="' + currentDate.format('L') + '" class="day' + clsName + '">' + tdInnerHtml + '</td>');
                     currentDate.add(1, 'days');
                 }
 
