@@ -4,8 +4,11 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentClassification;
+use App\Models\Basic\Video_tutorial;
 use App\Models\School\Meetings\meetings;
+use App\Models\School\School;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SingleAssignmentController extends Controller
 {
@@ -16,11 +19,16 @@ class SingleAssignmentController extends Controller
      */
     public function index()
     {
-        $assignmentClassifications = AssignmentClassification::with([
-            'assignmentItems.singleAssignments.assignedUsers.user'
-        ])->get();
-
-        return response()->json($assignmentClassifications);
+//        $assignmentClassifications = AssignmentClassification::with([
+//            'assignmentItems.singleAssignments.assignedUsers.user'
+//        ])->get();
+//
+//        return response()->json($assignmentClassifications);
+        $current_school = Auth::guard('school')->user()->current_working_school_id;
+        $school = School::find($current_school);
+        $video_tutorial = Video_tutorial::where('type', 2)->first();
+        return view('website.school.assignments.assignment_data',
+            compact('school','video_tutorial'));
     }
 
 
