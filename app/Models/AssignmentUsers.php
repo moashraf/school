@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\School\Manager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class AssignmentUsers extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(Manager::class, 'user_id', 'id');
     }
 
 }

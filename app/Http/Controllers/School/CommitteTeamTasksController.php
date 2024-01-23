@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
+use App\Models\CommitteTeamTasks;
+use App\Models\School\Meetings\Committees_and_teams;
 use Illuminate\Http\Request;
 
 class CommitteTeamTasksController extends Controller
@@ -24,7 +26,9 @@ class CommitteTeamTasksController extends Controller
      */
     public function create()
     {
-        //
+        $committeesAndTeams = Committees_and_teams::all();
+
+//        return view('', compact('committeesAndTeams'));
     }
 
     /**
@@ -35,7 +39,21 @@ class CommitteTeamTasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'committe_team_id' => 'required|exists:committees_and_teams,id',
+            'task_description' => 'required',
+        ]);
+
+
+        $committeTeamTask = new CommitteTeamTasks([
+            'committe_team_id' => $request->input('committe_team_id'),
+            'task_description' => $request->input('task_description'),
+        ]);
+
+
+        $committeTeamTask->save();
+
+//        return redirect()->route('committe_team_tasks.index')->with('success', 'Task created successfully');
     }
 
     /**

@@ -268,6 +268,9 @@ Route::name('school_route.')->group(function () {
                    Route::get('/meetings/{id}/download-pdf', [MeetingController::class,'downloadPDF'])->name('meetings_downloadPDF');
                     Route::get('/meetings/{id}/print-pdf', [MeetingController::class,'PrintPDF'])->name('meetings_PrintPDF');
 
+
+                    Route::get('/users/{type}', [PatientController::class,'getUsersByType'])->name('get_users_by_type');
+
                     // Change school
                     Route::post('/change_school_sidebar', [DashboardCont::class, 'change_school_sidebar'])->name('change_school_sidebar');
 

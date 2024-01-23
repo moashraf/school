@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Basic\Video_tutorial;
 use App\Models\Branch\Slider;
+use App\Models\CommitteTeamMembers;
+use App\Models\CommitteTeamTasks;
 use App\Models\School\Meetings\Committees_and_teams;
+use App\Models\School\Meetings\meeting_recommendations;
+use App\Models\School\Meetings\meetings;
 use App\Models\School\School;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -88,9 +92,12 @@ class CommitteesAndTeamsMeetingsController extends Controller
             'author'=>$request->input('author'),
             'title'=>$request->input('title'),
             'school_id'=>$request->input('school_id'),
+            'goals'=>$request->input('school_id'),
+            'committe_formation_rules'=>$request->input('school_id'),
             'classification'=>$request->input('classification'),
         ]);
-
+        $this->addCommitteAndTeamMembers($form->id,$request);
+        $this->addCommitteAndTeamTasks($form->id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم انشاء اللجنة/ الفرقه بنجاح');
     }
 
@@ -149,7 +156,13 @@ class CommitteesAndTeamsMeetingsController extends Controller
         $commite_and_team->title = $request->input('title');
         $commite_and_team->school_id = $request->input('school_id');
         $commite_and_team->classification = $request->input('classification');
+        $commite_and_team->committe_formation_rules = $request->input('committe_formation_rules');
+        $commite_and_team->goals = $request->input('goals');
         $commite_and_team->save();
+        CommitteTeamMembers::where('committe_team_id', $id)->delete();
+        CommitteTeamTasks::where('committe_team_id', $id)->delete();
+        $this->addCommitteAndTeamMembers($id,$request);
+        $this->addCommitteAndTeamTasks($id,$request);
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'تم تعديل اللجنه/الفرقه بنجاح');
     }
 
@@ -168,5 +181,33 @@ class CommitteesAndTeamsMeetingsController extends Controller
             return redirect()->back()->with('success', 'لقد تم حذف اللجنة/الفرقه بتجاح');
         }
         return redirect()->back()->with('error', 'عذرا نواجه مشكله في حذف هذا اللجنة/الفرقه');
+    }
+    public function addCommitteAndTeamMembers($committe_id,$request)
+    {
+        if ($request->input('user_id') !=null) {
+            foreach ($request->input('user_id') as $index=>$item) {
+                if ($item){
+                    $committeTeamMember = new CommitteTeamMembers();
+                    $committeTeamMember->committe_team_id = $committe_id;
+                    $committeTeamMember->user_id =$item;
+                    $committeTeamMember->assigned_role =$request->input('assigned_role')[$index];
+                    $committeTeamMember->save();
+                }
+            }
+        }
+
+    }
+    public function addCommitteAndTeamTasks($commite_id,$request)
+    {
+        if ($request->input('task_description') !=null) {
+            foreach ($request->input('task_description') as $index=>$item) {
+                if ($item){
+                    $committeTeamTask = new CommitteTeamTasks();
+                    $committeTeamTask->committe_team_id = $commite_id;
+                    $committeTeamTask->task_description =$item;
+                    $committeTeamTask->save();
+                }
+            }
+        }
     }
 }
