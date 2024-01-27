@@ -840,7 +840,7 @@ hr {
 
 .tooltip.show {
     opacity: 1 !important;
-} 
+}
 
 
 .page-link:focus {
@@ -1623,8 +1623,8 @@ span.select2-selection__arrow {
   border: 0px;
 }
 .main_btn2{
-  background-color: transparent; 
-  border:1px solid var(--main-color); 
+  background-color: transparent;
+  border:1px solid var(--main-color);
   color:var(--main-color)
 }
 
@@ -1639,7 +1639,7 @@ span.select2-selection__arrow {
   min-height: 41px;
   text-align: center;
   width: fit-content;
-  border: 1px solid #0A3A81; 
+  border: 1px solid #0A3A81;
 }
 .main_btn:hover ,
 .white_cancel_btn:hover  {
@@ -2649,7 +2649,7 @@ label.error:not(.form-control) {
   justify-content: center;
   margin: auto;
 }
-/* 
+/*
 .table_booking .td_calander:hover {
     background-color: #575757;
     color: #2abaff;
@@ -2908,7 +2908,7 @@ label.error:not(.form-control) {
 
 /* ------ mutli steps form ------- */
 
-/* 
+/*
 .multi-setps-form-calander {
     border: 1px solid #ecece9;
     border-radius: 25px;
@@ -4570,7 +4570,7 @@ body.sidebar-toggled footer.sticky-footer {
     table-layout: fixed;
   }
 
-  
+
 
   .violations-table-sp2 {
     margin: 0;
@@ -4649,9 +4649,9 @@ tr:last-child {
   margin-top: 0rem;
 }
 
-/* 
+/*
 .notes-dashbaord{
-    /* min-height: 90%; 
+    /* min-height: 90%;
 
 }*/
 
@@ -5155,12 +5155,12 @@ tr:last-child {
   }
 }
 
-/* // X-Large devices (large desktops, 1200px and up)  
+/* // X-Large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) { ... }
 
-/* // XX-Large devices (larger desktops, 1400px and up) 
+/* // XX-Large devices (larger desktops, 1400px and up)
 @media (min-width: 1400px) { ... }
-  
+
 */
 
 /* -------------- Bus -------------- */
@@ -5899,7 +5899,7 @@ tr:last-child {
   stroke-linecap: round;
   animation: progress 1s ease-out forwards;
 }
-/*   
+/*
   @keyframes progress {
     0% {
       stroke-dasharray: 0 100;
@@ -5991,8 +5991,8 @@ tr:last-child {
 }
 
 .hijry-datepicker tbody tr > td.day.selected, .hijry-datepicker tbody tr > td.day.selected:hover, .hijry-datepicker tbody tr > td.day.active, .hijry-datepicker tbody tr > td.day.active:hover{
-  padding-top: 0px;
-  background-color: unset !important;
+  //padding-top: 0px;
+  //background-color: unset !important;
 }
 
 .big_card_link img {
@@ -6061,7 +6061,7 @@ tr:last-child {
 
 .header-info{
   margin: 48px 0;
-} 
+}
 .header-info table {
   width: 100%;
   border-collapse: collapse;
@@ -6215,7 +6215,7 @@ table tr:last-child td:last-child {
 .modal-header {
   border-bottom: 0;
 }
-  
+
 .modal-header-sp10 {
   border-bottom: 0;
 }
@@ -6748,13 +6748,13 @@ table tr:last-child td:last-child {
 /* .sprint_5 .visits_section .visits_component .grid_5,
 .sprint_5 .visits_section .visits_component .grid_5 {
   grid-template-columns: repeat(5, 1fr);
-  
+
 } */
 .sprint_5 .visits_section .visits_component .header {
   background-color: #eab977;
   padding-top: 11px;
   padding-bottom: 11px;
-  
+
   border-radius: 10px 10px 0px 0px;
 }
 
@@ -6809,7 +6809,7 @@ table tr:last-child td:last-child {
 .text-editor_container{
   display: flex;
   flex-flow: row nowrap;
- 
+
 }
 
 .text-editor_container .label_margin{
@@ -6819,13 +6819,13 @@ table tr:last-child td:last-child {
 .sprint-5_add-notes .label_margin{
   width: 20%;
  }
- 
+
 .letters_input_container{
   margin-bottom: 30px;
 }
 /* this class for selecting do not delet*/
 .select_background_gray{
-  
+
 }
 
 .AssignPLCTeamSelection span.select2.select2-container.select2-container--default{
@@ -6848,7 +6848,7 @@ table tr:last-child td:last-child {
   flex-flow: row nowrap;
 }
 /* .nav_tabs .nav-pills .nav-link:active {
-  background-color: #ededed; 
+  background-color: #ededed;
 } */
 
 .sprint-4 input[type="radio"] {
@@ -6966,10 +6966,10 @@ table tr:last-child td:last-child {
   display: none;
 }
 .lam_select_search .select2-container--default[dir="rtl"] .select2-selection--multiple .select2-selection__choice__display {
-  text-overflow: ellipsis; 
-  overflow: hidden; 
-  white-space: nowrap; 
-  width: 80px; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 80px;
   display: block;
 }
 /* End of Sprint 4 */
@@ -7033,7 +7033,7 @@ table tr:last-child td:last-child {
 .sprint2_checkbox_container{
   display: flex;
   flex-flow: row nowrap;
-  
+
 }
 
 .sprint2_checkbox_gap{
@@ -7064,8 +7064,8 @@ tr {
     padding-left: 14px;
 }
 
-.SchoolStudents-table-sp2 thead tr th:first-child 
-{ 
+.SchoolStudents-table-sp2 thead tr th:first-child
+{
   padding-right: 40px;
   text-align: right;
 }
@@ -7078,7 +7078,7 @@ tr {
   border:aliceblue;
 }
 
-.SchoolStudents-table-sp2 tbody tr td:first-child 
+.SchoolStudents-table-sp2 tbody tr td:first-child
 {
   padding-right: 40px;
   text-align: right;
@@ -7140,7 +7140,7 @@ tr {
   padding: 25px;
 }
 .school_students, .select2-container--default .select2-selection--single{
-  height: auto; 
+  height: auto;
   /* Was Height 40 */
 }
 .AbsenceForm .select2-container--default .select2-selection--single{
@@ -7177,12 +7177,12 @@ tr {
   padding-left: 0;
 }
 .excuses_table_body>div{
-  background-color: #F8F8F8; 
+  background-color: #F8F8F8;
   padding:10px 0;
   border-bottom: 1px solid #DEDEDE;
 }
 .excuses_table_body{
-  color: #000000; 
+  color: #000000;
   font-size: 13px;
 }
 .excuses_table_body> :last-child{
@@ -7191,9 +7191,9 @@ border-radius: 0 0 10px 10px;
 }
 
 .download-form {
-    flex: 0 0 25%; 
-    max-width: 25%; 
-    padding: 0 15px; 
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding: 0 15px;
     box-sizing: border-box;
 }
 
@@ -7259,7 +7259,7 @@ border-radius: 0 0 10px 10px;
   text-align: right;
   background-color: #F4F7FC;
   border-radius: 14px;
-  padding: 16px 32px;  
+  padding: 16px 32px;
 }
 
 .sprint_3 {
@@ -7374,13 +7374,13 @@ border-radius: 0 0 10px 10px;
 /* .sprint_3 .visits_section .visits_component .grid_5,
 .sprint_3 .visits_section .visits_component .grid_5 {
   grid-template-columns: repeat(5, 1fr);
-  
+
 } */
 .sprint_3 .visits_section .visits_component .header {
   background-color: #eab977;
   padding-top: 11px;
   padding-bottom: 11px;
-  
+
   border-radius: 10px 10px 0px 0px;
 }
 
@@ -7824,8 +7824,8 @@ select:disabled {
 }
 
 
-  
-  
+
+
 label.radio-card {
     cursor: pointer;
     display: block;
@@ -8030,15 +8030,15 @@ label.radio-card input[type="radio"]:checked + .card-content-wrapper .card-conte
 }
 
 .committees_component{
-  min-width: 125px; 
-  max-width: 175px; 
-  border-radius:5px; 
-  padding:8px 2px; 
+  min-width: 125px;
+  max-width: 175px;
+  border-radius:5px;
+  padding:8px 2px;
   border: 1px solid #D9D9D9;
   cursor: pointer;
 }
 .committees_component_completed{
-  background-color: #0A3A81; 
+  background-color: #0A3A81;
   color:white
 }
 .committees_component_triple_dot{
@@ -8071,16 +8071,16 @@ input[type="number"] {
 
 .emptying_btn,
 .auto_fill_btn{
-  background-color:var(--main-color); 
-  font-size: 20px; 
-  color:white; 
+  background-color:var(--main-color);
+  font-size: 20px;
+  color:white;
   border:none;
-  padding: 12px; 
-  border-radius:5px; 
+  padding: 12px;
+  border-radius:5px;
   width:150px
 }
 .auto_fill_btn{
-  background-color:transparent; 
+  background-color:transparent;
   border: 1px solid #000000;
   color: #000000;
 }
@@ -8168,9 +8168,9 @@ input[type="number"] {
 .print_committees_component{
   font-size: 18px;
   height: 72px;
-  width: 175px; 
-  border-radius:5px; 
-  padding:8px 2px; 
+  width: 175px;
+  border-radius:5px;
+  padding:8px 2px;
   display: flex;
   justify-content: center;
   align-items: center;
