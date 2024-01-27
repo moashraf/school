@@ -107,14 +107,16 @@
                                                                 <div class="col-12 mb-4 col-md-4 col-xl-4"  >
                                                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="type"
                                                                             required="required" tabindex="-1" aria-hidden="true"  >
-                                                                        <option value="" disabled="" selected="selected"  selected >نوع الاجتماع</option>
+                                                                        <option value="" disabled=""     @if($item_val)    selected="selected"   @endif  >نوع الاجتماع</option>
 
                                                                          @foreach ([1=>'طارئ', 0=>'دوري'] as $index=>$value)
                                                                             <option value="{{ $index }}"
                                                                                     @isset($item_val)
-                                                                                        @if( $item_val['type'] && $item_val['type'] == $index) selected @endif
-                                                                                @endisset>
-                                                                                {{ $value }}</option>
+                                                                                        @if( isset($item_val['type']) && $item_val['type'] == $index)
+                                                                                            selected="selected"
+                                                                                @endif
+                                                                                    @endisset >
+                                                                                {{ $value }} </option>
                                                                         @endforeach
 
 
@@ -130,7 +132,8 @@
                                                                 <div class="col-12 col-md-4 col-xl-4">
                                                                     <div class=" input-group">
                                                                         <input name="start_date" type="text" class="hijri-date-input form-control border-left-0 clickable-item-pointer "
-                                                                               placeholder="تاريخ الاجتماع" value="" required="required" required autocomplete="off" date-text="  تاريخ الاجتماع">
+                                                                               placeholder="تاريخ الاجتماع"    value="{{ isset($item_val) ? $item_val['start_date']: ''}}"
+                                                                               required="required" required autocomplete="off" date-text="  تاريخ الاجتماع">
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text">
                                                                                 <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/calendar.svg">
@@ -153,12 +156,13 @@
                                                                                 <div class="timepicker__button timepicker__button__up">
                                                                                     <div></div>
                                                                                 </div>
-                                                                                <p class="display">9 <span class="bg_dot_data_timepicker" id="my-id">
-                          <svg width="9" height="31" viewBox="0 0 9 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
-                            <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
-                          </svg>
-                        </span>
+                                                                                <p class="display">9
+                                                                                    <span class="bg_dot_data_timepicker" id="my-id">
+                                                                                              <svg width="9" height="31" viewBox="0 0 9 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                                <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
+                                                                                                <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
+                                                                                              </svg>
+                                                                                 </span>
                                                                                 </p>
                                                                                 <div class="timepicker__button timepicker__button__down">
                                                                                     <div></div>
@@ -203,7 +207,8 @@
                                                                 </div>
                                                                 <div class="col-12 col-md-4 col-xl-4">
                                                                     <div class=" input-group">
-                                                                        <input name="location" type="text" class="form-control border-left-0 clickable-item-pointer " placeholder="مكان الاجتماع" value="" required="" autocomplete="off" date-text="  تاريخ الاجتماع">
+                                                                        <input name="location" type="text" class="form-control border-left-0 clickable-item-pointer " placeholder="مكان الاجتماع"
+                                                                               value="{{ isset($item_val) ?$item_val['location']:''}}" required="" autocomplete="off" date-text="  تاريخ الاجتماع">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -248,7 +253,7 @@
                                                             @foreach ([1=>'المصريين', 2=>'الاجانب'] as $index=>$value)
                                                                 <option value="{{ $index }}"
                                                                         @isset($item_val)
-                                                                            @if($item_val['Target_group'] && $item_val['Target_group'] == $index) selected @endif
+                                                                            @if(isset($item_val['Target_group']) && $item_val['Target_group'] == $index) selected @endif
                                                                     @endisset >
                                                                     {{ $value }}</option>
                                                             @endforeach
@@ -270,7 +275,7 @@
                                                             @foreach ([5, 10, 15, 20, 30,40,50] as $value)
                                                                 <option value="{{ $value }}"
                                                                         @isset($item_val)
-                                                                            @if( $item_val['Number_of_attendees'] && $item_val['Number_of_attendees'] == $value) selected @endif @endisset >
+                                                                            @if( isset($item_val['Number_of_attendees']) && $item_val['Number_of_attendees'] == $value) selected @endif @endisset >
                                                                     {{ $value }}
                                                                 </option>
                                                             @endforeach
@@ -295,7 +300,7 @@
                                         <div class="col-1 number" style="width: 45px; font-size: 20px; font-weight: 400; line-height: 23px;"> {{ $key+1 }} </div>
                                         <div class="col-9">
                                             <input style="width: 100%; background: #F1F1F1;" name="meeting_agenda_item[]" type="text" class="form-control"
-                                                   maxlength="100" value="" required="" autocomplete="off" value="{{ $agenda['Item'] }}"  >
+                                                   maxlength="100"  required="" autocomplete="off" value="{{ $agenda['Item'] }}"  >
 
                                              <input type="hidden" name="meeting_agenda_id[]" class="form-control" value="{{ $agenda['id'] }}">
 
@@ -466,7 +471,8 @@
                                                                             <div class="row py-3" style="text-align: center; align-items: center; min-height: 53px; border-bottom:1px solid #DEDEDE;">
                                                                                 <p class="col-1Point2" style="margin: 0px; font-size:20px; line-height:16px; font-weight: 700;">  {{ $key+1 }} </p>
                                                                                 <p class="col-2Point4" style="margin: 0px;">
-                                                                                    <input style="width: 100%; background: #F1F1F1;"  name="recommendation_item[]" type="text" class="form-control" maxlength="100"  value="{{ $recommendation['Item'] }}" required=""></p>
+                                                                                    <input style="width: 100%; background: #F1F1F1;"  name="recommendation_item[]" type="text" class="form-control" maxlength="100"
+                                                                                           value="{{ $recommendation['Item'] }}" required=""></p>
                                                                                 <p class="col-2Point4" style="margin: 0px;">
                                                                                     <input style="width: 100%; background: #F1F1F1;" name="entity_responsible_implementation[]" type="text" class="form-control" maxlength="100"  value="{{ $recommendation['entity_responsible_implementation'] }}" required=""></p>
                                                                                 <p class="col-2Point4" style="margin: 0px;">
