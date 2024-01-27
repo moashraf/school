@@ -83,9 +83,30 @@
                                     <div >
                                         <div class="container-fluid px-4 px-md-5">
                                             <div class="container d-flex flex-column gap-4 justify-content-center align-items-center">
+
+
+
+
+
+
                                                 <div style="font-weight: 700; font-size: 22px; line-height: 24.55px; color:#000000; padding:50px;">
                                                     {{$text}} {{$Committees_and_teams['title']}}
+
+
+
+
                                                 </div>
+
+
+
+{{--                                                    <button  type="submit" class=" Save_as_draft col-md-3 float-end btn btn-primary custom-submit-button">--}}
+
+{{--                                                        <img class="me-3" width="24px" src="{{ URL::asset('img/icons/save.svg') }}"--}}
+{{--                                                             alt="" />--}}
+{{--                                                        <span>حفظ كمسوده</span>--}}
+{{--                                                    </button>--}}
+{{-- --}}
+
                                                 <div id="myform" class="myform" style="width: 100%;" >
                                                     @csrf
                                                     @if(isset($item_val['id']))
@@ -136,7 +157,9 @@
                                                                                required="required" required autocomplete="off" date-text="  تاريخ الاجتماع">
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text">
-                                                                                <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/calendar.svg">
+                                                                                <img class="platform_icon" alt="school"
+                                                                                     src="{{ URL::asset('img/icons/calendar.svg') }}"
+                                                                                  >
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -149,7 +172,8 @@
                                                                 </div>
                                                                 <div class="col-12 col-md-4 col-xl-4">
                                                                     <div class=" input-group">
-                                                                        <input name="start_time" type="text" class="form-control timepicker border-left-0 clickable-item-pointer" placeholder=" وقت الاجتماع" value="" required="" autocomplete="off" date-text=" وقت الاجتماع">
+                                                                        <input name="start_time" type="text" class="form-control timepicker border-left-0 clickable-item-pointer"
+                                                                               placeholder=" وقت الاجتماع"   value="{{ isset($item_val) ? $item_val['start_time']: ''}}"   required="" autocomplete="off" date-text=" وقت الاجتماع">
                                                                         <div class="timepicker__wrapper timepicker__wrapper-full" id="tp_36" style="width: 546px; z-index: 1;">
                                                                             <div class="timepicker__hour">
                                                                                 <p class="display_up_hour  timepicker__button timepicker__button__up ">10</p>
@@ -162,7 +186,7 @@
                                                                                                 <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
                                                                                                 <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
                                                                                               </svg>
-                                                                                 </span>
+                                                                                   </span>
                                                                                 </p>
                                                                                 <div class="timepicker__button timepicker__button__down">
                                                                                     <div></div>
@@ -194,7 +218,9 @@
                                                                         </div>
                                                                         <div class="input-group-prepend">
                                                                             <div class="input-group-text">
-                                                                                <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/clock.svg">
+                                                                                <img class="platform_icon" alt="school"
+                                                                                     src="{{ URL::asset('img/icons/clock.svg') }}"
+                                                                                    >
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -293,11 +319,11 @@
 
 
                         @if((is_array($item_val['meeting_agenda']) && !empty($item_val['meeting_agenda'])))
-                            @foreach  ($item_val['meeting_agenda'] as $key => $agenda)
+                            @foreach  ($item_val['meeting_agenda'] as $key_agenda => $agenda)
 
                                 <div class="col-12">
                                     <div class="row gap-0 align-items-center">
-                                        <div class="col-1 number" style="width: 45px; font-size: 20px; font-weight: 400; line-height: 23px;"> {{ $key+1 }} </div>
+                                        <div class="col-1 number" style="width: 45px; font-size: 20px; font-weight: 400; line-height: 23px;"> {{ $key_agenda+1 }} </div>
                                         <div class="col-9">
                                             <input style="width: 100%; background: #F1F1F1;" name="meeting_agenda_item[]" type="text" class="form-control"
                                                    maxlength="100"  required="" autocomplete="off" value="{{ $agenda['Item'] }}"  >
@@ -313,7 +339,22 @@
                                 </div>
                             @endforeach
 
-                        @else
+                                <div class="col-12">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-1 number" style="width: 45px; font-size: 20px; font-weight: 400; line-height: 23px;">{{ $key_agenda+2 }} </div>
+                                        <div class="col-9">
+                                            <input style="width: 100%; background: #F1F1F1;" name="meeting_agenda_item[]"  type="text" class="form-control"
+                                                   maxlength="100" value="" required="">
+                                        </div>
+                                        <div class="col-2 d-flex gap-3">
+                                            <i class="fa fa-minus-circle" style="color: #FF6347; font-size: 24px;" aria-hidden="true"></i>
+                                            <i class="fa fa-plus-circle" style="color: #1DAE6D; font-size: 24px;" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                                        @else
                             <div class="col-12">
                                 <div class="row gap-0 align-items-center">
                                     <div class="col-1 number" style="width: 45px; font-size: 20px; font-weight: 400; line-height: 23px;">1</div>
@@ -463,13 +504,13 @@
                                                             <div class="col-12">
 
                                                                 @if((is_array($item_val['meeting_recommendations']) && !empty($item_val['meeting_recommendations'])))
-                                                                    @foreach ($item_val['meeting_recommendations']   as $key => $recommendation)
+                                                                    @foreach ($item_val['meeting_recommendations']   as $key_recommendation => $recommendation)
                                                                         @if ($recommendation['status'] ==1)
 
                                                                             <input type="hidden" name="recommendation_id[]" class="form-control" value="{{ $recommendation['id'] }}">
 
                                                                             <div class="row py-3" style="text-align: center; align-items: center; min-height: 53px; border-bottom:1px solid #DEDEDE;">
-                                                                                <p class="col-1Point2" style="margin: 0px; font-size:20px; line-height:16px; font-weight: 700;">  {{ $key+1 }} </p>
+                                                                                <p class="col-1Point2" style="margin: 0px; font-size:20px; line-height:16px; font-weight: 700;">  {{ $key_recommendation+1 }} </p>
                                                                                 <p class="col-2Point4" style="margin: 0px;">
                                                                                     <input style="width: 100%; background: #F1F1F1;"  name="recommendation_item[]" type="text" class="form-control" maxlength="100"
                                                                                            value="{{ $recommendation['Item'] }}" required=""></p>
@@ -485,6 +526,21 @@
                                                                             </div>
                                                                         @endif
                                                                     @endforeach
+
+                                                                        <div class="row py-3" style="text-align: center; align-items: center; min-height: 53px; border-bottom:1px solid #DEDEDE;">
+                                                                            <p class="col-1Point2" style="margin: 0px; font-size:20px; line-height:16px; font-weight: 700;"> {{ $key_recommendation }}</p>
+                                                                            <p class="col-2Point4" style="margin: 0px;"><input style="width: 100%; background: #F1F1F1;" name="recommendation_item[]" type="text" class="form-control" maxlength="100" value="" required=""></p>
+                                                                            <p class="col-2Point4" style="margin: 0px;"><input style="width: 100%; background: #F1F1F1;" name="entity_responsible_implementation[]" type="text" class="form-control" maxlength="100" value="" required=""></p>
+                                                                            <p class="col-2Point4" style="margin: 0px;"><input style="width: 100%; background: #F1F1F1;" name="Implementation_period[]" type="text" class="form-control" maxlength="100" value="" required=""></p>
+                                                                            <p class="col-2Point4" style="margin: 0px;"><input style="width: 100%; background: #F1F1F1;" name="entity_responsible_implementation_related[]" type="text" class="form-control" maxlength="100" value="" required=""></p>
+                                                                            <p class="col-1Point2 d-flex gap-3" style="margin: 0px; width:auto;">
+                                                                                <i class="fa fa-minus-circle" style="color: #FF6347; font-size: 24px;" aria-hidden="true"></i>
+                                                                                <i class="fa fa-plus-circle" style="color: #1DAE6D; font-size: 24px;" aria-hidden="true"></i>
+                                                                            </p>
+                                                                        </div>
+
+
+
                                                                 @else
                                                                     <div class="row py-3" style="text-align: center; align-items: center; min-height: 53px; border-bottom:1px solid #DEDEDE;">
                                                                         <p class="col-1Point2" style="margin: 0px; font-size:20px; line-height:16px; font-weight: 700;">1</p>
@@ -620,8 +676,21 @@
                                                                         <i class="fa fa-minus-circle" style="color: #FF6347; font-size: 24px;" aria-hidden="true"></i>
                                                                     </div>
                                                                 </div>
+
+
                                                             @endif
                                                         @endforeach
+
+                                                            <div class="row gap-0 align-items-center" style="width:100%;">
+                                                                <div class="col-11">
+                                                                    <input style="width: 100%; background: #F1F1F1;"  name="meeting_recommendations_not_completed[]" type="text" class="form-control" maxlength="100" value="" required="">
+                                                                </div>
+                                                                <div class="col-1 d-flex gap-3">
+                                                                    <i class="fa fa-minus-circle" style="color: #FF6347; font-size: 24px;" aria-hidden="true"></i>
+                                                                    <i class="fa fa-plus-circle" style="color: #1DAE6D; font-size: 24px;" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+
                                                     @else
 
 
@@ -702,7 +771,7 @@
                                             </div>
 
                                             <div class="row mt-4" style="width: 100%;"  >
-                                                <div class="col-12 col-md-2 col-xl-2">
+                                                <div class="col-12 col-md-2 col-xl-3">
                                                     <label class="form-label mb-2 mt-3 mb-xl-0" style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">موعد انتهاء الاجتماع
                                                     </label>
                                                 </div>
@@ -710,7 +779,7 @@
                                                 <div class="col-12 col-md-4 col-xl-4">
                                                     <div class=" input-group">
                                                         <input name="end_time" type="text" class="form-control timepicker border-left-0 clickable-item-pointer  "
-                                                               placeholder=" وقت الاجتماع" value="{{ isset($item_val) ? $item_val['end_time']: ''}}"  required="" autocomplete="off" date-text=" وقت الاجتماع">
+                                                               placeholder=" موعد انتهاء الاجتماع " value="{{ isset($item_val) ? $item_val['end_time']: ''}}"  required="" autocomplete="off" date-text="  موعد انتهاء الاجتماع  ">
                                                         <div class="timepicker__wrapper timepicker__wrapper-full" id="tp_36" style="width: 546px; z-index: 1;">
                                                             <div class="timepicker__hour">
                                                                 <p class="display_up_hour  timepicker__button timepicker__button__up ">10</p>
@@ -755,7 +824,8 @@
                                                         </div>
                                                         <div class="input-group-prepend">
                                                             <div class="input-group-text">
-                                                                <img class="platform_icon" alt="school" src="https://factoryfiy.com/img/icons/clock.svg">
+                                                                <img class="platform_icon" alt="school"    src="{{ URL::asset('img/icons/clock.svg') }}"
+                                                                    >
                                                             </div>
                                                         </div>
                                                     </div>
@@ -806,6 +876,7 @@
     <script>
 
         $(function() {
+
             $(".hijri-date-input").hijriDatePicker({
                 locale: "ar-sa",
                 format: "YYYY-MM-DD",
@@ -826,7 +897,7 @@
         /** indicator on hijri date **/
         var indicator_on_hijri_date =  new Date(document.getElementsByClassName("hijri-date-input")[0].value).getFullYear();
         if (indicator_on_hijri_date < 2000 ){
-            $(".hijri-date-input").hijriDatePicker({
+             $(".hijri-date-input").hijriDatePicker({
                 hijri: true
             });
         }
