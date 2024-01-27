@@ -80,30 +80,29 @@
                 <div class="tab-pane fade <?= ($index + 0) === 0 ? 'show active' : ''; ?>" id="pills-content<?= $index + 0 ?>" role="tabpanel"
                      aria-labelledby="pills-tab<?= $index ?>">
 
-                    @if ($assignmentClassification['id']  === 1)
                         <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
                             <div class="school_administration">
-                                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">تكليفات إدارة المدرسة </h1>
+                                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">تكليفات {{$assignmentClassification['name']}} </h1>
 
                                 @foreach ($assignmentClassification['assignment_items'] as $key => $assignment_item)
 
                                 <!-- Start of Accordion-تكليف مدير المدرسة -->
                                 <div class="lam_accordion accordion" style="position: relative;">
                                     <div class="header" id="AssignmentOfTheSchoolDirector" data-bs-toggle="collapse"
-                                         data-bs-target="#AssignmentOfTheSchoolDirectorCollapse" aria-expanded="false"
-                                         aria-controls="AssignmentOfTheSchoolDirectorCollapse">
+                                         data-bs-target="#AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-expanded="false"
+                                         aria-controls="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}">
                                         <p style="font-size: 20px; font-weight: 700;">{{$assignment_item['name']}}</p>
                                         <div class="d-flex align-items-center gap-5">
           <span class="accordion-button custom-accordion-button collapsed" data-bs-toggle="collapse"
-                data-bs-target="#AssignmentOfTheSchoolDirectorCollapse" aria-expanded="false"
-                aria-controls="AssignmentOfTheSchoolDirectorCollapse">
+                data-bs-target="#AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-expanded="false"
+                aria-controls="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}">
           </span>
                                         </div>
                                     </div>
                                     <div style="position: absolute; left:6rem; top:0.5rem; cursor: pointer;">
                                         <!-- If you will use this button for popup window put this data-bs-target="#Plan-Visit" data-bs-toggle="modal" -->
                                         <a
-                                            href="{{ route('school_route.single_assignment.create',  ['single_assignment_id'=>$assignment_item['id']]  ) }}">
+                                            href="{{ route('school_route.single_assignment.create',  ['assignment_item_id'=>$assignment_item['id']]  ) }}">
                                             <button class="lam_accordion_btn">
                                                 <i class="fa fa-plus fa-m text-white" style="margin-left: 10px;" aria-hidden="true"></i>
                                                 انشاء تكليف جديد
@@ -111,7 +110,7 @@
                                         </a>
                                     </div>
                                     <div class="collapse accordion-collapse" style="background-color: white; border-radius: 10px;"
-                                         id="AssignmentOfTheSchoolDirectorCollapse" aria-labelledby="AssignmentOfTheSchoolDirector"
+                                         id="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-labelledby="AssignmentOfTheSchoolDirector"
                                          data-bs-parent="#accordionExample">
                                         <div class="lam_accordion_body" style="padding:24px 0; background-color:#F1F1F1">
                                             <!-- Start Header of table -->
@@ -125,12 +124,14 @@
                                             </div>
                                             <!-- End Header of table -->
                                             <!-- Start of Data Table -->
+                                            @if(!empty($assignment_item['single_assignments']))
+                                            @foreach ($assignment_item['single_assignments'] as $var => $single_assignment)
                                             <div class="lam_accordion_row">
                                                 <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
-                                                    <p class="col-1">1</p>
-                                                    <p class="col">خالد عبدالله محمد حسن أحمد</p>
+                                                    <p class="col-1">{{$var}}</p>
+                                                    <p class="col">{{$single_assignment['assignment_name']}}</p>
                                                     <p class="col">5454667892</p>
-                                                    <p class="col">2023/02/10</p>
+                                                    <p class="col">{{$single_assignment['assignment_start_date']}}</p>
                                                     <div class="col dropdown">
                                                         <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
                                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
@@ -160,7 +161,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endforeach
                                             <!-- End of Data Table -->
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +172,7 @@
                             </div>
                         </div>
 
-                    @endif
+
 
                 </div>
             @endforeach

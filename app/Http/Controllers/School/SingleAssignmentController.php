@@ -7,26 +7,60 @@ use App\Models\AssignmentClassification;
 use App\Models\AssignmentItems;
 use App\Models\Basic\Video_tutorial;
 use App\Models\School\Manager;
+use App\Models\School\Meetings\Committees_and_teams;
 use App\Models\School\Meetings\meetings;
 use App\Models\SingleAssignment;
 use App\Models\School\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class SingleAssignmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
         $assignmentClassifications = AssignmentClassification::with([
             'assignmentItems.singleAssignments.assignedUsers.user'
-        ])->get()->toArray();
-//        return response()->json($assignmentClassifications);
+        ])->get();
         $current_school = Auth::guard('school')->user()->current_working_school_id;
+
+        foreach ($assignmentClassifications as $classification) {
+            if ($classification->id == 4) {
+                $committeesAndTeamsArray =$committes =$teams =[];
+                $committes['name']= 'تكليف اللجان';
+                $committes['id']= 0;
+                $teams['name']= 'تكليف الفرق';
+                $teams['id']= 0;
+                // Fetch committees and teams where school_id is 5
+                $committeesAndTeams = Committees_and_teams::where('school_id',$current_school )->get();
+                foreach ($committeesAndTeams->toArray() as $key=>$committeesAndTeam) {
+
+                    $committeesAndTeam['assignment_name'] =  $committeesAndTeam['title'];
+                    $committeesAndTeam['assignment_start_date'] =  $committeesAndTeam['title'];
+                    $committeesAndTeam['is_committe_or_team'] =  1;
+                    if ($committeesAndTeam['classification']==1){
+                        $committes['single_assignments'][] =$committeesAndTeam;
+                    }else{
+                        $teams['single_assignments'][] = $committeesAndTeam;
+                    }
+                }
+                $committeesAndTeamsArray[]=$committes;
+                $committeesAndTeamsArray[]=$teams;
+
+                    // Assign it to the assignment_items of the classification
+                $classification->setRelation('assignmentItems', collect($committeesAndTeamsArray));
+            }
+        }
+
+        $assignmentClassifications = $assignmentClassifications->toArray();
+
+
+//        return response()->json($assignmentClassifications);
         $school = School::find($current_school);
         $video_tutorial = Video_tutorial::where('type', 2)->first();
         return view('website.school.assignments.assignment_data',
@@ -41,20 +75,23 @@ class SingleAssignmentController extends Controller
      */
     public function create()
     {
-        $single_assignment_id = request('single_assignment_id')?:1;
+        $assignment_item_id = request('assignment_item_id');
+        $AssignmentItem = [];
+        if (!empty($assignment_item_id)){
+            $AssignmentItem = AssignmentItems::find($assignment_item_id)->toArray();
+            $header_items_data = [];
+            $header_items_data['المسمي الوظيفي'] =$AssignmentItem['job_title'];
+            $header_items_data['الارتباط التنظيمي'] =$AssignmentItem['organizational_connection'];
+            $header_items_data['الهدف'] =$AssignmentItem['assignment_goal'];
+            $AssignmentItem['header_items_data'] =$header_items_data;
+        }
 
-        $SingleAssignment = AssignmentItems::find($single_assignment_id)->toArray();
-        $header_items_data = [];
-        $header_items_data['المسمي الوظيفي'] =$SingleAssignment['job_title'];
-        $header_items_data['الارتباط التنظيمي'] =$SingleAssignment['organizational_connection'];
-        $header_items_data['الهدف'] =$SingleAssignment['assignment_goal'];
-        $SingleAssignment['header_items_data'] =$header_items_data;
 
         $current_school = Auth::guard('school')->user()->current_working_school_id;
         $Managers = Manager::where('belong_school_id',$current_school)->get()->toArray();
         $school = School::find($current_school);
         return view('website.school.assignments.new_assginment',
-            compact('SingleAssignment','Managers','school'));
+            compact('AssignmentItem','Managers','school'));
 
 
     }
@@ -62,12 +99,12 @@ class SingleAssignmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request) : \Illuminate\Http\RedirectResponse
     {
-
         $this->validate($request, [
             'assignment_name' => 'required',
             'assignment_item_id' => 'required',
@@ -80,9 +117,9 @@ class SingleAssignmentController extends Controller
         $assignment_specialization = $request->input('assignment_specialization');
         $assignment_goal = $request->input('assignment_goal');
         $is_committe_or_team = $request->input('is_committe_or_team');
-        $committe_team_id = $request->input('committe_team_id');
+        $committe_team_id = $request->input('committe_team_id',0);
         $assignment_item_id = $request->input('assignment_item_id');
-
+//dd([$assignment_name,$assignment_start_date,$assignment_duration,$assignment_specialization,$assignment_goal,$is_committe_or_team,$assignment_item_id]);
         $form_SingleAssignment = SingleAssignment::create([
 
             'assignment_name' =>  $assignment_name,

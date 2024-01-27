@@ -24,7 +24,7 @@
                 <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء تكليف مدير المدرسة </h1>
                 <div class="header-info">
                     <table>
-                        @foreach($SingleAssignment['header_items_data'] as $key => $header_item_data)
+                        @foreach($AssignmentItem['header_items_data'] as $key => $header_item_data)
                         <tr>
                             <th><?php echo $key ?></th>
                             <td><?php echo $header_item_data ?></td>
@@ -32,10 +32,10 @@
                         @endforeach
                     </table>
                 </div>
-                <form id="myform" class="myform" method="POST" action="http://localhost/lam-ui-last/Pages/Sprint-4/index.php"
+                <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
                       enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="syhKNup958iJi5zJhQRToU3NVUVWLYw0DvMdnfHg">
-                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_method" value="POST">
                     <div>
                         <div class="form-group" style="margin-bottom:48px">
                             <div class="row">
@@ -44,13 +44,16 @@
                                 </div>
                                 <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
                                     <div class="input-group">
-                                        <input name="start_date" type="text"
+                                        <input name="assignment_start_date" type="text"
                                                class="hijri-date-input form-control border-left-0 clickable-item-pointer "
                                                placeholder="تاريخ الاجتماع" value="" required>
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"> <img class="platform_icon" alt="school"
                                                                                 src="https://factoryfiy.com/img/icons/calendar.svg"> </div>
                                         </div>
+                                        <input type="hidden" name="assignment_item_id" value="{{$AssignmentItem['id']}}">
+                                        <input type="hidden" name="is_committe_or_team" value="{{$AssignmentItem['classification_id']===4?1:0}}">
+{{--                                        <input type="hidden" name="committe_team_id" value="{{$AssignmentItem['committe_team_id']}}">--}}
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +71,7 @@
                                 <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="assignment_name"
                                         required>
                                     @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                    <option value="{{$Manager['first_name']}}" >{{$Manager['first_name']}}</option>
                                     @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
@@ -105,6 +108,31 @@
     </div>
 
     <script>
+        $(function() {
+            $(".hijri-date-input").hijriDatePicker({
+                locale: "ar-sa",
+                format: "YYYY-MM-DD",
+                hijriFormat:"iYYYY-iMM-iDD",
+                dayViewHeaderFormat: "MMMM YYYY",
+                hijriDayViewHeaderFormat: "iMMMM iYYYY",
+                showSwitcher: true,
+                allowInputToggle: true,
+                showTodayButton: false,
+                useCurrent: true,
+                isRTL: true,
+                keepOpen: false,
+                debug: false,
+                showClear: false,
+                showClose: false
+            });
+        });
+        /** indicator on hijri date **/
+        var indicator_on_hijri_date =  new Date(document.getElementsByClassName("hijri-date-input")[0].value).getFullYear();
+        if (indicator_on_hijri_date < 2000 ){
+            $(".hijri-date-input").hijriDatePicker({
+                hijri: true
+            });
+        }
         $(document).ready(function() {
         $('.js-example-basic-single').select2();
         //hide search
