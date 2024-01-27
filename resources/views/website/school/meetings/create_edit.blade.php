@@ -50,6 +50,7 @@
 
         <div style="height: 60px;"></div>
 
+        <form   method="POST" action="{{ $action }}"  enctype="multipart/form-data" novalidate="novalidate"   data-select2-id="select2-data-myform">
 
         <div class="sprint5_container">
             <!-- <h1>sprint 5</h1> -->
@@ -70,10 +71,12 @@
                     @endforeach
                 </ul>
                 <div class="tab-content tab-content-main  " id="pills-tabContent">
+
                     @foreach ($tabs as $index => $classification)
 
                         <div class="tab-pane fade <?= ($index + 0) === 0 ? 'show active' : ''; ?>" id="pills-content<?= $index + 0 ?>" role="tabpanel"
                              aria-labelledby="pills-tab<?= $index ?>">
+
                             @if ($classification['id']  == 'pills-home')
 
                                     <div >
@@ -82,8 +85,7 @@
                                                 <div style="font-weight: 700; font-size: 22px; line-height: 24.55px; color:#000000; padding:50px;">
                                                     {{$text}} {{$Committees_and_teams['title']}}
                                                 </div>
-                                                <form id="myform" class="myform" style="width: 100%;" method="POST" action="{{ $action }}"
-                                                      enctype="multipart/form-data" novalidate="novalidate"   data-select2-id="select2-data-myform">
+                                                <div id="myform" class="myform" style="width: 100%;" >
                                                     @csrf
                                                     @if(isset($item_val['id']))
                                                         @method($method)
@@ -205,6 +207,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
                                             </div>
                                             <div class="d-flex justify-content-around mt-5">
                                                 <button type="submit" class="end_btn mt-5 px-5 border_radius_5" style="width:15%; background-color: unset; border: 1px solid #EAB977; color:#0A3A81; font-size:14px; font-weight:700;">إنهاء</button>
@@ -219,7 +222,7 @@
                                         </script>
                                     </div>
                             @endif
-                                @if ($classification['id']  == 'pills-profile')
+                            @if ($classification['id']  == 'pills-profile')
 
                                     <div class="container-fluid px-4 px-md-5">
                                         <div class="container d-flex flex-column justify-content-center align-items-center gap-5">
@@ -766,15 +769,17 @@
                                     </div>
 
                                 @endif
-                                </form>
+
                         </div>
                     @endforeach
-                </div>
+
             </div>
 
 
         </div>
+
     </div>
+        </form>
 @endsection
 
 <!-- js insert -->
