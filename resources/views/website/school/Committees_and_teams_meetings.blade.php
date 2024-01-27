@@ -31,8 +31,8 @@ if ( request()->teams){
 <!-- css insert -->
 @section('css')
 
-{{--    <!-- swiper -->--}}
-{{--    <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />--}}
+    <link rel="stylesheet" href="{{ URL::asset('css/sprint3.css') }}" />
+
 
 @endsection
 
@@ -68,7 +68,9 @@ if ( request()->teams){
                         <iframe class="col-12" width="560" height="315" src="{{ $video_tutorial->url }}"
                                 title="YouTube video player" frameborder="0"
                                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
+                                allowfullscreen>
+
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -182,39 +184,41 @@ if ( request()->teams){
                                                             <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
                                                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+{{--                                                                <li>--}}
+{{--                                                                    <a class="dropdown-item" href="../ClassroomVisits/index.php">--}}
+{{--                                                                        <img src="http://localhost/lam-ui-last/assets/icons/WatchIcon.svg" width="20"--}}
+{{--                                                                             height="20" style="margin-left: 5px;" />--}}
+{{--                                                                        مشاهدة--}}
+{{--                                                                    </a>--}}
+{{--                                                                </li>--}}
                                                                 <li>
-                                                                    <a class="dropdown-item" href="../ClassroomVisits/index.php">
-                                                                        <img src="http://localhost/lam-ui-last/assets/icons/WatchIcon.svg" width="20"
-                                                                             height="20" style="margin-left: 5px;" />
-                                                                        مشاهدة
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20"
+                                                                    <a class="dropdown-item"  href="{{url('/school/meetings/'.$item_val->id.'/download-pdf')}}" >
+                                                                        <img
+                                                                            src="{{ URL::asset('img/icons/download.svg') }}"  width="20"
                                                                              height="20" style="margin-left: 5px;" />
                                                                         تحميل
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="dropdown-item" href="#">
-                                                                        <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20"
+                                                                    <a class="dropdown-item" href="#"  onclick="printMeeting({{$item_val->id}})"  target="_blank" >
+                                                                        <img
+                                                                             src="{{ URL::asset('icons/print-icon.svg') }}"
+                                                                             width="20"
                                                                              height="20" style="margin-left: 5px;" />
                                                                         طباعة
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="dropdown-item" href="#" data-bs-target="#EditVisit-{{$item->id}}"
-                                                                       data-bs-toggle="modal">
-                                                                        <img src="http://localhost/lam-ui-last/assets/icons/edit-icon2.svg" width="20"
+                                                                    <a class="dropdown-item"   href="{{url('/school/meetings/'.$item_val->id.'/edit')}}"  >
+                                                                        <img
+                                                                             src="{{ URL::asset('/icons/edit-icon2.svg') }}" width="20"
                                                                              height="20" style="margin-left: 5px;" />
                                                                         تعديل
                                                                     </a>
                                                                 </li>
                                                                 <li>
-                                                                    <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit"
-                                                                       data-bs-toggle="modal">
-                                                                        <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20"
+                                                                    <a class="dropdown-item"   href="#" data-bs-toggle="modal" data-meeting-id="{{$item_val->id}}" data-bs-target="#delete_admin_modal" >
+                                                                        <img  src="{{ URL::asset('/icons/delete-icon.svg') }}"  width="20"
                                                                              height="20" style="margin-left: 5px;" />
                                                                         حذف
                                                                     </a>
@@ -286,6 +290,7 @@ if ( request()->teams){
     <script>
         // JavaScript Function to Print Meeting
         function printMeeting(meetingId) {
+            alert("df")
             // Open the meeting detail page in a new window/tab
             var printWindow = window.open('meetings/'+meetingId+'/print-pdf');
 

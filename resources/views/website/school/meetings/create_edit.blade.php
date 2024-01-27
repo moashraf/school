@@ -28,6 +28,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="{{ URL::asset('css/hijry/bootstrap-datetimepicker.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/new_meeting.css') }}" />
+<link rel="stylesheet" href="{{ URL::asset('css/sprint3.css') }}" />
 <link rel="stylesheet" href="{{ URL::asset('css/time_picker_custom_style.css') }}" />
 
 @endsection
@@ -50,7 +51,7 @@
 
         <div style="height: 60px;"></div>
 
-        <form   method="POST" action="{{ $action }}"  enctype="multipart/form-data" novalidate="novalidate"   data-select2-id="select2-data-myform">
+        <form   method="POST" action="{{ $action }}"  enctype="multipart/form-data" novalidate="novalidate"   >
 
         <div class="sprint5_container">
             <!-- <h1>sprint 5</h1> -->
@@ -96,21 +97,22 @@
                                                     <input type="hidden" id="committees_and_teams_id" name="committees_and_teams_id" value="{{ request('Committees_id') ?? (  isset($item_val)  ?$item_val['committees_and_teams_id']:'')}}" class="  form-control">
                                                     <input type="hidden" id="status" name="status" value="@if(isset($item_val) && $item_val['status'] ){{$item_val['status']}} @endif" class="  form-control">
 
-                                                    <div data-select2-id="select2-data-49-ixb3">
+                                                    <div >
                                                         <div class="d-flex flex-column">
-                                                            <div class="row mb-4" data-select2-id="select2-data-23-4h1t">
+                                                            <div class="row mb-4"  >
                                                                 <div class="col-12 col-md-2 col-xl-2">
                                                                     <label class="form-label mb-2 mt-3 mb-xl-0" style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">نوع الاجتماع <span class=" text-red fs-6">*</span>
                                                                     </label>
                                                                 </div>
-                                                                <div class="col-12 mb-4 col-md-4 col-xl-4" data-select2-id="select2-data-22-2tyf">
-                                                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="type"  required="required" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-9-r77p">
-                                                                        <option value="" disabled="" selected="selected" data-select2-id="select2-data-11-bi6e" selected >نوع الاجتماع</option>
+                                                                <div class="col-12 mb-4 col-md-4 col-xl-4"  >
+                                                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="type"
+                                                                            required="required" tabindex="-1" aria-hidden="true"  >
+                                                                        <option value="" disabled="" selected="selected"  selected >نوع الاجتماع</option>
 
                                                                          @foreach ([1=>'طارئ', 0=>'دوري'] as $index=>$value)
                                                                             <option value="{{ $index }}"
                                                                                     @isset($item_val)
-                                                                                        @if($item_val['type'] == $index) selected @endif
+                                                                                        @if( $item_val['type'] && $item_val['type'] == $index) selected @endif
                                                                                 @endisset>
                                                                                 {{ $value }}</option>
                                                                         @endforeach
@@ -232,21 +234,21 @@
 
                                             </div>
                                             <div class="d-flex flex-column gap-2" style="width: 100%;">
-                                                <div class="row" data-select2-id="select2-data-23-4h1t">
+                                                <div class="row" >
                                                     <div class="col-12 col-md-2 col-xl-2">
                                                         <label class="form-label mb-2 mt-3 mb-xl-0"
                                                                style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">الفئة المستهدفة
                                                         </label>
                                                     </div>
-                                                    <div class="col-12 mb-4 col-md-4 col-xl-4" data-select2-id="select2-data-22-2tyf">
+                                                    <div class="col-12 mb-4 col-md-4 col-xl-4" >
                                                         <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="Target_group" required=""
-                                                                tabindex="-1" aria-hidden="true" data-select2-id="select2-data-9-r77p">
-                                                            <option value="" disabled="" selected="" data-select2-id="select2-data-11-bi6e">الفئة المستهدفة</option>
+                                                                tabindex="-1" aria-hidden="true"  >
+                                                            <option value="" disabled="" selected=""  >الفئة المستهدفة</option>
 
                                                             @foreach ([1=>'المصريين', 2=>'الاجانب'] as $index=>$value)
                                                                 <option value="{{ $index }}"
                                                                         @isset($item_val)
-                                                                            @if($item_val['Target_group'] == $index) selected @endif
+                                                                            @if($item_val['Target_group'] && $item_val['Target_group'] == $index) selected @endif
                                                                     @endisset >
                                                                     {{ $value }}</option>
                                                             @endforeach
@@ -255,20 +257,20 @@
                                                         <div id="school_level-js_error_valid"></div>
                                                     </div>
                                                 </div>
-                                                <div class="row" data-select2-id="select2-data-23-4h1t">
+                                                <div class="row" >
                                                     <div class="col-12 col-md-2 col-xl-2">
                                                         <label class="form-label mb-2 mt-3 mb-xl-0"
                                                                style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">عدد الحاضرون
                                                         </label>
                                                     </div>
-                                                    <div class="col-12 mb-4 col-md-4 col-xl-4" data-select2-id="select2-data-22-2tyf">
+                                                    <div class="col-12 mb-4 col-md-4 col-xl-4" >
                                                         <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="Number_of_attendees"
-                                                                required="" tabindex="-1" aria-hidden="true" data-select2-id="select2-data-9-r77p">
-                                                            <option value="" disabled="" selected="" data-select2-id="select2-data-11-bi6e">عدد الحاضرون</option>
+                                                                required="" tabindex="-1" aria-hidden="true" >
+                                                            <option value="" disabled="" selected="" >عدد الحاضرون</option>
                                                             @foreach ([5, 10, 15, 20, 30,40,50] as $value)
                                                                 <option value="{{ $value }}"
                                                                         @isset($item_val)
-                                                                            @if($item_val['Number_of_attendees'] == $value) selected @endif @endisset >
+                                                                            @if( $item_val['Number_of_attendees'] && $item_val['Number_of_attendees'] == $value) selected @endif @endisset >
                                                                     {{ $value }}
                                                                 </option>
                                                             @endforeach
@@ -693,7 +695,7 @@
                                                 </script>
                                             </div>
 
-                                            <div class="row mt-4" style="width: 100%;" data-select2-id="select2-data-23-4h1t">
+                                            <div class="row mt-4" style="width: 100%;"  >
                                                 <div class="col-12 col-md-2 col-xl-2">
                                                     <label class="form-label mb-2 mt-3 mb-xl-0" style="color:#000000; font-size:17px; line-height:16px; font-weight:700;">موعد انتهاء الاجتماع
                                                     </label>
@@ -711,11 +713,11 @@
                                                                 </div>
                                                                 <p class="display">9
                                                                     <span class="bg_dot_data_timepicker" id="my-id">
-                          <svg width="9" height="31" viewBox="0 0 9 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
-                            <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
-                          </svg>
-                        </span>
+                                                                          <svg width="9" height="31" viewBox="0 0 9 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <circle cx="4.5" cy="4.5" r="4.5" fill="#0A3A81"></circle>
+                                                                            <circle cx="4.5" cy="26.5" r="4.5" fill="#0A3A81"></circle>
+                                                                          </svg>
+                                                                   </span>
                                                                 </p>
                                                                 <div class="timepicker__button timepicker__button__down">
                                                                     <div></div>

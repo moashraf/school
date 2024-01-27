@@ -1,308 +1,306 @@
-body {
-    font-family: 'Almarai', sans-serif, 'Lato', sans-serif;
-    background-color: #F9FAFE;
-    line-height: 1.6;
-}
-
-@media screen, print {
-
-    body {
-        font-family: 'Almarai', sans-serif, 'Lato', sans-serif;
-        background-color: #F9FAFE;
-        line-height: 1.6;
-    }
-
-    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-        margin-left: 30px;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
-        background-color: #0A3A81;
-    }
-
-    .nav-link {
-        color: black;
-    }
-
-    .nav-pills .nav-link {
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
-        background-color: #e3e8f1;
-    }
-
-    .accordion-button:not(.collapsed), .accordion-body {
-        background-color: #e9e9e9;
-    }
-
-    .accordion-button:focus {
-        box-shadow: none;
-    }
-
-    .accordion-button {
-        background-color: #e9e9e9;
-    }
-
-    .table_title_color {
-        background: #eab977 !important
-    }
-
-    .add_border_radius {
-        border-radius: 7px !important;
-    }
-
-    .no_arrows_data_to_show > .accordion-button::after {
-        width: 0 !important;
-    }
-
-    .background_button_body {
-        background-color: #e9e9e9;
-        padding-left: 10px;
-    }
-
-    .no-margin-left-right {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .no-padding-left-right {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    .Committees_and_teams_meetings_create_title {
-        margin: 20px 20px;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .meetings_button_next {
-        width: 220px;
-        float: left;
-        background-color: #0A3A81 !important;
-        padding-right: 50px;
-        padding-left: 50px;
-    }
-
-    .meetings_button_next_wi {
-        color: #0A3A81;
-        border: 1px solid #e6a935;
-        padding-right: 50px;
-        padding-left: 50px;
-    }
-
-    .add-padding-bottom {
-        padding-bottom: 10px;
-    }
-
-    .meeting_recommendations_header_div {
-        margin-bottom: 20px;
-        background: #eab977;
-        padding: 10px;
-        border-radius: 7px;
-        text-align: center;
-        color: #0a3a81;
-        font-weight: bold;
-    }
-
-    .required-asterisk {
-        color: red;
-    }
-
-    .breadcrumb-item::after {
-        content: '\25C0';
-        padding-right: 10px;
-        position: absolute;
-        font-size: 0.9rem;
-        padding-top: .4rem;
-    }
-
-    .breadcrumb-item + .breadcrumb-item::before {
-        content: '';
-    }
-
-    .breadcrumb {
-        margin: 0px;
-    }
-
-    .padding-left-20 {
-        padding-left: 20px;
-    }
-
-    .padding-top-50 {
-        padding-top: 50px;
-    }
-
-    .meeting_recommendations_not {
-        padding-top: 25px;
-    }
-
-    .margin-bottom-35 {
-        margin-bottom: 35px;
-    }
-
-    .meeting-row {
-        border-bottom: 1px solid #eeeeee;
-    }
-
-    .edit-meeting-menu {
-        min-width: unset;
-        margin: 10px
-    }
-
-    .delete-meeting-modal {
-        max-width: 700px;
-    }
-
-    #delete_admin_modal .modal-footer {
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        padding-bottom: 4%
-    }
-
-    .border-left-0 {
-        border-left: 0 !important;
-    }
-
-    .side_number_div {
-        margin-left: 14px;
-        font-weight: bold;
-    }
-
-    .meeting_recommendations_table {
-        font-size: 14px;
-        margin-left: 30px;
-        text-align: center;
-    }
-
-    select2_background_color {
-        background-color: #f3f3f380 !important;
-    }
-
-    .plus_minus_class {
-        width: 40px;
-        height: 45px;
-    }
-
-    .text-yellow {
-        color: #e3cd2b;
-    }
-
-    .dropdown-menu.show {
-        margin: 16px !important;
-        transform: unset !important;
-    }
-
-    .color-blue {
-        color: #0A3A81;
-    }
-
-    .tab-item {
-        margin: 0 10px;
-    }
-
-    .bold_form_label {
-        font-weight: bold;
-    }
-
-    /* Remove the arrow from the last item */
-    .breadcrumb-item:last-child::after {
-        content: '';
-    }
-
-    /* Remove the arrow from the last item */
-    .breadcrumb-item {
-        padding-left: 15px;
-    !important;
-        padding-right: 15px;
-    !important;
-    }
-
-    .meeting_recommendations_not_side_title {
-        text-align: center;
-        color: #0a3a81;
-        font-weight: bold;
-        background: #eab977;
-        border-radius: 6px;
-        padding: 51px;
-    }
-
-    .Save_as_draft {
-        background-color: #0A3A81;
-        width: 66%;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .meetings_button_next_wi:hover {
-        background-color: #e6a935;
-    }
-
-    #pills-tab {
-        margin-right: 7%;
-    }
-
-    .close-modal {
-        float: left;
-        font-size: 16px;
-        position: relative;
-        color: white !important;
-        opacity: 1;
-        background-color: #073374;
-        border-radius: 50px;
-        filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.10));
-        border: 0px;
-        width: 26px;
-        height: 26px;
-    }
-
-    .width-220 {
-        width: 220px;
-    }
-
-    .default-blue-bg-color {
-        background-color: #0A3A81;
-        color: #ffffff;
-    }
-
-    .dropdown-item {
-        padding: 0.65rem .30rem .65rem .70rem;
-        color: #747474;
-    }
-
-    .bg_dot_data_timepicker {
-        float: right;
-    }
-
-    .display_up_hour, .display_down_hour, .display_up_minute, .display_down_minute, .display_up_meridiem, .display_down_meridiem {
-        color: #576984ad;
-        font-size: 25px;
-        margin: 0px auto !important;
-    }
-
-    @media only screen and (max-width: 700px) {
-        .no_show_on_map {
-            display: none;
+        body {
+            font-family: 'Almarai', sans-serif, 'Lato', sans-serif;
+            background-color: #F9FAFE;
+            line-height: 1.6;
         }
 
-        .meetings_button_next_wi {
-            padding-right: 20px;
-            padding-left: 20px;
-        }
+        @media screen, print {
 
-        .meetings_button_next {
-            padding-right: 20px;
-            padding-left: 20px;
-        }
+            body {
+                font-family: 'Almarai', sans-serif, 'Lato', sans-serif;
+                background-color: #F9FAFE;
+                line-height: 1.6;
+            }
 
-        .Save_as_draft {
-            width: 100%;
-        }
+            .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+                margin-left: 30px;
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                background-color: #0A3A81;
+            }
 
-        .meeting_recommendations_table {
-            margin-left: 0px;
+            .nav-link {
+                color: black;
+            }
+
+            .nav-pills .nav-link {
+                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0px;
+                background-color: #e3e8f1;
+            }
+
+            .accordion-button:not(.collapsed), .accordion-body {
+                background-color: #e9e9e9;
+            }
+
+            .accordion-button:focus {
+                box-shadow: none;
+            }
+
+            .accordion-button {
+                background-color: #e9e9e9;
+            }
+
+            .table_title_color {
+                background: #eab977 !important
+            }
+
+            .add_border_radius {
+                border-radius: 7px !important;
+            }
+
+            .no_arrows_data_to_show > .accordion-button::after {
+                width: 0 !important;
+            }
+
+            .background_button_body {
+                background-color: #e9e9e9;
+                padding-left: 10px;
+            }
+
+            .no-margin-left-right {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .no-padding-left-right {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            .Committees_and_teams_meetings_create_title {
+                margin: 20px 20px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .meetings_button_next {
+                width: 220px;
+                float: left;
+                background-color: #0A3A81 !important;
+                padding-right: 50px;
+                padding-left: 50px;
+            }
+
+            .meetings_button_next_wi {
+                color: #0A3A81;
+                border: 1px solid #e6a935;
+                padding-right: 50px;
+                padding-left: 50px;
+            }
+
+            .add-padding-bottom {
+                padding-bottom: 10px;
+            }
+
+            .meeting_recommendations_header_div {
+                margin-bottom: 20px;
+                background: #eab977;
+                padding: 10px;
+                border-radius: 7px;
+                text-align: center;
+                color: #0a3a81;
+                font-weight: bold;
+            }
+
+            .required-asterisk {
+                color: red;
+            }
+
+            .breadcrumb-item::after {
+                content: '\25C0';
+                padding-right: 10px;
+                position: absolute;
+                font-size: 0.9rem;
+                padding-top: .4rem;
+            }
+
+            .breadcrumb-item + .breadcrumb-item::before {
+                content: '';
+            }
+
+            .breadcrumb {
+                margin: 0px;
+            }
+
+            .padding-left-20 {
+                padding-left: 20px;
+            }
+
+            .padding-top-50 {
+                padding-top: 50px;
+            }
+
+            .meeting_recommendations_not {
+                padding-top: 25px;
+            }
+
+            .margin-bottom-35 {
+                margin-bottom: 35px;
+            }
+
+            .meeting-row {
+                border-bottom: 1px solid #eeeeee;
+            }
+
+            .edit-meeting-menu {
+                min-width: unset;
+                margin: 10px
+            }
+
+            .delete-meeting-modal {
+                max-width: 700px;
+            }
+
+            #delete_admin_modal .modal-footer {
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                padding-bottom: 4%
+            }
+
+            .border-left-0 {
+                border-left: 0 !important;
+            }
+
+            .side_number_div {
+                margin-left: 14px;
+                font-weight: bold;
+            }
+
+            .meeting_recommendations_table {
+                font-size: 14px;
+                margin-left: 30px;
+                text-align: center;
+            }
+
+            select2_background_color {
+                background-color: #f3f3f380 !important;
+            }
+
+            .plus_minus_class {
+                width: 40px;
+                height: 45px;
+            }
+
+            .text-yellow {
+                color: #e3cd2b;
+            }
+
+            .dropdown-menu.show {
+                margin: 16px !important;
+                transform: unset !important;
+            }
+
+            .color-blue {
+                color: #0A3A81;
+            }
+
+            .tab-item {
+                margin: 0 10px;
+            }
+
+            .bold_form_label {
+                font-weight: bold;
+            }
+
+            /* Remove the arrow from the last item */
+            .breadcrumb-item:last-child::after {
+                content: '';
+            }
+
+            /* Remove the arrow from the last item */
+            .breadcrumb-item {
+                padding-left: 15px;
+            !important;
+                padding-right: 15px;
+            !important;
+            }
+
+            .meeting_recommendations_not_side_title {
+                text-align: center;
+                color: #0a3a81;
+                font-weight: bold;
+                background: #eab977;
+                border-radius: 6px;
+                padding: 51px;
+            }
+
+            .Save_as_draft {
+                background-color: #0A3A81;
+                width: 66%;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .meetings_button_next_wi:hover {
+                background-color: #e6a935;
+            }
+
+
+
+            .close-modal {
+                float: left;
+                font-size: 16px;
+                position: relative;
+                color: white !important;
+                opacity: 1;
+                background-color: #073374;
+                border-radius: 50px;
+                filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.10));
+                border: 0px;
+                width: 26px;
+                height: 26px;
+            }
+
+            .width-220 {
+                width: 220px;
+            }
+
+            .default-blue-bg-color {
+                background-color: #0A3A81;
+                color: #ffffff;
+            }
+
+            .dropdown-item {
+                padding: 0.65rem .30rem .65rem .70rem;
+                color: #747474;
+            }
+
+            .bg_dot_data_timepicker {
+                float: right;
+            }
+
+            .display_up_hour, .display_down_hour, .display_up_minute, .display_down_minute, .display_up_meridiem, .display_down_meridiem {
+                color: #576984ad;
+                font-size: 25px;
+                margin: 0px auto !important;
+            }
+
+            @media only screen and (max-width: 700px) {
+                .no_show_on_map {
+                    display: none;
+                }
+
+                .meetings_button_next_wi {
+                    padding-right: 20px;
+                    padding-left: 20px;
+                }
+
+                .meetings_button_next {
+                    padding-right: 20px;
+                    padding-left: 20px;
+                }
+
+                .Save_as_draft {
+                    width: 100%;
+                }
+
+                .meeting_recommendations_table {
+                    margin-left: 0px;
+                }
+            }
         }
-    }
-}
