@@ -1,20 +1,4 @@
 @extends('website.school.layouts.master', ['no_header' => true, 'no_transparent_header' => false])
-@php
-    $initialTab = 'committees'; // Replace 'committees' with the actual tab ID you want to set from the backend
- $firstCommitteeShown = false;
- $firstTeamShown = false;
-if ( request()->teams){
-    $initialTab = 'teams';
-}
-    $tabs = [
-    ['label' => 'إدارة المدرسة', 'content' => 'SchoolAdministration'],
-    ['label' => 'المعلمين', 'content' => 'Teachers'],
-    ['label' => 'منسوبي المدرسة', 'content' => 'SchoolStaff'],
-    ['label' => 'اللجان و الفرق ', 'content' => 'CommitteesAndTeams'],
-    ['label' => 'التكليفات العامة ', 'content' => 'GeneralAssignments'],
-];
-
-@endphp
 @section('title', 'اللجان والفرق | منصة لام')
 @section('topbar', 'اللجان والفرق | منصة لام')
 
@@ -67,16 +51,16 @@ if ( request()->teams){
 <!-- content insert -->
 @section('content')
     <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
-    <div style="height: 60px;"></div>
+
 
     <div class="page_top_nevg">
-        <a href="#">التكليفات</a></div>
+        <a href="#">التكليفات</a>
     </div>
-
+    <div class="sprint-4">
     <div class="nav_tabs nav-tabs-main  ">
         <ul class="nav nav-pills" id="pills-tab" role="tablist">
-            @foreach ($tabs as $index => $tab)
-                <li class="nav-item" role="presentation  ">
+            @foreach ($assignmentClassifications as $index => $tab)
+                <li class="nav-item" role="presentation">
                     <button class="nav-link  <?= ($index + 0) === 0 ? 'active' : ''; ?>"
                             id="pills-tab<?= $index ?>" data-bs-toggle="pill"
                             data-bs-target="#pills-content<?= $index + 0 ?>"
@@ -84,14 +68,115 @@ if ( request()->teams){
                             role="tab"
                             aria-controls="pills-content<?= $index ?>"
                             aria-selected="<?= ($index + 0) === 0 ? 'true' : 'false'; ?>">
-                        {{ $tab['label']  }}
+                        {{ $tab['name']  }}
                     </button>
                 </li>
             @endforeach
         </ul>
+        <div class="tab-content tab-content-main" id="pills-tabContent">
 
+            @foreach ($assignmentClassifications as $index => $assignmentClassification)
+
+                <div class="tab-pane fade <?= ($index + 0) === 0 ? 'show active' : ''; ?>" id="pills-content<?= $index + 0 ?>" role="tabpanel"
+                     aria-labelledby="pills-tab<?= $index ?>">
+
+                    @if ($assignmentClassification['id']  === 1)
+                        <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
+                            <div class="school_administration">
+                                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">تكليفات إدارة المدرسة </h1>
+
+                                @foreach ($assignmentClassification['assignment_items'] as $key => $assignment_item)
+
+                                <!-- Start of Accordion-تكليف مدير المدرسة -->
+                                <div class="lam_accordion accordion" style="position: relative;">
+                                    <div class="header" id="AssignmentOfTheSchoolDirector" data-bs-toggle="collapse"
+                                         data-bs-target="#AssignmentOfTheSchoolDirectorCollapse" aria-expanded="false"
+                                         aria-controls="AssignmentOfTheSchoolDirectorCollapse">
+                                        <p style="font-size: 20px; font-weight: 700;">{{$assignment_item['name']}}</p>
+                                        <div class="d-flex align-items-center gap-5">
+          <span class="accordion-button custom-accordion-button collapsed" data-bs-toggle="collapse"
+                data-bs-target="#AssignmentOfTheSchoolDirectorCollapse" aria-expanded="false"
+                aria-controls="AssignmentOfTheSchoolDirectorCollapse">
+          </span>
+                                        </div>
+                                    </div>
+                                    <div style="position: absolute; left:6rem; top:0.5rem; cursor: pointer;">
+                                        <!-- If you will use this button for popup window put this data-bs-target="#Plan-Visit" data-bs-toggle="modal" -->
+                                        <a
+                                            href="{{ route('school_route.single_assignment.create',  ['single_assignment_id'=>$assignment_item['id']]  ) }}">
+                                            <button class="lam_accordion_btn">
+                                                <i class="fa fa-plus fa-m text-white" style="margin-left: 10px;" aria-hidden="true"></i>
+                                                انشاء تكليف جديد
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="collapse accordion-collapse" style="background-color: white; border-radius: 10px;"
+                                         id="AssignmentOfTheSchoolDirectorCollapse" aria-labelledby="AssignmentOfTheSchoolDirector"
+                                         data-bs-parent="#accordionExample">
+                                        <div class="lam_accordion_body" style="padding:24px 0; background-color:#F1F1F1">
+                                            <!-- Start Header of table -->
+                                            <div class="row"
+                                                 style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                                <p class="col-1">م</p>
+                                                <p class="col">اسم الشخص المكلف</p>
+                                                <p class="col">رقم السجل المدني</p>
+                                                <p class="col">تاريخ التكلف</p>
+                                                <p class="col">خيارات</p>
+                                            </div>
+                                            <!-- End Header of table -->
+                                            <!-- Start of Data Table -->
+                                            <div class="lam_accordion_row">
+                                                <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                                                    <p class="col-1">1</p>
+                                                    <p class="col">خالد عبدالله محمد حسن أحمد</p>
+                                                    <p class="col">5454667892</p>
+                                                    <p class="col">2023/02/10</p>
+                                                    <div class="col dropdown">
+                                                        <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
+                                                           id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                            <li>
+                                                                <a class="dropdown-item" href="../ClassroomVisits/index.php">
+                                                                    <img src="http://localhost/lam-ui-last/assets/icons/BlueDownload.svg" width="20" height="20"
+                                                                         style="margin-left: 5px;" />
+                                                                    تحميل
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20" height="20"
+                                                                         style="margin-left: 5px;" />
+                                                                    طباعه
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
+                                                                    <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
+                                                                         style="margin-left: 5px;" />
+                                                                    حذف
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End of Data Table -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Accordion-تكليف مدير المدرسة -->
+                                @endforeach
+                            </div>
+                        </div>
+
+                    @endif
+
+                </div>
+            @endforeach
+
+        </div>
     </div>
-
+    </div>
     </div>
 
 @endsection

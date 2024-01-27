@@ -4,8 +4,11 @@ namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentClassification;
+use App\Models\AssignmentItems;
 use App\Models\Basic\Video_tutorial;
+use App\Models\School\Manager;
 use App\Models\School\Meetings\meetings;
+use App\Models\SingleAssignment;
 use App\Models\School\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,33 +22,39 @@ class SingleAssignmentController extends Controller
      */
     public function index()
     {
-//        $assignmentClassifications = AssignmentClassification::with([
-//            'assignmentItems.singleAssignments.assignedUsers.user'
-//        ])->get();
-//
+        $assignmentClassifications = AssignmentClassification::with([
+            'assignmentItems.singleAssignments.assignedUsers.user'
+        ])->get()->toArray();
 //        return response()->json($assignmentClassifications);
         $current_school = Auth::guard('school')->user()->current_working_school_id;
         $school = School::find($current_school);
         $video_tutorial = Video_tutorial::where('type', 2)->first();
         return view('website.school.assignments.assignment_data',
-            compact('school','video_tutorial'));
+            compact('school','video_tutorial','assignmentClassifications'));
     }
 
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        $SingleAssignment_id = request('SingleAssignment_id')?:1;
+        $single_assignment_id = request('single_assignment_id')?:1;
 
-        $SingleAssignment = SingleAssignment::find($SingleAssignment_id);
-        $Manager = Manager::find(1);
+        $SingleAssignment = AssignmentItems::find($single_assignment_id)->toArray();
+        $header_items_data = [];
+        $header_items_data['المسمي الوظيفي'] =$SingleAssignment['job_title'];
+        $header_items_data['الارتباط التنظيمي'] =$SingleAssignment['organizational_connection'];
+        $header_items_data['الهدف'] =$SingleAssignment['assignment_goal'];
+        $SingleAssignment['header_items_data'] =$header_items_data;
 
-        return view('website.school.new_committee',
-            compact('SingleAssignment','Manager'));
+        $current_school = Auth::guard('school')->user()->current_working_school_id;
+        $Managers = Manager::where('belong_school_id',$current_school)->get()->toArray();
+        $school = School::find($current_school);
+        return view('website.school.assignments.new_assginment',
+            compact('SingleAssignment','Managers','school'));
 
 
     }
