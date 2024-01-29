@@ -34,8 +34,7 @@
                 </div>
                 <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
                       enctype="multipart/form-data">
-                    <input type="hidden" name="_token" value="syhKNup958iJi5zJhQRToU3NVUVWLYw0DvMdnfHg">
-                    <input type="hidden" name="_method" value="POST">
+                    @csrf
                     <div>
                         <div class="form-group" style="margin-bottom:48px">
                             <div class="row">
@@ -68,11 +67,12 @@
                                 </label>
                             </div>
                             <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
-                                <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="assignment_name"
+                                <select class="js-example-basic-multiple select2-no-search select2-hidden-accessible" multiple="multiple" name="assignment_users[]"
                                         required>
-                                    @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['first_name']}}" >{{$Manager['first_name']}}</option>
-                                    @endforeach
+                                    <option value="all">الجميع</option>
+                                @foreach($Managers as $index => $Manager)
+                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
                             </div>
@@ -93,9 +93,8 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
-                            <input name="school_name" type="text" class="form-control" maxlength="100"
-                                   placeholder="اكتب هنا الفصل الدراسي .." >
-                            <div id="school_name-js_error_valid"></div>
+                            <input  type="text" class="form-control" maxlength="100" disabled
+                                   placeholder="" >
                         </div>
                     </div>
 
@@ -134,12 +133,65 @@
             });
         }
         $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-        //hide search
-        $('.select2-no-search').select2({
-        minimumResultsForSearch: -1
-    });
-    });
+            $('.js-example-basic-multiple').select2({
+                placeholder: 'اسم المكلف',
+                width: '100%', // Adjust the width as needed
+                allowClear: true, // Add a clear button
+            });
+
+            // Handle "Select All" option
+            $('.js-example-basic-multiple').on('change', function() {
+                const selectedValues = $(this).val();
+                const selectedOptionsDiv = $('#selectedOptions');
+                selectedOptionsDiv.empty();
+
+                if (selectedValues && selectedValues.includes('all')) {
+                    // If "Select All" is selected, select all options
+                    $(this).val($(this).children('option').not(':first').map(function() {
+                        return this.value;
+                    })).trigger('change');
+                }
+                if (selectedValues) {
+                    selectedValues.forEach(function(value, index) {
+                        // Append each selected option to the div
+                        if (value !== 'all' || !includeSelectAll) {
+                            selectedOptionsDiv.append(`<div class="col">
+            <div class="lam_accordion_row">
+              <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                <p class="col-1">${index + 1}</p>
+                <p class="col">${value}</p>
+                <p class="col">0123456789</p>
+                <p class="col">اللغة العربية</p>
+                <div class="col">
+                  <button class="delete-btn" data-index="${index}" style="background-color: transparent; border: none;">
+                    <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
+                      style="margin-left: 5px;" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>`);
+                        }
+                    });
+                }
+                // Check if there are selected values
+                const hideMainDiv = !selectedValues || selectedValues.length === 0;
+
+                // Toggle the visibility of the main div based on the condition
+                $('.lam_accordion_body').toggle(!hideMainDiv);
+
+                // Attach a click event to the delete buttons
+                $('.delete-btn').on('click', function() {
+                    const indexToRemove = $(this).data('index');
+                    selectedValues.splice(indexToRemove, 1);
+                    $(this).closest('.lam_accordion_row').remove();
+
+                    // Update the selected values
+                    $(this).closest('.js-example-basic-multiple').val(selectedValues).trigger('change');
+                });
+            });
+        });
+    </script>
 </script>
 
 @endsection

@@ -114,6 +114,7 @@
                                          data-bs-parent="#accordionExample">
                                         <div class="lam_accordion_body" style="padding:24px 0; background-color:#F1F1F1">
                                             <!-- Start Header of table -->
+                                            @if($assignmentClassification['id']!==4)
                                             <div class="row"
                                                  style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
                                                 <p class="col-1">م</p>
@@ -122,15 +123,27 @@
                                                 <p class="col">تاريخ التكلف</p>
                                                 <p class="col">خيارات</p>
                                             </div>
+                                            @else
+                                                <div class="row"
+                                                     style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                                    <p class="col-1">م</p>
+                                                    <p class="col">اسم اللجنة</p>
+                                                    <p class="col">تاريخ التكلف</p>
+                                                    <p class="col">خيارات</p>
+                                                </div>
+                                            @endif
+
                                             <!-- End Header of table -->
                                             <!-- Start of Data Table -->
-                                            @if(!empty($assignment_item['single_assignments']))
+                                            @if(!empty($assignment_item['single_assignments']) && $assignmentClassification['id']!==4)
                                             @foreach ($assignment_item['single_assignments'] as $var => $single_assignment)
+                                                    @if(!empty($single_assignment['assigned_users']))
+                                                    @foreach ($single_assignment['assigned_users'] as $v => $single_assignment_user)
                                             <div class="lam_accordion_row">
                                                 <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
-                                                    <p class="col-1">{{$var}}</p>
-                                                    <p class="col">{{$single_assignment['assignment_name']}}</p>
-                                                    <p class="col">5454667892</p>
+                                                    <p class="col-1">{{$v+1}}</p>
+                                                    <p class="col">{{$single_assignment_user['user']['first_name']}}</p>
+                                                    <p class="col">{{$single_assignment_user['user']['identification_number']}}</p>
                                                     <p class="col">{{$single_assignment['assignment_start_date']}}</p>
                                                     <div class="col dropdown">
                                                         <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
@@ -161,8 +174,51 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            @endforeach
+                                                    @endif
                                             @endforeach
                                             <!-- End of Data Table -->
+
+
+                                            @elseif($assignmentClassification['id']===4)
+                                                @foreach ($assignment_item['single_assignments'] as $var => $single_assignment)
+                                                            <div class="lam_accordion_row">
+                                                                <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                                                                    <p class="col-1">{{$var+1}}</p>
+                                                                    <p class="col">{{$single_assignment['title']}}</p>
+                                                                    <p class="col">{{isset($single_assignment['assignment_start_date'])?$single_assignment['assignment_start_date']:'لايوجد تكليف'}}</p>
+                                                                    <div class="col dropdown">
+                                                                        <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
+                                                                           id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                            <li>
+                                                                                <a class="dropdown-item" href="../ClassroomVisits/index.php">
+                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/BlueDownload.svg" width="20" height="20"
+                                                                                         style="margin-left: 5px;" />
+                                                                                    تحميل
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a class="dropdown-item" href="#">
+                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20" height="20"
+                                                                                         style="margin-left: 5px;" />
+                                                                                    طباعه
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
+                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
+                                                                                         style="margin-left: 5px;" />
+                                                                                    حذف
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                @endforeach
+
                                             @endif
                                         </div>
                                     </div>
