@@ -6,7 +6,12 @@
 @section('fixedcontent')
     <!-- Your fixed content here -->
 @endsection
+@section('css')
 
+    <link rel="stylesheet" href="{{ URL::asset('css/hijry/bootstrap-datetimepicker.css') }}" />
+
+
+@endsection
 <!-- content insert -->
 @section('content')
     <div class="container-fluid px-4 px-md-5 py-3 py-md-4">
@@ -21,7 +26,8 @@
         </div>
         <div class="sprint-4">
             <div class="AssignmentOfTheSchoolDirector">
-                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء تكليف مدير المدرسة </h1>
+                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء
+                {{   $AssignmentItem['name'] }}</h1>
                 <div class="header-info">
                     <table>
                         @foreach($AssignmentItem['header_items_data'] as $key => $header_item_data)
@@ -39,7 +45,9 @@
                         <div class="form-group" style="margin-bottom:48px">
                             <div class="row">
                                 <div class="col-12 col-md-4 col-xl-2 align-self-center ">
-                                    <label for="committee" class="form-label bold_form_label "> اليوم و التاريخ
+                                    <label for="committee" class="form-label bold_form_label ">
+                                        اليوم و التاريخ
+                                        </label>
                                 </div>
                                 <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
                                     <div class="input-group">
@@ -47,8 +55,9 @@
                                                class="hijri-date-input form-control border-left-0 clickable-item-pointer "
                                                placeholder="تاريخ الاجتماع" value="" required>
                                         <div class="input-group-prepend">
-                                            <div class="input-group-text"> <img class="platform_icon" alt="school"
-                                                                                src="https://factoryfiy.com/img/icons/calendar.svg"> </div>
+                                            <div class="input-group-text">
+                                                <img class="platform_icon" alt="school"   src="https://factoryfiy.com/img/icons/calendar.svg">
+                                            </div>
                                         </div>
                                         <input type="hidden" name="assignment_item_id" value="{{$AssignmentItem['id']}}">
                                         <input type="hidden" name="is_committe_or_team" value="{{$AssignmentItem['classification_id']===4?1:0}}">
@@ -107,31 +116,7 @@
     </div>
 
     <script>
-        $(function() {
-            $(".hijri-date-input").hijriDatePicker({
-                locale: "ar-sa",
-                format: "YYYY-MM-DD",
-                hijriFormat:"iYYYY-iMM-iDD",
-                dayViewHeaderFormat: "MMMM YYYY",
-                hijriDayViewHeaderFormat: "iMMMM iYYYY",
-                showSwitcher: true,
-                allowInputToggle: true,
-                showTodayButton: false,
-                useCurrent: true,
-                isRTL: true,
-                keepOpen: false,
-                debug: false,
-                showClear: false,
-                showClose: false
-            });
-        });
-        /** indicator on hijri date **/
-        var indicator_on_hijri_date =  new Date(document.getElementsByClassName("hijri-date-input")[0].value).getFullYear();
-        if (indicator_on_hijri_date < 2000 ){
-            $(".hijri-date-input").hijriDatePicker({
-                hijri: true
-            });
-        }
+
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
                 placeholder: 'اسم المكلف',
