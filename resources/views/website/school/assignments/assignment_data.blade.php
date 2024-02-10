@@ -190,13 +190,17 @@
                                                             <div class="lam_accordion_row">
                                                                 <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
                                                                     <p class="col-1">{{$var+1}}</p>
-                                                                    <p class="col">{{$single_assignment['title']}}</p>
+                                                                    <p class="col">{{$single_assignment['title']}}    </p>
 
-                                                                    <p class="col">{{isset($single_assignment['assignment_start_date'])?$single_assignment['assignment_start_date']:'لايوجد تكليف'}}</p>
+                                                                    @if((isset( $single_assignment['get_single_assignment']['id']) ==0)  )
+                                                                        <p class="col">   لايوجد تكليف   </p>
 
+                                                                    @else
+                                                                        <p class="col">{{  $single_assignment['get_single_assignment']['assignment_start_date']  }}</p>
 
+                                                                    @endif
 
-                                                                    @if(!isset($single_assignment['assignment_start_date']))
+                                                                    @if((isset( $single_assignment['get_single_assignment']['id']) ==0)  )
                                                                         <div class="col dropdown">
 
                                                                             <!-- If you will use this button for popup window put this data-bs-target="#Plan-Visit" data-bs-toggle="modal" -->

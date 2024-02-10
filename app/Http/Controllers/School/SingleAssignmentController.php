@@ -32,25 +32,28 @@ class SingleAssignmentController extends Controller
         $current_school = Auth::guard('school')->user()->current_working_school_id;
         foreach ($assignmentClassifications as &$classification) {
             if ($classification['id'] == 4) {
-                $committees = Committees_and_teams::where('school_id',$current_school )->where('classification',1)->get();
+                $committees = Committees_and_teams::with('get_single_assignment' )
+                    -> where('school_id',$current_school )
+                    ->where('classification',1)->get();
                 $teams = Committees_and_teams::where('school_id',$current_school )->where('classification',2)->get();
                 if ($classification['assignment_items']){
 
                     foreach ($classification['assignment_items'] as &$assignment_item){
                     if ($assignment_item['name']==='تكليف اللجان'){
                         $assignment_item['single_assignments'] = $committees->toArray();
-                    }
+                     }
                     if ($assignment_item['name']==='تكليف الفرق'){
                         $assignment_item['single_assignments'] = $teams->toArray();
+
                     }
                     }
                 }
             }
         }
 
+//  return response()->json($assignmentClassifications);
 
 
-    // return response()->json($assignmentClassifications);
         $school = School::find($current_school);
         $video_tutorial = Video_tutorial::where('type', 2)->first();
         return view('website.school.assignments.assignment_data',
@@ -199,8 +202,7 @@ class SingleAssignmentController extends Controller
 
         if (!empty($committe_team_id)){
             $Committees_and_teams = Committees_and_teams::where('school_id',$current_school )->where('id',$committe_team_id)->first();
-           //  $Committees_and_teams = Committees_and_teams::find($committe_team_id)->toArray();
-$member=0;
+        $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
 //            if ($AssignmentItem['classification_id']===2){//teachers
 //                $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
 //            }else{
@@ -212,7 +214,7 @@ $member=0;
 
 
         return view('website.school.assignments.create_single_assignment_committe_team',
-            compact('Committees_and_teams','member','school'));
+            compact('Committees_and_teams','Managers','school'));
 
 
     }

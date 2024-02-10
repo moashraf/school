@@ -88,9 +88,10 @@
                                 <select class="js-example-basic-multiple select2-no-search select2-hidden-accessible" multiple="multiple" name="assignment_users[]"
                                         required>
                                     <option value="all">الجميع</option>
-{{--                                @foreach($Managers as $index => $Manager)--}}
-{{--                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>--}}
-{{--                                @endforeach--}}
+
+                                @foreach($Managers as $index => $Manager)
+                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
                             </div>
@@ -105,16 +106,248 @@
                         </div>
                     </div>
 
-                    <div class="row" style="margin-bottom:48px">
-                        <div class="col-12 col-md-4 col-xl-2 align-self-center">
-                            <label class="form-label mb-2 mb-xl-0"> رقم السجل المدني
-                            </label>
+                    <div>
+                        <h3>أختيار أعضاء اللجنة</h3>
+                        <div class="lam_accordion_body AdministrativeCommittee_table"
+                             style="margin:24px 0; background-color: #F1F1F1; border-radius: 10px; padding-top: 0">
+                            <!-- Start Header of table -->
+                            <div class="row"
+                                 style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                <p class="col-1">م</p>
+                                <p class="col">اسم الشخص المكلف</p>
+                                <p class="col">المسمي الوظيفي</p>
+                                <p class="col">العمل المكلف به</p>
+                            </div>
+                            <!-- End Header of table -->
+                            <!-- Start of Data Table -->
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">مدير المدرسة</p>
+                                <p class="col">رئيسا للجنة</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">وكيل المدرسة للشؤون التعليمية</p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">وكيل المدرسة لشؤون الطلاب</p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">وكيل المدرسة للشؤون المدرسية</p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">الموجه الطلابي </p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">رائد النشاط</p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">معلم</p>
+                                <p class="col">عضو</p>
+                            </div>
+
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <p class="col">مساعد إداري</p>
+                                <p class="col">مقرر اللجنة</p>
+                            </div>
+
+                            <div class="row main_row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
+                                <p class="col-1"> </p>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" disabled selected>الشخص المكلف</option>
+                                        <option value="2">خالد عبدالله محمد حسن أحمد</option>
+                                        <option value="3"> محمد حسن أحمد</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" disabled selected>المسمي الوظيفي</option>
+                                    </select>
+                                </div>
+                                <div class="col d-flex gap-2 align-items-center">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" disabled selected>العمل المكلف به </option>
+                                    </select>
+                                    <div class="d-flex gap-2">
+                                        <i class="fa fa-minus-circle" style="color: #FF6347; font-size: 24px; display: none;"
+                                           aria-hidden="true"></i>
+                                        <i class="fa fa-plus-circle" style="color: #1DAE6D; font-size: 24px;" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of Data Table -->
                         </div>
-                        <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
-                            <input  type="text" class="form-control" maxlength="100" disabled
-                                   placeholder="" >
+                        <div class="mt-5">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>إنشاء إجتماعات اللجنة</h3>
+                                <div style="width: 355px;">
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                            required>
+                                        <option value="1" selected>الفصل الدراسي الأول</option>
+                                        <option value="2">الفصل الدراسي الثاني</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="lam_accordion_body AdministrativeCommittee_table_2"
+                                 style="margin:24px 0; background-color: #F1F1F1; border-radius: 10px; padding-top: 0">
+                                <!-- Start Header of table -->
+                                <div class="row"
+                                     style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                    <div class="col-2"> </div>
+                                    <p class="col">الأجتماع الأول</p>
+                                    <p class="col">الأجتماع الثاني</p>
+                                    <p class="col">الأجتماع الثالث</p>
+                                </div>
+                                <!-- End Header of table -->
+                                <!-- Start of Data Table -->
+                                <div class="row"
+                                     style="margin: 0; text-align: center; align-items: center; min-height: 53px; border-bottom: 1px solid #DEDEDE">
+                                    <div class="col-2 row align-items-center"
+                                         style="height: 94px; background-color:#EAB977; margin: 0; color: #0A3A81">
+                                        <h5>تاريخ الإجتماع</h5>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>تاريخ الاجتماع</option>
+                                                <option value="2">2023/02/10 الأحد</option>
+                                                <option value="3">2023/02/11 الاثنين</option>
+                                                <option value="4">2023/02/12 الثلاثاء</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>تاريخ الاجتماع</option>
+                                                <option value="2">2023/02/10 الأحد</option>
+                                                <option value="3">2023/02/11 الاثنين</option>
+                                                <option value="4">2023/02/12 الثلاثاء</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>تاريخ الاجتماع</option>
+                                                <option value="2">2023/02/10 الأحد</option>
+                                                <option value="3">2023/02/11 الاثنين</option>
+                                                <option value="4">2023/02/12 الثلاثاء</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                                    <div class="col-2 row align-items-center"
+                                         style="height: 94px; background-color:#EAB977; margin: 0; border-radius: 0 0 10px 0;  color: #0A3A81">
+                                        <h5>مكان الإجتماع</h5>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>مكان الإجتماع</option>
+                                                <option value="2">غرفه الإجتماعات</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>مكان الإجتماع</option>
+                                                <option value="2">غرفه الإجتماعات</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col row justify-content-center">
+                                        <div style="width: 80%">
+                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
+                                                    name="school_level" required>
+                                                <option value="1" disabled selected>مكان الإجتماع</option>
+                                                <option value="2">غرفه الإجتماعات</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+
 
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="main_btn px-5 border_radius_5">حفظ</button>
@@ -276,6 +509,52 @@
 
     </script>
 
-    <script src="{{ URL::asset('js/meetings/meetings_custom_js.js') }}"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tableContainer = document.querySelector(".AdministrativeCommittee_table");
+            const addButtons = document.querySelectorAll(".fa-plus-circle");
+            const deleteButtons = document.querySelectorAll(".fa-minus-circle");
+
+            addButtons.forEach((button, index) => {
+                button.addEventListener("click", function() {
+                    // Hide plus button in the active row
+                    addButtons[index].style.display = "none";
+
+                    // Show minus button in the active row
+                    deleteButtons[index].style.display = "inline";
+
+                    // Select the last element with class "main_row" as the base for cloning
+                    const mainRows = document.querySelectorAll(".main_row");
+                    const mainRow = mainRows[mainRows.length - 1];
+
+                    if (mainRow) {
+                        // Clone from the base row
+                        const newRow = mainRow.cloneNode(true);
+
+                        // Insert the new row before the base row
+                        tableContainer.insertBefore(newRow, mainRow);
+
+                        // Show plus button in the new last row
+                        addButtons[addButtons.length - 1].style.display = "inline";
+
+                        // Hide minus button in the new last row
+                        deleteButtons[deleteButtons.length - 1].style.display = "none";
+                    }
+                });
+            });
+
+            // Add event listener for delete buttons outside the loop
+            tableContainer.addEventListener("click", function(event) {
+                if (event.target.classList.contains("fa-minus-circle")) {
+                    // Remove the row
+                    const rowToDelete = event.target.closest(".row");
+                    rowToDelete.parentNode.removeChild(rowToDelete);
+                }
+            });
+        });
+    </script>
+
 
 @endsection
