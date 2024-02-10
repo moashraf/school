@@ -93,12 +93,14 @@
                                          aria-controls="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}">
                                         <p style="font-size: 20px; font-weight: 700;">{{$assignment_item['name']}}</p>
                                         <div class="d-flex align-items-center gap-5">
-          <span class="accordion-button custom-accordion-button collapsed" data-bs-toggle="collapse"
-                data-bs-target="#AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-expanded="false"
-                aria-controls="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}">
-          </span>
+                                              <span class="accordion-button custom-accordion-button collapsed" data-bs-toggle="collapse"
+                                                    data-bs-target="#AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-expanded="false"
+                                                    aria-controls="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}">
+                                              </span>
                                         </div>
                                     </div>
+
+                                    @if($assignmentClassification['id']!==4)
                                     <div style="position: absolute; left:6rem; top:0.5rem; cursor: pointer;">
                                         <!-- If you will use this button for popup window put this data-bs-target="#Plan-Visit" data-bs-toggle="modal" -->
                                         <a
@@ -109,6 +111,8 @@
                                             </button>
                                         </a>
                                     </div>
+                                    @endif
+
                                     <div class="collapse accordion-collapse" style="background-color: white; border-radius: 10px;"
                                          id="AssignmentOfTheSchoolDirectorCollapse{{$assignment_item['id']}}" aria-labelledby="AssignmentOfTheSchoolDirector"
                                          data-bs-parent="#accordionExample">
@@ -187,34 +191,65 @@
                                                                 <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
                                                                     <p class="col-1">{{$var+1}}</p>
                                                                     <p class="col">{{$single_assignment['title']}}</p>
+
                                                                     <p class="col">{{isset($single_assignment['assignment_start_date'])?$single_assignment['assignment_start_date']:'لايوجد تكليف'}}</p>
-                                                                    <div class="col dropdown">
-                                                                        <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
-                                                                           id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                            <li>
-                                                                                <a class="dropdown-item" href="../ClassroomVisits/index.php">
-                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/BlueDownload.svg" width="20" height="20"
-                                                                                         style="margin-left: 5px;" />
-                                                                                    تحميل
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a class="dropdown-item" href="#">
-                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20" height="20"
-                                                                                         style="margin-left: 5px;" />
-                                                                                    طباعه
-                                                                                </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
-                                                                                    <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
-                                                                                         style="margin-left: 5px;" />
-                                                                                    حذف
-                                                                                </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
+
+
+
+                                                                    @if(!isset($single_assignment['assignment_start_date']))
+                                                                        <div class="col dropdown">
+
+                                                                            <!-- If you will use this button for popup window put this data-bs-target="#Plan-Visit" data-bs-toggle="modal" -->
+                                                                            <a
+                                                                                href="{{ route('school_route.create_single_assignment_committe_team',  ['committe_team_id'=>$single_assignment['id']]  ) }}">
+                                                                                <button class="lam_accordion_btn">
+                                                                                    <i class="fa fa-plus fa-m text-white" style="margin-left: 10px;" aria-hidden="true"></i>
+                                                                                    انشاء تكليف جديد
+                                                                                </button>
+                                                                            </a>
+                                                                        </div>
+
+                                                                    @else
+                                                                        <div class="col dropdown">
+                                                                            <i class="dot-icon fas fa-ellipsis-v fs-6 fa-fw text-gray-700 triple-dot-size cursor-pointer"
+                                                                               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                                                                <li>
+                                                                                    <a class="dropdown-item" href="../ClassroomVisits/index.php">
+                                                                                        <img src="http://localhost/lam-ui-last/assets/icons/BlueDownload.svg" width="20" height="20"
+                                                                                             style="margin-left: 5px;" />
+                                                                                        تعديل
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item" href="../ClassroomVisits/index.php">
+                                                                                        <img src="http://localhost/lam-ui-last/assets/icons/BlueDownload.svg" width="20" height="20"
+                                                                                             style="margin-left: 5px;" />
+                                                                                        تحميل
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item" href="#">
+                                                                                        <img src="http://localhost/lam-ui-last/assets/icons/print-icon.svg" width="20" height="20"
+                                                                                             style="margin-left: 5px;" />
+                                                                                        طباعه
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
+                                                                                        <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
+                                                                                             style="margin-left: 5px;" />
+                                                                                        حذف
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+
+
+                                                                    @endif
+
+
                                                                 </div>
                                                             </div>
                                                 @endforeach

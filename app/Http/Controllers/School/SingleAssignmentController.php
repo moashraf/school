@@ -50,7 +50,7 @@ class SingleAssignmentController extends Controller
 
 
 
-//        return response()->json($assignmentClassifications);
+    // return response()->json($assignmentClassifications);
         $school = School::find($current_school);
         $video_tutorial = Video_tutorial::where('type', 2)->first();
         return view('website.school.assignments.assignment_data',
@@ -191,6 +191,29 @@ class SingleAssignmentController extends Controller
         //
     }
 
+    public function create_single_assignment_committe_team(){
+        $committe_team_id = request('committe_team_id');
+        $Committees_and_teams = [];
+        $current_school = Auth::guard('school')->user()->current_working_school_id;
+        if (!empty($committe_team_id)){
+            $Committees_and_teams = Committees_and_teams::find($committe_team_id)->toArray();
+
+//            if ($AssignmentItem['classification_id']===2){//teachers
+//                $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
+//            }else{
+//                $Managers = Manager::where('belong_school_id',$current_school)->get()->toArray();
+//            }
+
+        }
+
+
+
+        $school = School::find($current_school);
+        return view('website.school.assignments.create_single_assignment_committe_team',
+            compact('Committees_and_teams','Managers','school'));
+
+
+    }
     public function addMeetings($committeId, $semester, $request)
     {
         if ($request->input('meetings') !=null) {
