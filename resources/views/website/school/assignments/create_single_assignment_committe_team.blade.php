@@ -34,6 +34,17 @@
                             <th>اسم اللجنه  </th>
                             <td> {{   $Committees_and_teams['title'] }} </td>
                         </tr>
+
+                        <tr>
+                            <th>اهداف  اللجنه  </th>
+                            <td> {{   $Committees_and_teams['title'] }} </td>
+                        </tr>
+
+                        <tr>
+                            <th>    قواعد تشكيل اللجنه   </th>
+                            <td> {{   $Committees_and_teams['title'] }} </td>
+                        </tr>
+
                      </table>
                 </div>
                 <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
@@ -57,8 +68,8 @@
                                                 <img class="platform_icon" alt="school"   src="https://factoryfiy.com/img/icons/calendar.svg">
                                             </div>
                                         </div>
-                                        <input type="hidden" name="assignment_item_id" value="{{$AssignmentItem['id']}}">
-                                        <input type="hidden" name="is_committe_or_team" value="{{$AssignmentItem['classification_id']===4?1:0}}">
+                                        <input type="hidden" name="assignment_item_id" value="0">
+                                        <input type="hidden" name="is_committe_or_team" value="{{ $Committees_and_teams['id'] }}">
 {{--                                        <input type="hidden" name="committe_team_id" value="{{$AssignmentItem['committe_team_id']}}">--}}
                                     </div>
                                 </div>
@@ -77,9 +88,9 @@
                                 <select class="js-example-basic-multiple select2-no-search select2-hidden-accessible" multiple="multiple" name="assignment_users[]"
                                         required>
                                     <option value="all">الجميع</option>
-                                @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
-                                @endforeach
+{{--                                @foreach($Managers as $index => $Manager)--}}
+{{--                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>--}}
+{{--                                @endforeach--}}
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
                             </div>
