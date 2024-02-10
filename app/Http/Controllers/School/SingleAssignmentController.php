@@ -193,11 +193,14 @@ class SingleAssignmentController extends Controller
 
     public function create_single_assignment_committe_team(){
         $committe_team_id = request('committe_team_id');
-        $Committees_and_teams = [];
+       // $Committees_and_teams = [];
         $current_school = Auth::guard('school')->user()->current_working_school_id;
-        if (!empty($committe_team_id)){
-            $Committees_and_teams = Committees_and_teams::find($committe_team_id)->toArray();
+        $school = School::find($current_school);
 
+        if (!empty($committe_team_id)){
+            $Committees_and_teams = Committees_and_teams::where('school_id',$current_school )->where('id',$committe_team_id)->first();
+           //  $Committees_and_teams = Committees_and_teams::find($committe_team_id)->toArray();
+$member=0;
 //            if ($AssignmentItem['classification_id']===2){//teachers
 //                $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
 //            }else{
@@ -208,9 +211,8 @@ class SingleAssignmentController extends Controller
 
 
 
-        $school = School::find($current_school);
         return view('website.school.assignments.create_single_assignment_committe_team',
-            compact('Committees_and_teams','Managers','school'));
+            compact('Committees_and_teams','member','school'));
 
 
     }

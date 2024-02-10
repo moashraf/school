@@ -27,16 +27,14 @@
         <div class="sprint-4">
             <div class="AssignmentOfTheSchoolDirector">
                 <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء
-                {{   $Committees_and_teams['name'] }}</h1>
+                {{   $Committees_and_teams['title'] }}</h1>
                 <div class="header-info">
                     <table>
-                        @foreach($Committees_and_teams['header_items_data'] as $key => $header_item_data)
-                        <tr>
-                            <th><?php echo $key ?></th>
-                            <td><?php echo $header_item_data ?></td>
+                         <tr>
+                            <th>اسم اللجنه  </th>
+                            <td> {{   $Committees_and_teams['title'] }} </td>
                         </tr>
-                        @endforeach
-                    </table>
+                     </table>
                 </div>
                 <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
                       enctype="multipart/form-data">
