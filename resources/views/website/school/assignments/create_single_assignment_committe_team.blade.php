@@ -78,24 +78,7 @@
                     </div>
 
                     <div>
-                        <div class="row">
-                            <div class="col-12 col-md-4 col-xl-2 align-self-center">
-                                <label class="form-label mb-2 mb-xl-0">
-                                    اسم المكلف
-                                </label>
-                            </div>
-                            <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
-                                <select class="js-example-basic-multiple select2-no-search select2-hidden-accessible" multiple="multiple" name="assignment_users[]"
-                                        required>
-                                    <option value="all">الجميع</option>
 
-                                @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
-                                @endforeach
-                                </select>
-                                <div id="school_level-js_error_valid"></div>
-                            </div>
-                        </div>
                         <div class="row" style="margin-bottom:48px; margin-top:5px;">
                             <span class="col-12 col-md-4 col-xl-2 align-self-center"></span>
                             <div style="color:#979797; font-size: 14px; width: 350px;"
@@ -106,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="main_data">
                         <h3>أختيار أعضاء اللجنة</h3>
                         <div class="lam_accordion_body AdministrativeCommittee_table"
                              style="margin:24px 0; background-color: #F1F1F1; border-radius: 10px; padding-top: 0">
@@ -125,8 +108,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">مدير المدرسة</p>
                                 <p class="col">رئيسا للجنة</p>
@@ -137,8 +121,11 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach
+                                     </select>
                                 </div>
                                 <p class="col">وكيل المدرسة للشؤون التعليمية</p>
                                 <p class="col">عضو</p>
@@ -149,8 +136,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">وكيل المدرسة لشؤون الطلاب</p>
                                 <p class="col">عضو</p>
@@ -161,7 +149,10 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                                 <p class="col">وكيل المدرسة للشؤون المدرسية</p>
