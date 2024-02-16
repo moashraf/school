@@ -13,6 +13,7 @@ class CommitteTeamMembers extends Model
         'committe_team_id',
         'user_id',
         'assigned_role',
+        'work_assigned_to_user',
     ];
     public $timestamps = true;
 }

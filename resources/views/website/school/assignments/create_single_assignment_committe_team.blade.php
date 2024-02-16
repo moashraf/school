@@ -77,17 +77,7 @@
                         </div>
                     </div>
 
-                    <div>
 
-                        <div class="row" style="margin-bottom:48px; margin-top:5px;">
-                            <span class="col-12 col-md-4 col-xl-2 align-self-center"></span>
-                            <div style="color:#979797; font-size: 14px; width: 350px;"
-                                 class="ol-12 col-md-8 col-xl-10 align-self-center d-flex align-items-center justify-content-center">
-                                <img src="http://localhost/lam-ui-last/assets/icons/hint_icon.svg" alt="info" style="margin-left:8px">
-                                <span>يمكنك إختيار تكليف معلم أو أكثر من القائمة المنسدلة</span>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="main_data">
                         <h3>أختيار أعضاء اللجنة</h3>
@@ -119,7 +109,7 @@
                             <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
                                 <p class="col-1"> </p>
                                 <div class="col">
-                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible"  name="assignment_users[]"
                                             required>
 
                                         @foreach($Managers as $index => $Manager)
@@ -164,8 +154,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">الموجه الطلابي </p>
                                 <p class="col">عضو</p>
@@ -176,8 +167,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">رائد النشاط</p>
                                 <p class="col">عضو</p>
@@ -188,8 +180,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">معلم</p>
                                 <p class="col">عضو</p>
@@ -200,8 +193,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">مساعد إداري</p>
                                 <p class="col">مقرر اللجنة</p>
@@ -213,8 +207,9 @@
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
                                         <option value="1" disabled selected>الشخص المكلف</option>
-                                        <option value="2">خالد عبدالله محمد حسن أحمد</option>
-                                        <option value="3"> محمد حسن أحمد</option>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col">
