@@ -128,7 +128,7 @@
                                         required>
                                     <option value="all">الجميع</option>
                                 @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" data-identification_number="{{$Manager['identification_number']}}">{{$Manager['first_name']}}</option>
+                                    <option value="{{$Manager['id']}}" data-identification_number="{{$Manager['identification_number']}}" data-teacher_speciality="{{$Manager['teacher_speciality']?$Manager['teacher_speciality']['name']:''}}">{{$Manager['first_name']}}</option>
                                 @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                         <!-- Stat of Show select data table -->
-                        <div class="lam_accordion_body"
+                        <div class="lam_accordion_body" id="khaled"
                              style="padding:24px 0; background-color:#F1F1F1; width:85%; margin: 0 auto 48px auto; border-radius: 10px; padding: 24px; display: none;">
                             <!-- Start Header of table -->
                             <div class="row"
@@ -196,38 +196,49 @@
                 const selectedOptionsDiv = $('#selectedOptions');
                 selectedOptionsDiv.empty();
 
+                // Handle "Select All" functionality
                 if (selectedValues && selectedValues.includes('all')) {
-                    // If "Select All" is selected, select all options
-                    $(this).val($(this).children('option').not(':first').map(function() {
+                    // Select all options except for the "all" option
+                    const allValuesExceptAll = $(this).find('option').not('[value="all"]').map(function() {
                         return this.value;
-                    })).trigger('change');
+                    }).get();
+
+                    $(this).val(allValuesExceptAll).trigger('change');
+                    // After selecting all, you might want to immediately return or adjust the flow to avoid infinite recursion or unwanted behavior
+                    return; // Adjust based on your needs
                 }
-                if (selectedValues) {
-                     if (selectedValues.length===1){
-                         $('#identification_number').val($('.js-example-basic-multiple').select2().find(":selected").data("identification_number"));
-                     }
-                    selectedValues.forEach(function(value, index) {
-                        // Append each selected option to the div
-                        if (value !== 'all' || !includeSelectAll) {
-                            selectedOptionsDiv.append(`<div class="col">
+                if (selectedValues){
+                    // When only one option is selected, directly fetch its data attribute
+                    if (selectedValues.length === 1) {
+                        const optionElement = $('.js-example-basic-multiple').find(":selected");
+                        $('#identification_number').val(optionElement.data("identification_number"));
+                    }
+
+                // Iterate over selected values to append information
+                selectedValues.forEach((value, index) => {
+                    // Find the corresponding option element for additional data
+                    const optionElement = $(`option[value="${value}"]`, this);
+                    const identificationNumber = optionElement.data('identification_number');
+                    const teacherSpeciality = optionElement.data('teacher_speciality');
+                    const optionText = optionElement.text(); // Get the visible text
+
+                    // Append the information
+                    selectedOptionsDiv.append(`<div class="col">
             <div class="lam_accordion_row">
-              <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
-                <p class="col-1">${index + 1}</p>
-                <p class="col">${value}</p>
-                <p class="col">0123456789</p>
-                <p class="col">اللغة العربية</p>
-                <div class="col">
-                  <button class="delete-btn" data-index="${index}" style="background-color: transparent; border: none;">
-                    <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
-                      style="margin-left: 5px;" />
-                  </button>
+                <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                     <p class="col-1">${index + 1}</p>
+                    <p class="col">${optionText}</p>
+                    <p class="col">${identificationNumber ? identificationNumber : ''}</p>
+                    <p class="col">${teacherSpeciality ? teacherSpeciality : ''}</p>
+                    <div class="col">
+                        <button class="delete-btn" data-index="${value}" style="background-color: transparent; border: none;">
+                            <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20" style="margin-left: 5px;" />
+                        </button>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>`);
-                        }
-                    });
-                }
+        </div>`);
+                });
                 // Check if there are selected values
                 const hideMainDiv = !selectedValues || selectedValues.length === 0;
 
@@ -243,6 +254,8 @@
                     // Update the selected values
                     $(this).closest('.js-example-basic-multiple').val(selectedValues).trigger('change');
                 });
+                }
+                // Additional logic to handle UI changes or deletions as required
             });
         });
     </script>

@@ -74,9 +74,9 @@ class SingleAssignmentController extends Controller
         if (!empty($assignment_item_id)){
             $AssignmentItem = AssignmentItems::find($assignment_item_id)->toArray();
             if ($AssignmentItem['classification_id']===2){//teachers
-                $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
+                $Managers = Manager::with('teacher_speciality')->where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
             }else{
-                $Managers = Manager::where('belong_school_id',$current_school)->get()->toArray();
+                $Managers = Manager::with('teacher_speciality')->where('belong_school_id',$current_school)->get()->toArray();
             }
             $header_items_data = [];
             $header_items_data['المسمي الوظيفي'] =$AssignmentItem['job_title'];
@@ -202,7 +202,7 @@ class SingleAssignmentController extends Controller
 
         if (!empty($committe_team_id)){
             $Committees_and_teams = Committees_and_teams::where('school_id',$current_school )->where('id',$committe_team_id)->first();
-        $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
+        $Managers = Manager::with('teacher_speciality')->where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
 //            if ($AssignmentItem['classification_id']===2){//teachers
 //                $Managers = Manager::where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
 //            }else{
