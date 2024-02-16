@@ -373,9 +373,9 @@
                     selectedValues.forEach(function(value, index) {
                         // Append each selected option to the div
                         if (value !== 'all' || !includeSelectAll) {
-                            selectedOptionsDiv.append(`<div class="col">
-            <div class="lam_accordion_row">
-              <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                            selectedOptionsDiv.append(`
+              <div class="row" style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+>
                 <p class="col-1">${index + 1}</p>
                 <p class="col">${value}</p>
                 <p class="col">0123456789</p>

@@ -48,12 +48,12 @@
                             <div>
                                 <div class="row">
                                     <div class="col-12 col-md-4 col-xl-2 align-self-center">
-                                        <label for="committee" class="form-label bold_form_label "> بشأن
+                                        <label for="assignment_goal" class="form-label bold_form_label "> بشأن
                                             <span style="color:red; font-size:20px">*</span>
                                         </label>
                                     </div>
                                     <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
-                  <textarea name="exampleTextarea" placeholder="تفاصيل التكليف" maxlength="140"
+                  <textarea name="assignment_goal" placeholder="تفاصيل التكليف" maxlength="140"
                             style="width: 638px; height: 110px; padding: 15px; background-color: #F1F1F1; border: none; border-radius: 8px; resize: none;"></textarea>
                                         <div id="school_level-js_error_valid"></div>
                                     </div>
@@ -105,12 +105,12 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
-                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="assignment_duration"
                                     required>
                                 <option value="" disabled selected>مدة التكليف</option>
-                                <option value="1">عام دراسي</option>
-                                <option value="2">فصل دراسي</option>
-                                <option value="3">فصلين دراسيين</option>
+                                <option value="عام دراسي">عام دراسي</option>
+                                <option value="فصل دراسي">فصل دراسي</option>
+                                <option value="فصلين دراسيين">فصلين دراسيين</option>
                             </select>
                             <div id="school_level-js_error_valid"></div>
                         </div>
@@ -128,7 +128,7 @@
                                         required>
                                     <option value="all">الجميع</option>
                                 @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                    <option value="{{$Manager['id']}}" data-identification_number="{{$Manager['identification_number']}}">{{$Manager['first_name']}}</option>
                                 @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
@@ -142,6 +142,24 @@
                                 <span>يمكنك إختيار تكليف معلم أو أكثر من القائمة المنسدلة</span>
                             </div>
                         </div>
+                        <!-- Stat of Show select data table -->
+                        <div class="lam_accordion_body"
+                             style="padding:24px 0; background-color:#F1F1F1; width:85%; margin: 0 auto 48px auto; border-radius: 10px; padding: 24px; display: none;">
+                            <!-- Start Header of table -->
+                            <div class="row"
+                                 style="color:#0A3A81;font-weight: 700; background-color: #EAB977; margin: 0; border-radius: 10px 10px 0px 0px; text-align: center; align-items: center; min-height: 53px;">
+                                <p class="col-1">م</p>
+                                <p class="col">اسم الشخص المكلف</p>
+                                <p class="col">رقم السجل المدني</p>
+                                <p class="col">التخصص</p>
+                                <p class="col">حذف</p>
+                            </div>
+                            <!-- End Header of table -->
+                            <!-- Start of Data Table -->
+                            <div id="selectedOptions"></div>
+                            <!-- End of Data Table -->
+                        </div>
+                        <!-- End of Show select data table -->
                     </div>
 
                     <div class="row" style="margin-bottom:48px">
@@ -150,7 +168,7 @@
                             </label>
                         </div>
                         <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
-                            <input  type="text" class="form-control" maxlength="100" disabled
+                            <input id="identification_number" type="text" class="form-control" maxlength="100" disabled
                                    placeholder="" >
                         </div>
                     </div>
@@ -185,6 +203,9 @@
                     })).trigger('change');
                 }
                 if (selectedValues) {
+                     if (selectedValues.length===1){
+                         $('#identification_number').val($('.js-example-basic-multiple').select2().find(":selected").data("identification_number"));
+                     }
                     selectedValues.forEach(function(value, index) {
                         // Append each selected option to the div
                         if (value !== 'all' || !includeSelectAll) {
