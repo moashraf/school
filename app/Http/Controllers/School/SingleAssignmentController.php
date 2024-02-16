@@ -169,10 +169,18 @@ class SingleAssignmentController extends Controller
     public function edit($id)
     {
         $assignment_item_id = request('assignment_item_id');
+        $assignedUserIds = [];
         if ($id){
             $item_val = SingleAssignment::with('assignedUsers')->where('id',$id)->first();;
             $item_val = $item_val->toArray();
             $assignment_item_id= $item_val['assignment_item_id'];
+
+            if (isset($item_val['assigned_users'])) {
+                foreach ($item_val['assigned_users'] as $assignedUser) {
+                    $assignedUserIds[] = $assignedUser['user_id'];
+                }
+            }
+
         }
         $AssignmentItem = [];
         $current_school = Auth::guard('school')->user()->current_working_school_id;
@@ -193,8 +201,9 @@ class SingleAssignmentController extends Controller
 
 
         $school = School::find($current_school);
+
         return view('website.school.assignments.create_edit_assignment',
-            compact('AssignmentItem','Managers','school','item_val'));
+            compact('AssignmentItem','Managers','school','item_val','assignedUserIds'));
 
     }
 

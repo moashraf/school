@@ -93,7 +93,8 @@
                                     <div class="input-group">
                                         <input name="assignment_start_date" type="text"
                                                class="hijri-date-input form-control border-left-0 clickable-item-pointer "
-                                               placeholder="تاريخ الاجتماع" value="" required>
+                                               placeholder="تاريخ الاجتماع"
+                                               @if(isset($item_val['assignment_start_date'])) value="{{$item_val['assignment_start_date']}}" @endif required>
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
                                                 <img class="platform_icon" alt="school"   src="https://factoryfiy.com/img/icons/calendar.svg">
@@ -138,7 +139,13 @@
                                         required>
                                     <option value="all">الجميع</option>
                                 @foreach($Managers as $index => $Manager)
-                                    <option value="{{$Manager['id']}}" data-identification_number="{{$Manager['identification_number']}}" data-teacher_speciality="{{$Manager['teacher_speciality']?$Manager['teacher_speciality']['name']:''}}">{{$Manager['first_name']}}</option>
+
+                                    <option value="{{$Manager['id']}}" data-identification_number="{{$Manager['identification_number']}}"
+                                            data-teacher_speciality="{{$Manager['teacher_speciality']?$Manager['teacher_speciality']['name']:''}}"
+                                            @if(isset($assignedUserIds) && in_array($Manager['id'], $assignedUserIds)) selected @endif
+
+
+                                    >{{$Manager['first_name']}}</option>
                                 @endforeach
                                 </select>
                                 <div id="school_level-js_error_valid"></div>
@@ -166,7 +173,10 @@
                             </div>
                             <!-- End Header of table -->
                             <!-- Start of Data Table -->
-                            <div id="selectedOptions"></div>
+                            <div id="selectedOptions">
+
+
+                            </div>
                             <!-- End of Data Table -->
                         </div>
                         <!-- End of Show select data table -->
@@ -179,6 +189,13 @@
                         </div>
                         <div class="col-12 col-md-8 col-xl-10" style="max-width: 355px;">
                             <input id="identification_number" type="text" class="form-control" maxlength="100" disabled
+                                   @if(isset($assignedUserIds) && count($assignedUserIds) === 1)
+                                       @foreach($Managers as $Manager)
+                                           @if(in_array($Manager['id'], $assignedUserIds))
+                                               value="{{ $Manager['identification_number'] }}"
+                                   @endif
+                                   @endforeach
+                                   @endif
                                    placeholder="" >
                         </div>
                     </div>
@@ -193,12 +210,64 @@
 
     <script>
 
+        function updateDisplayForSelectedUsers() {
+            const selectedValues = $('.js-example-basic-multiple').val() || [];
+            const selectedOptionsDiv = $('#selectedOptions');
+            selectedOptionsDiv.empty(); // Clear the current display
+
+            // Append user information for each selected value
+            selectedValues.forEach((value, index) => {
+
+                if (value.includes('all')) {
+                    // Select all options except for the "all" option
+                    const allValuesExceptAll = $(this).find('option').not('[value="all"]').map(function() {
+                        return this.value;
+                    }).get();
+
+                    $(this).val(allValuesExceptAll).trigger('change');
+                    // After selecting all, you might want to immediately return or adjust the flow to avoid infinite recursion or unwanted behavior
+                    return; // Adjust based on your needs
+                }
+
+                if (value !== 'all') {
+                    const optionElement = $(`.js-example-basic-multiple option[value="${value}"]`);
+                    const identificationNumber = optionElement.data('identification_number');
+                    const teacherSpeciality = optionElement.data('teacher_speciality');
+                    const optionText = optionElement.text();
+
+                    selectedOptionsDiv.append(`
+                    <div class="col">
+                        <div class="lam_accordion_row">
+                            <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px;">
+                                <p class="col-1">${index + 1}</p>
+                                <p class="col">${optionText}</p>
+                                <p class="col">${identificationNumber ? identificationNumber : ''}</p>
+                                <p class="col">${teacherSpeciality ? teacherSpeciality : ''}</p>
+                                <div class="col">
+                                    <button class="delete-btn" data-value="${value}" style="background-color: transparent; border: none;">
+                                        <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20" style="margin-left: 5px;" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+                }
+            });
+
+            // Show or hide the main div based on whether there are selected users
+            const hideMainDiv = selectedValues.length === 0;
+            $('.lam_accordion_body').toggle(!hideMainDiv);
+        }
+
+
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
                 placeholder: 'اسم المكلف',
                 width: '100%', // Adjust the width as needed
                 allowClear: true, // Add a clear button
             });
+            updateDisplayForSelectedUsers();
 
             // Handle "Select All" option
             $('.js-example-basic-multiple').on('change', function() {
