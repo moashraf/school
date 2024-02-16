@@ -2,7 +2,11 @@
 @section('title', 'انشاء تكليف')
 @section('topbar', 'انشاء تكليف')
 
-
+@php
+    $action = isset($item_val['id']) ? route('school_route.single_assignment.update', $item_val['id']) : route('school_route.single_assignment.store');
+    $method = isset($item_val['id']) ? 'PUT' : 'POST';
+    $text = isset($item_val['id']) ? 'تعديل' : 'إنشاء';
+    @endphp
 @section('fixedcontent')
     <!-- Your fixed content here -->
 @endsection
@@ -26,8 +30,8 @@
         </div>
         <div class="sprint-4">
             <div class="AssignmentOfTheSchoolDirector">
-                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء
-                {{   $AssignmentItem['name'] }}</h1>
+                <h1 style="font-size: 22px; font-weight: 700; text-align: center;">
+                    {{$text}} {{   $AssignmentItem['name'] }}</h1>
                 @if($AssignmentItem['classification_id']!=5)
                 <div class="header-info">
                     <table>
@@ -40,9 +44,15 @@
                     </table>
                 </div>
                 @endif
-                <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
-                      enctype="multipart/form-data">
+                <form id="myform" class="myform" method="POST" action="{{ $action }}"
+                      enctype="multipart/form-data">                                                    @csrf
+                    @if(isset($item_val['id']))
+                        @method($method)
+                        <!-- Laravel's method spoofing for PUT request -->
+                    @endif
+
                     @csrf
+
                     @if($AssignmentItem['classification_id']==5)
                         <div class="form-group" style="margin-bottom:48px">
                             <div>

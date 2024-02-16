@@ -168,6 +168,14 @@
                                                                 </a>
                                                             </li>
                                                             <li>
+                                                                <a class="dropdown-item"   href="{{url('/school/single_assignment/'.$single_assignment['id'].'/edit')}}"  >
+                                                                    <img
+                                                                        src="{{ URL::asset('/icons/edit-icon2.svg') }}" width="20"
+                                                                        height="20" style="margin-left: 5px;" />
+                                                                    تعديل
+                                                                </a>
+                                                            </li>
+                                                            <li>
                                                                 <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
                                                                     <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
                                                                          style="margin-left: 5px;" />

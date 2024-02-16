@@ -168,7 +168,34 @@ class SingleAssignmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $assignment_item_id = request('assignment_item_id');
+        if ($id){
+            $item_val = SingleAssignment::with('assignedUsers')->where('id',$id)->first();;
+            $item_val = $item_val->toArray();
+            $assignment_item_id= $item_val['assignment_item_id'];
+        }
+        $AssignmentItem = [];
+        $current_school = Auth::guard('school')->user()->current_working_school_id;
+        if (!empty($assignment_item_id)){
+            $AssignmentItem = AssignmentItems::find($assignment_item_id)->toArray();
+            if ($AssignmentItem['classification_id']===2){//teachers
+                $Managers = Manager::with('teacher_speciality')->where('belong_school_id',$current_school)->where('type',3)->get()->toArray();
+            }else{
+                $Managers = Manager::with('teacher_speciality')->where('belong_school_id',$current_school)->get()->toArray();
+            }
+            $header_items_data = [];
+            $header_items_data['المسمي الوظيفي'] =$AssignmentItem['job_title'];
+            $header_items_data['الارتباط التنظيمي'] =$AssignmentItem['organizational_connection'];
+            $header_items_data['الهدف'] =$AssignmentItem['assignment_goal'];
+            $AssignmentItem['header_items_data'] =$header_items_data;
+        }
+
+
+
+        $school = School::find($current_school);
+        return view('website.school.assignments.create_edit_assignment',
+            compact('AssignmentItem','Managers','school','item_val'));
+
     }
 
     /**
@@ -178,9 +205,63 @@ class SingleAssignmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
-        //
+            $this->validate($request, [
+                'assignment_users' => 'required',
+                'assignment_item_id' => 'required',
+            ]);
+
+
+            $assignment_users = $request->input('assignment_users');
+            $assignment_start_date = $request->input('assignment_start_date');
+            $assignment_start_date = new DateTime($assignment_start_date);
+            $assignment_start_date = $assignment_start_date->format('Y-m-d H:i:s'); // Format for SQL timestamp
+            $assignment_duration = $request->input('assignment_duration');
+            $assignment_specialization = $request->input('assignment_specialization');
+            $assignment_goal = $request->input('assignment_goal');//بشان
+            $is_committe_or_team = $request->input('is_committe_or_team');
+            $committe_team_id = $request->input('committe_team_id',0);
+            $assignment_item_id = $request->input('assignment_item_id');
+//dd([$assignment_users,$assignment_start_date,$assignment_duration,$assignment_specialization,$assignment_goal,$is_committe_or_team,$assignment_item_id]);
+            $form_SingleAssignment = SingleAssignment::create([
+                'assignment_start_date' =>  $assignment_start_date,
+                'assignment_duration' =>  $assignment_duration,
+                'assignment_specialization' =>  $assignment_specialization,
+                'assignment_goal' =>  $assignment_goal,
+                'is_committe_or_team' =>  $is_committe_or_team,
+                'assignment_item_id' =>  $assignment_item_id,
+            ]);
+        $assignment = SingleAssignment::find($id);
+        $assignment->assignment_start_date = $assignment_start_date;
+        $assignment->assignment_duration = $assignment_duration;
+        $assignment->assignment_specialization = $assignment_specialization;
+        $assignment->assignment_goal = $assignment_goal;
+        $assignment->is_committe_or_team = $is_committe_or_team;
+        $assignment->assignment_item_id = $assignment_item_id;
+        $assignment->save();
+//            if ($is_committe_or_team){
+//                $this->addMeetings($id,$committe_team_id,$request);
+//            }
+
+
+// Prepare an array to hold all the records to be inserted
+            $assignmentUsersData = [];
+
+            foreach ($assignment_users as $assignment_user) {
+                $assignmentUsersData[] = [
+                    'single_assignment_id' => $id,
+                    'user_id' => $assignment_user,
+                ];
+            }
+
+
+        AssignmentUsers::where('single_assignment_id', $id)->delete();
+            AssignmentUsers::insert($assignmentUsersData);
+
+            return redirect()->route('school_route.single_assignment.index')->with('success', 'لقد تم حفظ الاجتماع بنجاح');
+
+            //
     }
 
     /**
