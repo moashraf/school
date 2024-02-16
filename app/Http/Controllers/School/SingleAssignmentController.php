@@ -88,7 +88,7 @@ class SingleAssignmentController extends Controller
 
 
         $school = School::find($current_school);
-        return view('website.school.assignments.new_assginment',
+        return view('website.school.assignments.create_edit_assignment',
             compact('AssignmentItem','Managers','school'));
 
 
