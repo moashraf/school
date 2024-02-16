@@ -104,10 +104,16 @@ class SingleAssignmentController extends Controller
      */
     public function store(Request $request) : \Illuminate\Http\RedirectResponse
     {
-        $this->validate($request, [
-            'assignment_users' => 'required',
-            'assignment_item_id' => 'required',
-        ]);
+         //dd( $request->input('is_committe_or_team'));
+        $is_committe_or_team = $request->input('is_committe_or_team');
+
+        if ( !$is_committe_or_team){
+            $this->validate($request, [
+                'assignment_users' => 'required',
+                'assignment_item_id' => 'required',
+            ]);
+        }
+
         $assignment_users = $request->input('assignment_users');
         $assignment_start_date = $request->input('assignment_start_date');
         $assignment_start_date = new DateTime($assignment_start_date);
@@ -115,7 +121,6 @@ class SingleAssignmentController extends Controller
         $assignment_duration = $request->input('assignment_duration');
         $assignment_specialization = $request->input('assignment_specialization');
         $assignment_goal = $request->input('assignment_goal');//بشان
-        $is_committe_or_team = $request->input('is_committe_or_team');
         $committe_team_id = $request->input('committe_team_id',0);
         $assignment_item_id = $request->input('assignment_item_id');
 //dd([$assignment_users,$assignment_start_date,$assignment_duration,$assignment_specialization,$assignment_goal,$is_committe_or_team,$assignment_item_id]);
@@ -131,18 +136,18 @@ class SingleAssignmentController extends Controller
             $this->addMeetings($form_SingleAssignment->id,$committe_team_id,$request);
         }
 
-
-// Prepare an array to hold all the records to be inserted
-        $assignmentUsersData = [];
-
-        foreach ($assignment_users as $assignment_user) {
-            $assignmentUsersData[] = [
-                'single_assignment_id' => $form_SingleAssignment->id,
-                'user_id' => $assignment_user,
-            ];
+        // Prepare an array to hold all the records to be inserted
+                $assignmentUsersData = [];
+        if ($assignment_users){
+            foreach ($assignment_users as $assignment_user) {
+                $assignmentUsersData[] = [
+                    'single_assignment_id' => $form_SingleAssignment->id,
+                    'user_id' => $assignment_user,
+                ];
+            }
         }
 
-// Insert all records in one query
+        // Insert all records in one query
         AssignmentUsers::insert($assignmentUsersData);
 
         return redirect()->route('school_route.single_assignment.index')->with('success', 'لقد تم حفظ الاجتماع بنجاح');
@@ -299,8 +304,7 @@ class SingleAssignmentController extends Controller
 
 
     }
-    public function addMeetings($committeId, $semester, $request)
-    {
+    public function addMeetings($committeId, $semester, $request) {
         if ($request->input('meetings') !=null) {
             foreach ($request->input('meetings') as $index=>$item) {
                 if ($item){
