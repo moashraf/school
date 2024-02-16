@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AssignmentClassification;
 use App\Models\AssignmentItems;
 use App\Models\AssignmentUsers;
+use App\Models\CommitteTeamMembers;
 use App\Models\Basic\Video_tutorial;
 use App\Models\School\Manager;
 use App\Models\School\Meetings\Committees_and_teams;
@@ -104,7 +105,6 @@ class SingleAssignmentController extends Controller
      */
     public function store(Request $request) : \Illuminate\Http\RedirectResponse
     {
-         //dd( $request->input('is_committe_or_team'));
         $is_committe_or_team = $request->input('is_committe_or_team');
 
         if ( !$is_committe_or_team){
@@ -115,6 +115,7 @@ class SingleAssignmentController extends Controller
         }
 
         $assignment_users = $request->input('assignment_users');
+        $committe_team_members_user_id = $request->input('committe_team_members_user_id');
         $assignment_start_date = $request->input('assignment_start_date');
         $assignment_start_date = new DateTime($assignment_start_date);
         $assignment_start_date = $assignment_start_date->format('Y-m-d H:i:s'); // Format for SQL timestamp
@@ -122,6 +123,7 @@ class SingleAssignmentController extends Controller
         $assignment_specialization = $request->input('assignment_specialization');
         $assignment_goal = $request->input('assignment_goal');//بشان
         $committe_team_id = $request->input('committe_team_id',0);
+
         $assignment_item_id = $request->input('assignment_item_id');
 //dd([$assignment_users,$assignment_start_date,$assignment_duration,$assignment_specialization,$assignment_goal,$is_committe_or_team,$assignment_item_id]);
         $form_SingleAssignment = SingleAssignment::create([
@@ -136,19 +138,35 @@ class SingleAssignmentController extends Controller
             $this->addMeetings($form_SingleAssignment->id,$committe_team_id,$request);
         }
 
-        // Prepare an array to hold all the records to be inserted
-                $assignmentUsersData = [];
-        if ($assignment_users){
+
+        if ($assignment_users && ! $is_committe_or_team){
+            // Prepare an array to hold all the records to be inserted
+            $assignmentUsersData = [];
             foreach ($assignment_users as $assignment_user) {
                 $assignmentUsersData[] = [
                     'single_assignment_id' => $form_SingleAssignment->id,
                     'user_id' => $assignment_user,
                 ];
             }
+
+            // Insert all records in one query
+            AssignmentUsers::insert($assignmentUsersData);
         }
 
-        // Insert all records in one query
-        AssignmentUsers::insert($assignmentUsersData);
+
+        if ($committe_team_members_user_id &&   $is_committe_or_team && $committe_team_id){
+            $committe_team_members_user_id_Data = [];
+            foreach ($committe_team_members_user_id as $committe_team_members_user_id_val) {
+                $committe_team_members_user_id_Data[] = [
+                 //   'single_assignment_id' => $committe_team_members_user_id_val,
+                    'user_id' => $committe_team_members_user_id_val,
+                    'committe_team_id' => $committe_team_id,
+                ];
+            }
+            CommitteTeamMembers::insert($committe_team_members_user_id_Data);
+
+        }
+
 
         return redirect()->route('school_route.single_assignment.index')->with('success', 'لقد تم حفظ الاجتماع بنجاح');
 

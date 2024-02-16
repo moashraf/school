@@ -70,7 +70,7 @@
                                         </div>
                                         <input type="hidden" name="assignment_item_id" value="0">
                                         <input type="hidden" name="is_committe_or_team" value="{{ $Committees_and_teams['id'] }}">
-{{--                                        <input type="hidden" name="committe_team_id" value="{{$AssignmentItem['committe_team_id']}}">--}}
+                                        <input type="hidden" name="committe_team_id"  value="{{ $Committees_and_teams['id'] }}">
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                             <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
                                 <p class="col-1"> </p>
                                 <div class="col">
-                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible"  name="assignment_users[]"
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible"  name="committe_team_members_user_id[]"
                                             required>
 
                                         @foreach($Managers as $index => $Manager)
@@ -124,7 +124,7 @@
                             <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
                                 <p class="col-1"> </p>
                                 <div class="col">
-                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="committe_team_members_user_id[]"
                                             required>
                                         @foreach($Managers as $index => $Manager)
                                             <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
@@ -137,7 +137,7 @@
                             <div class="row" style="margin: 0; text-align: center; align-items: center; min-height: 53px; ">
                                 <p class="col-1"> </p>
                                 <div class="col">
-                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="committe_team_members_user_id[]"
                                             required>
                                         @foreach($Managers as $index => $Manager)
                                             <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
