@@ -28,6 +28,7 @@
             <div class="AssignmentOfTheSchoolDirector">
                 <h1 style="font-size: 22px; font-weight: 700; text-align: center;">إنشاء
                 {{   $AssignmentItem['name'] }}</h1>
+                @if($AssignmentItem['classification_id']!=5)
                 <div class="header-info">
                     <table>
                         @foreach($AssignmentItem['header_items_data'] as $key => $header_item_data)
@@ -38,9 +39,38 @@
                         @endforeach
                     </table>
                 </div>
+                @endif
                 <form id="myform" class="myform" method="POST" action="{{ route('school_route.single_assignment.store') }}"
                       enctype="multipart/form-data">
                     @csrf
+                    @if($AssignmentItem['classification_id']==5)
+                        <div class="form-group" style="margin-bottom:48px">
+                            <div>
+                                <div class="row">
+                                    <div class="col-12 col-md-4 col-xl-2 align-self-center">
+                                        <label for="committee" class="form-label bold_form_label "> بشأن
+                                            <span style="color:red; font-size:20px">*</span>
+                                        </label>
+                                    </div>
+                                    <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
+                  <textarea name="exampleTextarea" placeholder="تفاصيل التكليف" maxlength="140"
+                            style="width: 638px; height: 110px; padding: 15px; background-color: #F1F1F1; border: none; border-radius: 8px; resize: none;"></textarea>
+                                        <div id="school_level-js_error_valid"></div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-bottom:48px; margin-top:5px;">
+                                    <span class="col-12 col-md-4 col-xl-2 align-self-center"></span>
+                                    <div style="color:#979797; font-size: 14px; width: 350px;"
+                                         class="ol-12 col-md-8 col-xl-10 align-self-center d-flex align-items-center">
+                                        <img src="http://localhost/lam-ui-last/assets/icons/hint_icon.svg" alt="info" style="margin-left:8px">
+                                        <span>أقصى عدد حروف مسموح به 140 حرف</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @endif
+
                     <div>
                         <div class="form-group" style="margin-bottom:48px">
                             <div class="row">
@@ -67,8 +97,26 @@
                             </div>
                         </div>
                     </div>
-
-                    <div>
+                    @if($AssignmentItem['classification_id']==5)
+                    <div class="row" style="margin-bottom:48px;">
+                        <div class="col-12 col-md-4 col-xl-2 align-self-center">
+                            <label class="form-label mb-2 mb-xl-0">
+                                مدة التكليف
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-8 col-xl-10 align-self-center" style="max-width: 355px;">
+                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
+                                    required>
+                                <option value="" disabled selected>مدة التكليف</option>
+                                <option value="1">عام دراسي</option>
+                                <option value="2">فصل دراسي</option>
+                                <option value="3">فصلين دراسيين</option>
+                            </select>
+                            <div id="school_level-js_error_valid"></div>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="row">
                         <div class="row">
                             <div class="col-12 col-md-4 col-xl-2 align-self-center">
                                 <label class="form-label mb-2 mb-xl-0">
