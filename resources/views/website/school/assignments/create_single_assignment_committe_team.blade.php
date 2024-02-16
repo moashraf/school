@@ -164,8 +164,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">الموجه الطلابي </p>
                                 <p class="col">عضو</p>
@@ -176,8 +177,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">رائد النشاط</p>
                                 <p class="col">عضو</p>
@@ -188,8 +190,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">معلم</p>
                                 <p class="col">عضو</p>
@@ -200,8 +203,9 @@
                                 <div class="col">
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
-                                        <option value="1" selected>خالد عبدالله محمد حسن أحمد</option>
-                                    </select>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach                                    </select>
                                 </div>
                                 <p class="col">مساعد إداري</p>
                                 <p class="col">مقرر اللجنة</p>
@@ -213,8 +217,9 @@
                                     <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
                                             required>
                                         <option value="1" disabled selected>الشخص المكلف</option>
-                                        <option value="2">خالد عبدالله محمد حسن أحمد</option>
-                                        <option value="3"> محمد حسن أحمد</option>
+                                        @foreach($Managers as $index => $Manager)
+                                            <option value="{{$Manager['id']}}" >{{$Manager['first_name']}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col">
