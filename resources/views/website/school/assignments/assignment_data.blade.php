@@ -176,7 +176,7 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a class="dropdown-item" href="#" data-bs-target="#Delete-Visit" data-bs-toggle="modal">
+                                                                <a class="dropdown-item" href="#"  data-bs-toggle="modal" onclick="addAssignedUserToModal(this)" data-user-name ="{{$single_assignment_user['user']['first_name']}}" data-assignment-user-id="{{$single_assignment_user['id']}}">
                                                                     <img src="http://localhost/lam-ui-last/assets/icons/delete-icon.svg" width="20" height="20"
                                                                          style="margin-left: 5px;" />
                                                                     حذف
@@ -284,7 +284,39 @@
     </div>
     </div>
     </div>
-
+    <div class="modal fade" id="Delete-Visit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content b-r-s-cont border-0">
+                <!-- Header of Modal -->
+                <div class="modal-header no-header-modal">
+                    <h5 class="modal-title text-center" id="exampleModalLabel"></h5>
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form action="{{route('school_route.assignment_users.destroy',1)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                <!-- Modal content -->
+                <div class="modal-body px-5 py-3" style="margin-bottom: 50px;">
+                    <div class="content">
+                        <h1 class="title text-center"> تنبيه</h1>
+                        <img src="http://localhost/lam-ui-last/assets/images/warning-sign.png" alt="Warning-Sign" width="100" height="100">
+                        <p class="warning-content mt-10" id="delete-user-text">
+                            هل تريد حذف المستخدم من التكليف
+                        </p>
+                        <input type="hidden" name="assignment-user-id" id="assignment-user-id">
+                        <div class="btn-section">
+                            <button class="btn-accept" type="submit">موافق</button>
+                            <button class="btn-delete" aria-label="Close" data-bs-dismiss="modal">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 <!-- js insert -->
@@ -329,6 +361,36 @@
             var modal = $(this);
             modal.find('#modalMeetingId').val(meetingId);
         });
+
+        // $('#Delete-Visit .btn-accept').click(function() {
+        //     // Get the user ID to be deleted
+        //     var userId = $('#hidden-user-id').val();
+        //
+        //     // Send an AJAX request to delete the user
+        //     $.ajax({
+        //         url: '/delete-user/' + userId, // Adjust the URL endpoint as per your route setup
+        //         type: 'DELETE',
+        //         success: function(response) {
+        //             // Handle success response (e.g., remove the user from the table)
+        //             // Reload or update the table after successful deletion
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle error response
+        //         }
+        //     });
+        //
+        //     // Close the modal
+        //     $('#Delete-Visit').modal('hide');
+        // });
+
+        function addAssignedUserToModal(element){
+
+            var userID = $(element).data('assignment-user-id');
+            var userName = $(element).data('user-name');
+            $('#assignment-user-id').val(userID);
+            $('#delete-user-text').text(`هل تري حذف المستخدم ${userName}`)
+            $('#Delete-Visit').modal('show');
+        }
 
     </script>
 
