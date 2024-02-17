@@ -123,6 +123,7 @@ class SingleAssignmentController extends Controller
         $assignment_specialization = $request->input('assignment_specialization');
         $assignment_goal = $request->input('assignment_goal');//بشان
         $committe_team_id = $request->input('committe_team_id',0);
+        $meetings_date = $request->input('meetings_date',0);
 
         $assignment_item_id = $request->input('assignment_item_id');
 //dd([$assignment_users,$assignment_start_date,$assignment_duration,$assignment_specialization,$assignment_goal,$is_committe_or_team,$assignment_item_id]);
@@ -134,8 +135,18 @@ class SingleAssignmentController extends Controller
             'is_committe_or_team' =>  $is_committe_or_team,
             'assignment_item_id' =>  $assignment_item_id,
          ]);
-        if ($is_committe_or_team){
-            $this->addMeetings($form_SingleAssignment->id,$committe_team_id,$request);
+        if ($is_committe_or_team && $committe_team_id){
+
+            $meetings_date_arr = [];
+            foreach ($meetings_date as $meetings_date_val) {
+                $meetings_date_arr[] = [
+                     'start_date' =>  $meetings_date_val,
+                     'location' => $meetings_date_val,
+                ];
+            }
+
+
+            $this->addMeetings($form_SingleAssignment->id,$committe_team_id,$request,$meetings_date_arr);
         }
 
 
@@ -331,20 +342,21 @@ class SingleAssignmentController extends Controller
 
 
     }
-    public function addMeetings($committeId, $semester, $request) {
-        if ($request->input('meetings') !=null) {
-            foreach ($request->input('meetings') as $index=>$item) {
+    public function addMeetings($committeId, $semester, $request,$meetings_date_arr) {
+        if ($meetings_date_arr !=null) {
+            foreach ($meetings_date_arr as $index=>$item) {
                 if ($item){
-                    $startDate = $request->input('start_date')[$index]; // e.g., '2023-12-04'
-                    $startTime = $request->input('start_time')[$index]; // e.g., '22:29:29'
+                    $startDate = $item['start_date']; // e.g., '2023-12-04'
+                   // dd( $item['start_date']);
+                    $startTime = $item['start_date']; // e.g., '22:29:29'
                     $startDateTimeString = $startDate . ' ' . $startTime; // e.g., '2023-12-04 22:29:29'
-                    $startDateTime = new DateTime($startDateTimeString);
-                    $formattedStartDateTime = $startDateTime->format('Y-m-d H:i:s'); // Format for SQL timestamp
+                  //  $startDateTime = new DateTime($startDateTimeString);
+                  //  $formattedStartDateTime = $startDateTime->format('Y-m-d H:i:s'); // Format for SQL timestamp
                     $meeting = new meetings();
                     $meeting->committees_and_teams_id = $committeId;
                     $meeting->status =0;
-                    $meeting->start_date = $formattedStartDateTime;
-                    $meeting->location = $request->input('location')[$index];
+                    $meeting->start_date = $startDateTimeString;
+                    $meeting->location = $item['location'];
                     $meeting->Semester =$semester;
                     $meeting->save();
                 }

@@ -236,8 +236,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>إنشاء إجتماعات اللجنة</h3>
                                 <div style="width: 355px;">
-                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"
-                                            required>
+                                    <select class="js-example-basic-single select2-no-search select2-hidden-accessible" name="school_level"     required>
                                         <option value="1" selected>الفصل الدراسي الأول</option>
                                         <option value="2">الفصل الدراسي الثاني</option>
                                     </select>
@@ -264,13 +263,18 @@
                                     </div>
                                     <div class="col row justify-content-center">
                                         <div style="width: 80%">
-                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"
-                                                    name="school_level" required>
-                                                <option value="1" disabled selected>تاريخ الاجتماع</option>
-                                                <option value="2">2023/02/10 الأحد</option>
-                                                <option value="3">2023/02/11 الاثنين</option>
-                                                <option value="4">2023/02/12 الثلاثاء</option>
-                                            </select>
+
+                                            <div id="select-container"></div>
+
+{{--                                            <select class="js-example-basic-single select2-no-search select2-hidden-accessible"--}}
+{{--                                                    name="school_level" required>--}}
+{{--                                                <option value="1" disabled selected>تاريخ الاجتماع</option>--}}
+{{--                                                <option value="2">2023/02/10 الأحد</option>--}}
+{{--                                                <option value="3">2023/02/11 الاثنين</option>--}}
+{{--                                                <option value="4">2023/02/12 الثلاثاء</option>--}}
+{{--                                            </select>--}}
+
+
                                         </div>
                                     </div>
                                     <div class="col row justify-content-center">
@@ -412,8 +416,8 @@
 <!-- js insert -->
 @section('js')
     <script src="{{ URL::asset('js/hijry/bootstrap-hijri-datepicker.js') }}"></script>
-
-    {{-- swiper --}}
+    <script src="{{ URL::asset('js/meetings/getWeekDates.js') }}"></script>
+     {{-- swiper --}}
     <script src="https://fastly.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <!-- select 2 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"
@@ -540,6 +544,14 @@
                 }
             });
         });
+
+
+
+        // Call the main function to execute the script
+        generateSelectElements();
+
+
+
     </script>
 
 
