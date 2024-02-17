@@ -361,7 +361,10 @@
             var modal = $(this);
             modal.find('#modalMeetingId').val(meetingId);
         });
-
+        $('#Delete-Visit .btn-delete').click(function(event) {
+            event.preventDefault(); // Prevent default form submission
+            $('#Delete-Visit').modal('hide');
+        });
         // $('#Delete-Visit .btn-accept').click(function() {
         //     // Get the user ID to be deleted
         //     var userId = $('#hidden-user-id').val();
