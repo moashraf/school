@@ -121,22 +121,11 @@
         <div id="tasks_sidebar" class="collapse collapse-side-admin" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner">
-                <a class="collapse-item" href="#">
+                <a class="collapse-item" href="{{ url('school\single_assignment') }}">
                     <div class="icon_square" style="background-color:#BCD7F5;"></div>
-                    بيانات المدرسة
+                    بيانات التكليفات
                 </a>
-                <a class="collapse-item" href="#">
-                    <div class="icon_square" style="background-color:#F5CBBC;"></div>
-                    طلاب المدرسة
-                </a>
-                <a class="collapse-item" href="#">
-                    <div class="icon_square" style="background-color:#F5BCBC;"></div>
-                    معلمي المدرسة
-                </a>
-                <a class="collapse-item" href="#">
-                    <div class="icon_square" style="background-color:#BDF5BC;"></div>
-                    إداري المدرسة
-                </a>
+
             </div>
         </div>
     </li>

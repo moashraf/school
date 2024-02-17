@@ -88,8 +88,7 @@ class MeetingController extends Controller
 
         $this->validate($request, [
             'committees_and_teams_id' => 'required',
-            'title' => 'required',
-        ]);
+         ]);
         $startDate = $request->input('start_date'); // e.g., '2023-12-04'
         $startTime = $request->input('start_time'); // e.g., '22:29:29'
         $startDateTimeString = $startDate . ' ' . $startTime; // e.g., '2023-12-04 22:29:29'
@@ -100,7 +99,8 @@ class MeetingController extends Controller
         $formattedEndDateTime = $endDateTime->format('Y-m-d H:i:s'); // Format for SQL timestamp
         $status=$request->input('status');
 
-        if( ($request->input('recommendation_item')) &&   $request->input('recommendation_item')[0] ==null || $request->input('meeting_agenda_item')[0] ==null )
+        if(  $request->input('recommendation_item')  !==  null  &&  $request->input('meeting_agenda_item')  !==  null  &&
+            ($request->input('recommendation_item')[0] ==null ||    $request->input('meeting_agenda_item')[0] ==null) )
           {   $status=0;   }
         else{
             $status=1;
@@ -131,27 +131,31 @@ class MeetingController extends Controller
             }
         }
         }
+        if ($request->input('meeting_recommendations_not_completed') !=null) {
 
-        foreach ($request->input('meeting_recommendations_not_completed') as $index=>$item) {
-            if ($item){
-                $meetingRecommendation = new meeting_recommendations;
-                $meetingRecommendation->meeting_id = $form->id;
-                $meetingRecommendation->Item = $item; // item from the array
-                $meetingRecommendation->status =0;
-                $meetingRecommendation->save();
+            foreach ($request->input('meeting_recommendations_not_completed') as $index => $item) {
+                if ($item) {
+                    $meetingRecommendation = new meeting_recommendations;
+                    $meetingRecommendation->meeting_id = $form->id;
+                    $meetingRecommendation->Item = $item; // item from the array
+                    $meetingRecommendation->status = 0;
+                    $meetingRecommendation->save();
+                }
             }
         }
 
-        foreach ($request->input('meeting_agenda_item') as $item) {
-            if ($item){
-                $meeting_agenda = new meeting_agenda;
-                $meeting_agenda->meeting_id = $form->id;
-                $meeting_agenda->item = $item; // item from the array
-                $meeting_agenda->save();
+        if ($request->input('meeting_agenda_item') !=null) {
+
+            foreach ($request->input('meeting_agenda_item') as $item) {
+                if ($item) {
+                    $meeting_agenda = new meeting_agenda;
+                    $meeting_agenda->meeting_id = $form->id;
+                    $meeting_agenda->item = $item; // item from the array
+                    $meeting_agenda->save();
+                }
+
             }
-
         }
-
         return redirect()->route('school_route.Committees_and_teams_meetings.index')->with('success', 'لقد تم حفظ الاجتماع بنجاح');
 
     }

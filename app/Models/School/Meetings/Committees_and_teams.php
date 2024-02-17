@@ -2,8 +2,10 @@
 
 namespace App\Models\School\Meetings;
 
+use App\Http\Controllers\School\SingleAssignmentController;
 use App\Models\School\Manager;
 use App\Models\School\School;
+use App\Models\SingleAssignment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,13 +27,16 @@ class Committees_and_teams extends Model
 
     public $timestamps = true;
 
-
-
         public function get_meetings()
     {
         return $this->hasMany(meetings::class, 'committees_and_teams_id', 'id');
     }
 
+
+    public function get_single_assignment()
+    {
+       return $this->hasOne(SingleAssignment::class, 'is_committe_or_team', 'id');
+     }
 
 //    public function manager()
 //    {
