@@ -949,4 +949,15 @@ class PatientController extends Controller
         session()->flash('success', 'The balance has been added successfully');
         return redirect()->back();
     }
+    public function getUsersByType(Request $request, $type = null): \Illuminate\Http\JsonResponse
+    {
+
+        $query = Manager::query();
+        if ($type !== null) {
+            $query->where('type', $type);
+        }
+        $users = $query->paginate(10);
+        return response()->json(['users' => $users]);
+    }
+
 }

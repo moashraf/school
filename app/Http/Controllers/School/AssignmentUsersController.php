@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\School;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssignmentUsers;
 use Illuminate\Http\Request;
 
 class AssignmentUsersController extends Controller
@@ -78,8 +79,35 @@ class AssignmentUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
-        //
+        $assignmentUserId = $request->input('assignment-user-id');
+        if ($assignmentUserId){
+           $assignmentUser = AssignmentUsers::findOrFail($assignmentUserId);
+           if ($assignmentUser){
+               $assignmentUser->delete();
+               return redirect()->back()->with('success', 'لقد تم الحذف بتجاح');
+           }
+        }
+
+        return redirect()->back()->with('error', 'عذرا نواجه مشكله في حذف هذا ');
+    }
+    public function deleteUser(Request $request)
+    {
+        // Retrieve the assignment user ID from the request
+        $assignmentUserId = $request->input('assignment-user-id');
+        // Use Eloquent to find the assignment user record by ID
+        $assignmentUser = AssignmentUsers::find($assignmentUserId);
+
+        if (!$assignmentUser) {
+            // Handle case where assignment user is not found
+            return redirect()->back()->with('error', 'Assignment user not found.');
+        }
+
+        // Delete the assignment user record
+        $assignmentUser->delete();
+
+        // Redirect the user to a relevant page after deletion
+        return redirect()->back()->with('success', 'Assignment user deleted successfully.');
     }
 }

@@ -264,9 +264,13 @@ Route::name('school_route.')->group(function () {
                     Route::resource('/committe_team_members', CommitteTeamMembersController::class);
                     Route::resource('/semesters', SemestersController::class);
                     Route::resource('/single_assignment', SingleAssignmentController::class);
+                     Route::get('/create_single_assignment_committe_team', [SingleAssignmentController::class, 'create_single_assignment_committe_team'])->name('create_single_assignment_committe_team');
 
                    Route::get('/meetings/{id}/download-pdf', [MeetingController::class,'downloadPDF'])->name('meetings_downloadPDF');
                     Route::get('/meetings/{id}/print-pdf', [MeetingController::class,'PrintPDF'])->name('meetings_PrintPDF');
+
+
+                    Route::get('/users/{type}', [PatientController::class,'getUsersByType'])->name('get_users_by_type');
 
                     // Change school
                     Route::post('/change_school_sidebar', [DashboardCont::class, 'change_school_sidebar'])->name('change_school_sidebar');
