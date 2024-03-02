@@ -96,7 +96,10 @@
         <div id="meetings_sidebar" class="collapse collapse-side-admin" aria-labelledby="headingPages"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner">
-
+                <a class="collapse-item" href="{{ route('school_route.Committees_and_teams_meetings.create') }}">
+                    <div class="icon_square" style="background-color:#BCD7F5;"></div>
+                    إنشاء لجنة/فرقه
+                </a>
                 <a class="collapse-item" href="{{ url('school\Committees_and_teams_meetings') }}">
                     <div class="icon_square" style="background-color:#BCD7F5;"></div>
                     إجتماعات اللجان

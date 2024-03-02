@@ -31,11 +31,13 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {{-- swiper --}}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.1/swiper-bundle.css"
     integrity="sha512-5TGRCl3hPoqtruhO+mubTuySHOfcEBvyIfiWHoCK8wDLmf6C1U73OUoNCU6ZvyT/8vfCcha1INDIo8dabDmQjw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 {{-- select 2 --}}
+
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css"
